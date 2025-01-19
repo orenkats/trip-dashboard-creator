@@ -112,29 +112,34 @@ export const SubTopicsList: React.FC<SubTopicsListProps> = ({ subTopics, setSubT
   };
 
   return (
-    <div className="space-y-4">
-      <h2 className="text-xl font-semibold text-dashboard-800">Categories</h2>
+    <div className="space-y-6">
+      <h2 className="text-2xl font-semibold text-dashboard-800 border-b pb-2">Categories</h2>
 
-      <Accordion type="single" collapsible className="space-y-4">
+      <Accordion type="single" collapsible className="space-y-6">
         {subTopics.map((subTopic) => (
-          <AccordionItem key={subTopic.id} value={subTopic.id} className="border rounded-lg p-4">
+          <AccordionItem 
+            key={subTopic.id} 
+            value={subTopic.id} 
+            className="border rounded-xl p-5 shadow-sm hover:shadow-md transition-shadow bg-white"
+          >
             <div className="flex items-center justify-between">
-              <h3 className="text-lg font-medium text-dashboard-700">
+              <h3 className="text-xl font-medium text-dashboard-700">
                 {SUB_TOPIC_LABELS[subTopic.type]}
               </h3>
               <AccordionTrigger />
             </div>
 
-            <AccordionContent className="pt-4">
-              <div className="space-y-4">
+            <AccordionContent className="pt-6">
+              <div className="space-y-6">
                 {subTopic.places.map((place) => (
-                  <div key={place.id} className="space-y-3 p-4 bg-dashboard-100 rounded-lg">
-                    <div className="flex justify-between items-start">
-                      <div className="flex-1 space-y-3">
+                  <div key={place.id} className="space-y-4 p-5 bg-dashboard-50 rounded-lg border border-dashboard-200">
+                    <div className="flex justify-between items-start gap-4">
+                      <div className="flex-1 space-y-4">
                         <Input
                           value={place.name}
                           onChange={(e) => updatePlace(subTopic.id, place.id, 'name', e.target.value)}
                           placeholder="Place name"
+                          className="text-lg"
                         />
                         <Input
                           value={place.location}
@@ -145,24 +150,25 @@ export const SubTopicsList: React.FC<SubTopicsListProps> = ({ subTopics, setSubT
                           value={place.notes}
                           onChange={(e) => updatePlace(subTopic.id, place.id, 'notes', e.target.value)}
                           placeholder="Notes about this place..."
+                          className="min-h-[100px]"
                         />
-                        <div className="space-y-2">
+                        <div className="space-y-3">
                           <label className="block text-sm font-medium text-dashboard-700">
                             Photos
                           </label>
-                          <div className="grid grid-cols-2 gap-4">
+                          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                             {place.photos.map((photo, index) => (
                               <ImageDropzone
                                 key={index}
                                 currentImage={photo}
                                 onImageUpload={(file) => handlePlacePhotoUpload(subTopic.id, place.id, file)}
                                 onImageRemove={() => removePlacePhoto(subTopic.id, place.id, index)}
-                                className="h-32"
+                                className="h-32 w-full"
                               />
                             ))}
                             <ImageDropzone
                               onImageUpload={(file) => handlePlacePhotoUpload(subTopic.id, place.id, file)}
-                              className="h-32"
+                              className="h-32 w-full"
                             />
                           </div>
                         </div>
@@ -171,9 +177,9 @@ export const SubTopicsList: React.FC<SubTopicsListProps> = ({ subTopics, setSubT
                         variant="ghost"
                         size="icon"
                         onClick={() => deletePlace(subTopic.id, place.id)}
-                        className="ml-2"
+                        className="text-red-500 hover:text-red-700 hover:bg-red-50"
                       >
-                        <Trash2 className="w-4 h-4 text-red-500" />
+                        <Trash2 className="w-4 h-4" />
                       </Button>
                     </div>
                   </div>
@@ -181,7 +187,7 @@ export const SubTopicsList: React.FC<SubTopicsListProps> = ({ subTopics, setSubT
                 <Button
                   variant="outline"
                   onClick={() => addPlace(subTopic.id)}
-                  className="w-full mt-4"
+                  className="w-full mt-4 border-dashed border-2 hover:border-purple-500 hover:text-purple-600 transition-colors"
                 >
                   <Plus className="w-4 h-4 mr-2" />
                   Add Place to {SUB_TOPIC_LABELS[subTopic.type]}

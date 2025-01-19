@@ -71,10 +71,14 @@ export const DashboardForm = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-6 space-y-8">
-      <div className="space-y-4">
-        <h1 className="text-3xl font-bold text-dashboard-800">Create New Dashboard</h1>
-        <p className="text-dashboard-600">Share your travel experiences with the world</p>
+    <div className="max-w-4xl mx-auto p-6 space-y-8 bg-gradient-to-b from-white to-dashboard-100 rounded-xl shadow-sm">
+      <div className="space-y-4 text-center">
+        <h1 className="text-4xl font-bold text-dashboard-800 bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-pink-600">
+          Create New Dashboard
+        </h1>
+        <p className="text-dashboard-600 text-lg">
+          Share your travel experiences with the world
+        </p>
       </div>
 
       <div className="space-y-6">
@@ -87,7 +91,7 @@ export const DashboardForm = () => {
             placeholder="Enter your dashboard title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className="w-full"
+            className="w-full text-lg"
           />
         </div>
 
@@ -100,7 +104,7 @@ export const DashboardForm = () => {
             placeholder="Describe your travel experience..."
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            className="w-full min-h-[120px]"
+            className="w-full min-h-[120px] text-base"
           />
         </div>
 
@@ -112,17 +116,24 @@ export const DashboardForm = () => {
             onImageUpload={handleCoverPhotoUpload}
             currentImage={coverPhoto}
             onImageRemove={handleRemoveCoverPhoto}
-            className="max-w-xl"
+            className="max-w-xl mx-auto"
           />
         </div>
 
         <SubTopicsList subTopics={subTopics} setSubTopics={setSubTopics} />
 
         <div className="flex justify-end space-x-4 pt-6">
-          <Button variant="outline" onClick={handleSaveDraft}>
+          <Button 
+            variant="outline" 
+            onClick={handleSaveDraft}
+            className="hover:bg-dashboard-100"
+          >
             Save Draft
           </Button>
-          <Button onClick={handlePublish}>
+          <Button 
+            onClick={handlePublish}
+            className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white"
+          >
             Publish Dashboard
           </Button>
         </div>

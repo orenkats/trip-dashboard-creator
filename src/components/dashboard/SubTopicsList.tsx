@@ -1,17 +1,12 @@
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { SubTopic, SubTopicType } from './DashboardForm';
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Plus, Trash2 } from 'lucide-react';
 import { ImageDropzone } from './ImageDropzone';
 import { toast } from 'sonner';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 interface SubTopicsListProps {
   subTopics: SubTopic[];
@@ -115,24 +110,42 @@ export const SubTopicsList: React.FC<SubTopicsListProps> = ({ subTopics, setSubT
     <div className="space-y-6">
       <h2 className="text-2xl font-semibold text-dashboard-800 border-b pb-2">Categories</h2>
 
-      <Accordion type="single" collapsible className="space-y-6">
-        {subTopics.map((subTopic) => (
-          <AccordionItem 
-            key={subTopic.id} 
-            value={subTopic.id} 
-            className="border rounded-xl p-5 shadow-sm hover:shadow-md transition-shadow bg-white"
-          >
-            <div className="flex items-center justify-between">
-              <h3 className="text-xl font-medium text-dashboard-700">
-                {SUB_TOPIC_LABELS[subTopic.type]}
-              </h3>
-              <AccordionTrigger />
-            </div>
+      <Tabs defaultValue={subTopics[0]?.id} className="w-full">
+        <TabsList className="w-full justify-start mb-6 bg-dashboard-50 p-1 rounded-lg">
+          {subTopics.map((subTopic) => (
+            <TabsTrigger
+              key={subTopic.id}
+              value={subTopic.id}
+              className="flex-1 data-[state=active]:bg-white data-[state=active]:shadow-sm"
+            >
+              {SUB_TOPIC_LABELS[subTopic.type]}
+            </TabsTrigger>
+          ))}
+        </TabsList>
 
-            <AccordionContent className="pt-6">
-              <div className="space-y-6">
+        {subTopics.map((subTopic) => (
+          <TabsContent key={subTopic.id} value={subTopic.id} className="mt-6">
+            <div className="space-y-6">
+              <div className="flex items-center justify-between">
+                <h3 className="text-xl font-medium text-dashboard-700">
+                  {SUB_TOPIC_LABELS[subTopic.type]}
+                </h3>
+                <Button
+                  variant="outline"
+                  onClick={() => addPlace(subTopic.id)}
+                  className="border-dashed border-2 hover:border-purple-500 hover:text-purple-600 transition-colors"
+                >
+                  <Plus className="w-4 h-4 mr-2" />
+                  Add Place
+                </Button>
+              </div>
+
+              <div className="grid gap-6">
                 {subTopic.places.map((place) => (
-                  <div key={place.id} className="space-y-4 p-5 bg-dashboard-50 rounded-lg border border-dashboard-200">
+                  <div 
+                    key={place.id} 
+                    className="p-6 bg-white rounded-xl border border-dashboard-200 shadow-sm hover:shadow-md transition-shadow"
+                  >
                     <div className="flex justify-between items-start gap-4">
                       <div className="flex-1 space-y-4">
                         <Input
@@ -184,19 +197,11 @@ export const SubTopicsList: React.FC<SubTopicsListProps> = ({ subTopics, setSubT
                     </div>
                   </div>
                 ))}
-                <Button
-                  variant="outline"
-                  onClick={() => addPlace(subTopic.id)}
-                  className="w-full mt-4 border-dashed border-2 hover:border-purple-500 hover:text-purple-600 transition-colors"
-                >
-                  <Plus className="w-4 h-4 mr-2" />
-                  Add Place to {SUB_TOPIC_LABELS[subTopic.type]}
-                </Button>
               </div>
-            </AccordionContent>
-          </AccordionItem>
+            </div>
+          </TabsContent>
         ))}
-      </Accordion>
+      </Tabs>
     </div>
   );
 };

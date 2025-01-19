@@ -7,6 +7,7 @@ import { toast } from 'sonner';
 import { ImageDropzone } from './ImageDropzone';
 import { SubTopic } from './types';
 import styles from './styles/dashboard.module.css';
+import { BookOpen } from 'lucide-react';
 
 const DashboardForm = () => {
   const [title, setTitle] = useState('');
@@ -63,19 +64,20 @@ const DashboardForm = () => {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <h1 className={styles.title}>My Travel Diary</h1>
+        <BookOpen className="w-12 h-12 mx-auto mb-4 text-dashboard-700 opacity-80" />
+        <h1 className={styles.title}>Travel Memories</h1>
         <p className={styles.subtitle}>Document your journey, one story at a time</p>
       </div>
 
       <div className={styles.formSection}>
         <div className="mb-8">
-          <label htmlFor="title" className={styles.label}>Title of Your Journey</label>
+          <label htmlFor="title" className={styles.label}>Title Your Adventure</label>
           <Input
             id="title"
             placeholder="Give your journey a memorable title..."
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className="w-full text-lg font-serif"
+            className="w-full text-lg font-serif bg-white/70"
           />
         </div>
 
@@ -86,7 +88,7 @@ const DashboardForm = () => {
             placeholder="Share the story of your adventure..."
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            className="w-full min-h-[150px] text-base font-serif"
+            className="w-full min-h-[150px] text-base font-serif bg-white/70"
           />
         </div>
 
@@ -96,13 +98,13 @@ const DashboardForm = () => {
             onImageUpload={handleCoverPhotoUpload}
             currentImage={coverPhoto}
             onImageRemove={handleRemoveCoverPhoto}
-            className="max-w-xl mx-auto"
+            className="max-w-xl mx-auto transform rotate-1 hover:rotate-0 transition-transform duration-300"
           />
         </div>
 
         <div className="mb-8">
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-semibold text-dashboard-800">Categories</h2>
+            <h2 className="text-xl font-serif font-semibold text-dashboard-800">Categories</h2>
             <Button
               variant="outline"
               onClick={handleAddSubTopic}
@@ -122,15 +124,15 @@ const DashboardForm = () => {
           <Button 
             variant="outline" 
             onClick={handleSaveDraft}
-            className="hover:bg-dashboard-100"
+            className="hover:bg-dashboard-100 font-serif"
           >
             Save as Draft
           </Button>
           <Button 
             onClick={handlePublish}
-            className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white"
+            className="bg-gradient-to-r from-[#e6b980] to-[#eacda3] hover:from-[#e6b980]/90 hover:to-[#eacda3]/90 text-white font-serif"
           >
-            Publish Entry
+            Publish Memory
           </Button>
         </div>
       </div>

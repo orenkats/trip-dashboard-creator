@@ -37,7 +37,7 @@ export const ImageDropzone: React.FC<ImageDropzoneProps> = ({
           <img
             src={currentImage}
             alt="Uploaded preview"
-            className="w-full h-full object-cover rounded-lg"
+            className="w-full h-full object-cover rounded-lg shadow-md border-4 border-white"
           />
           {onImageRemove && (
             <button
@@ -55,18 +55,18 @@ export const ImageDropzone: React.FC<ImageDropzoneProps> = ({
         <div
           {...getRootProps()}
           className={cn(
-            "border-2 border-dashed rounded-lg p-6 text-center cursor-pointer transition-colors",
-            isDragActive ? "border-primary bg-primary/10" : "border-gray-300 hover:border-primary",
+            "border-2 border-dashed rounded-lg p-6 text-center cursor-pointer transition-all bg-white/50",
+            isDragActive ? "border-primary bg-primary/5 scale-102" : "border-gray-300 hover:border-primary hover:bg-white/70",
             className
           )}
         >
           <input {...getInputProps()} />
           <Upload className="w-10 h-10 mx-auto mb-4 text-gray-400" />
-          <p className="text-sm text-gray-600">
+          <p className="text-sm text-gray-600 font-serif">
             {isDragActive ? (
-              "Drop the image here"
+              "Drop your memory here..."
             ) : (
-              "Drag & drop an image here, or click to select"
+              "Drag & drop a photo here, or click to select"
             )}
           </p>
         </div>

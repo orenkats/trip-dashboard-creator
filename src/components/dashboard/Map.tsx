@@ -3,6 +3,8 @@ import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { Input } from '../ui/input';
 import { toast } from 'sonner';
+import { Button } from '../ui/button';
+import { Share2 } from 'lucide-react';
 
 interface MapProps {
   onLocationSelect?: (location: string) => void;
@@ -13,6 +15,7 @@ const Map = ({ onLocationSelect }: MapProps) => {
   const map = useRef<mapboxgl.Map | null>(null);
   const [mapboxToken, setMapboxToken] = useState('');
   const [showTokenInput, setShowTokenInput] = useState(true);
+  const [currentCoordinates, setCurrentCoordinates] = useState<{ lng: number; lat: number } | null>(null);
 
   const initializeMap = (token: string) => {
     if (!mapContainer.current) return;
@@ -49,6 +52,7 @@ const Map = ({ onLocationSelect }: MapProps) => {
       // Add click event to get location
       map.current.on('click', async (e) => {
         const { lng, lat } = e.lngLat;
+        setCurrentCoordinates({ lng, lat });
         
         try {
           const response = await fetch(
@@ -71,6 +75,16 @@ const Map = ({ onLocationSelect }: MapProps) => {
       toast.success('Map initialized successfully!');
     } catch (error) {
       toast.error('Invalid Mapbox token. Please try again.');
+    }
+  };
+
+  const handleShareOnGoogleMaps = () => {
+    if (currentCoordinates) {
+      const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${currentCoordinates.lat},${currentCoordinates.lng}`;
+      window.open(googleMapsUrl, '_blank');
+      toast.success('Opening location in Google Maps');
+    } else {
+      toast.error('Please select a location first');
     }
   };
 
@@ -113,8 +127,18 @@ const Map = ({ onLocationSelect }: MapProps) => {
   }
 
   return (
-    <div className="relative w-full h-[400px] rounded-lg overflow-hidden">
-      <div ref={mapContainer} className="absolute inset-0" />
+    <div className="space-y-2">
+      <div className="relative w-full h-[400px] rounded-lg overflow-hidden">
+        <div ref={mapContainer} className="absolute inset-0" />
+      </div>
+      <Button
+        variant="outline"
+        onClick={handleShareOnGoogleMaps}
+        className="w-full flex items-center justify-center gap-2"
+      >
+        <Share2 className="w-4 h-4" />
+        Share on Google Maps
+      </Button>
     </div>
   );
 };

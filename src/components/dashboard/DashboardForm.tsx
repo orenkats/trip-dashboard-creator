@@ -7,7 +7,7 @@ import { toast } from 'sonner';
 import { ImageDropzone } from './ImageDropzone';
 import { SubTopic } from './types';
 import styles from './styles/dashboard.module.css';
-import { BookOpen } from 'lucide-react';
+import { MapPin } from 'lucide-react';
 
 const DashboardForm = () => {
   const [title, setTitle] = useState('');
@@ -29,7 +29,7 @@ const DashboardForm = () => {
   const handleAddSubTopic = () => {
     const newSubTopic: SubTopic = {
       id: Date.now().toString(),
-      type: `New Category ${subTopics.length + 1}`,
+      type: `Location ${subTopics.length + 1}`,
       places: []
     };
     setSubTopics([...subTopics, newSubTopic]);
@@ -43,7 +43,7 @@ const DashboardForm = () => {
 
   const handleSaveDraft = () => {
     if (!title) {
-      toast.error("Please add a title to your travel story");
+      toast.error("Please add a title to your travel post");
       return;
     }
     toast.success("Draft saved successfully!");
@@ -51,66 +51,66 @@ const DashboardForm = () => {
 
   const handlePublish = () => {
     if (!title) {
-      toast.error("Please add a title to your travel story");
+      toast.error("Please add a title to your travel post");
       return;
     }
     if (!description) {
-      toast.error("Please add a description to your travel story");
+      toast.error("Please add a description to your travel post");
       return;
     }
-    toast.success("Travel story published successfully!");
+    toast.success("Travel post published successfully!");
   };
 
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <BookOpen className="w-12 h-12 mx-auto mb-4 text-dashboard-700 opacity-80" />
-        <h1 className={styles.title}>Travel Stories</h1>
-        <p className={styles.subtitle}>Share your journey with the world</p>
+        <MapPin className="w-8 h-8 mx-auto text-[#fd1d1d]" />
+        <h1 className={styles.title}>New Travel Post</h1>
+        <p className={styles.subtitle}>Share your favorite spots with your followers</p>
       </div>
 
       <div className={styles.formSection}>
         <div className="mb-8">
-          <label htmlFor="title" className={styles.label}>Title Your Journey</label>
+          <label htmlFor="title" className={styles.label}>Title</label>
           <Input
             id="title"
-            placeholder="What would you call this adventure?"
+            placeholder="What's this post about?"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className="w-full text-lg font-serif bg-white/70"
+            className="w-full text-lg bg-gray-50/50 border-gray-200"
           />
         </div>
 
         <div className="mb-8">
-          <label htmlFor="description" className={styles.label}>Tell Your Story</label>
+          <label htmlFor="description" className={styles.label}>Caption</label>
           <Textarea
             id="description"
-            placeholder="Paint a picture with your words..."
+            placeholder="Share the story behind these places..."
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            className="w-full min-h-[150px] text-base font-serif bg-white/70"
+            className="w-full min-h-[120px] bg-gray-50/50 border-gray-200"
           />
         </div>
 
         <div className="mb-8">
-          <label className={styles.label}>Cover Image</label>
+          <label className={styles.label}>Cover Photo</label>
           <ImageDropzone
             onImageUpload={handleCoverPhotoUpload}
             currentImage={coverPhoto}
             onImageRemove={handleRemoveCoverPhoto}
-            className="max-w-xl mx-auto"
+            className="w-full aspect-[4/3]"
           />
         </div>
 
         <div className="mb-8">
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-serif font-semibold text-dashboard-800">Places Visited</h2>
+            <h2 className="text-lg font-medium text-gray-900">Locations</h2>
             <Button
               variant="outline"
               onClick={handleAddSubTopic}
               className={styles.addButton}
             >
-              Add New Place
+              Add Location
             </Button>
           </div>
           <SubTopicsList 
@@ -124,15 +124,15 @@ const DashboardForm = () => {
           <Button 
             variant="outline" 
             onClick={handleSaveDraft}
-            className="hover:bg-dashboard-100 font-serif"
+            className="hover:bg-gray-50"
           >
             Save Draft
           </Button>
           <Button 
             onClick={handlePublish}
-            className="bg-gradient-to-r from-[#9b87f5] to-[#8E9196] hover:from-[#9b87f5]/90 hover:to-[#8E9196]/90 text-white font-serif"
+            className="bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] hover:opacity-90 text-white"
           >
-            Publish Story
+            Share Post
           </Button>
         </div>
       </div>

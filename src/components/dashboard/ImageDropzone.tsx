@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
-import { Upload, X } from 'lucide-react';
+import { ImagePlus, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface ImageDropzoneProps {
@@ -33,11 +33,11 @@ export const ImageDropzone: React.FC<ImageDropzoneProps> = ({
   return (
     <div className={cn("w-full", className)}>
       {currentImage ? (
-        <div className="relative w-full h-48 group">
+        <div className="relative w-full h-full group">
           <img
             src={currentImage}
             alt="Uploaded preview"
-            className="w-full h-full object-cover rounded-lg shadow-md border-4 border-white"
+            className="w-full h-full object-cover rounded-xl"
           />
           {onImageRemove && (
             <button
@@ -45,7 +45,7 @@ export const ImageDropzone: React.FC<ImageDropzoneProps> = ({
                 e.stopPropagation();
                 onImageRemove();
               }}
-              className="absolute top-2 right-2 p-1 bg-red-500 rounded-full text-white opacity-0 group-hover:opacity-100 transition-opacity"
+              className="absolute top-2 right-2 p-2 bg-black/50 rounded-full text-white opacity-0 group-hover:opacity-100 transition-opacity"
             >
               <X className="w-4 h-4" />
             </button>
@@ -55,18 +55,18 @@ export const ImageDropzone: React.FC<ImageDropzoneProps> = ({
         <div
           {...getRootProps()}
           className={cn(
-            "border-2 border-dashed rounded-lg p-6 text-center cursor-pointer transition-all bg-white/50",
-            isDragActive ? "border-primary bg-primary/5 scale-102" : "border-gray-300 hover:border-primary hover:bg-white/70",
+            "border-2 border-dashed rounded-xl p-6 text-center cursor-pointer transition-all h-full flex flex-col items-center justify-center",
+            isDragActive ? "border-[#fd1d1d] bg-red-50/5" : "border-gray-200 hover:border-[#fd1d1d] hover:bg-gray-50/50",
             className
           )}
         >
           <input {...getInputProps()} />
-          <Upload className="w-10 h-10 mx-auto mb-4 text-gray-400" />
-          <p className="text-sm text-gray-600 font-serif">
+          <ImagePlus className="w-8 h-8 mb-2 text-gray-400" />
+          <p className="text-sm text-gray-500">
             {isDragActive ? (
-              "Drop your memory here..."
+              "Drop your photo here..."
             ) : (
-              "Drag & drop a photo here, or click to select"
+              "Upload a photo, or drag and drop"
             )}
           </p>
         </div>

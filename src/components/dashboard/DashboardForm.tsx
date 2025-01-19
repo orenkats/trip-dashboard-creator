@@ -7,11 +7,16 @@ import { toast } from 'sonner';
 import { ImageDropzone } from './ImageDropzone';
 import { SubTopic } from './types';
 import styles from './styles/dashboard.module.css';
-import { MapPin } from 'lucide-react';
+import { MapPin, X } from 'lucide-react';
 
-const DashboardForm = () => {
+interface DashboardFormProps {
+  onClose?: () => void;
+}
+
+const DashboardForm = ({ onClose }: DashboardFormProps) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
+  const [location, setLocation] = useState('');
   const [coverPhoto, setCoverPhoto] = useState<string>();
   const [subTopics, setSubTopics] = useState<SubTopic[]>([]);
 
@@ -46,6 +51,10 @@ const DashboardForm = () => {
       toast.error("Please add a title to your travel post");
       return;
     }
+    if (!location) {
+      toast.error("Please add a location to your travel post");
+      return;
+    }
     toast.success("Draft saved successfully!");
   };
 
@@ -58,11 +67,27 @@ const DashboardForm = () => {
       toast.error("Please add a description to your travel post");
       return;
     }
+    if (!location) {
+      toast.error("Please add a location to your travel post");
+      return;
+    }
     toast.success("Travel post published successfully!");
+    onClose?.();
   };
 
   return (
     <div className={styles.container}>
+      {onClose && (
+        <Button
+          variant="ghost"
+          size="icon"
+          className="absolute right-4 top-4"
+          onClick={onClose}
+        >
+          <X className="h-4 w-4" />
+        </Button>
+      )}
+      
       <div className={styles.header}>
         <MapPin className="w-8 h-8 mx-auto text-[#fd1d1d]" />
         <h1 className={styles.title}>New Travel Post</h1>
@@ -77,6 +102,17 @@ const DashboardForm = () => {
             placeholder="What's this post about?"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
+            className="w-full text-lg bg-gray-50/50 border-gray-200"
+          />
+        </div>
+
+        <div className="mb-8">
+          <label htmlFor="location" className={styles.label}>Location</label>
+          <Input
+            id="location"
+            placeholder="Where is this place?"
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
             className="w-full text-lg bg-gray-50/50 border-gray-200"
           />
         </div>
@@ -104,13 +140,13 @@ const DashboardForm = () => {
 
         <div className="mb-8">
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-lg font-medium text-gray-900">Locations</h2>
+            <h2 className="text-lg font-medium text-gray-900">Spots</h2>
             <Button
               variant="outline"
               onClick={handleAddSubTopic}
               className={styles.addButton}
             >
-              Add Location
+              Add Spot
             </Button>
           </div>
           <SubTopicsList 

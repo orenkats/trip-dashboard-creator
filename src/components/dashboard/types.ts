@@ -13,3 +13,17 @@ export interface SubTopic {
   type: SubTopicType;
   places: Place[];
 }
+
+export interface Dashboard {
+  id: string;
+  title: string;
+  description: string;
+  coverPhoto?: string;
+  location: string;
+  authorId: string;
+  authorUsername: string;
+  createdAt: string;
+  subTopics: SubTopic[];
+  savedCount: number;
+  isSaved?: boolean;
+}

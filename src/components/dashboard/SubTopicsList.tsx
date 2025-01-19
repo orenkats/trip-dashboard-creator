@@ -126,19 +126,9 @@ export const SubTopicsList: React.FC<SubTopicsListProps> = ({ subTopics, setSubT
         {subTopics.map((subTopic) => (
           <TabsContent key={subTopic.id} value={subTopic.id} className="mt-6">
             <div className="space-y-6">
-              <div className="flex items-center justify-between">
-                <h3 className="text-xl font-medium text-dashboard-700">
-                  {SUB_TOPIC_LABELS[subTopic.type]}
-                </h3>
-                <Button
-                  variant="outline"
-                  onClick={() => addPlace(subTopic.id)}
-                  className="border-dashed border-2 hover:border-purple-500 hover:text-purple-600 transition-colors"
-                >
-                  <Plus className="w-4 h-4 mr-2" />
-                  Add Place
-                </Button>
-              </div>
+              <h3 className="text-xl font-medium text-dashboard-700">
+                {SUB_TOPIC_LABELS[subTopic.type]}
+              </h3>
 
               <div className="grid gap-6">
                 {subTopic.places.map((place) => (
@@ -198,6 +188,15 @@ export const SubTopicsList: React.FC<SubTopicsListProps> = ({ subTopics, setSubT
                   </div>
                 ))}
               </div>
+
+              <Button
+                variant="outline"
+                onClick={() => addPlace(subTopic.id)}
+                className="w-full border-dashed border-2 hover:border-purple-500 hover:text-purple-600 transition-colors"
+              >
+                <Plus className="w-4 h-4 mr-2" />
+                Add Place to {SUB_TOPIC_LABELS[subTopic.type]}
+              </Button>
             </div>
           </TabsContent>
         ))}

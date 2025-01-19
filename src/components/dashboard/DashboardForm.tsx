@@ -147,21 +147,19 @@ const DashboardForm = ({ onClose }: DashboardFormProps) => {
         </div>
 
         <div className="mb-8">
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-lg font-medium text-gray-900">Categories</h2>
-            <div className="flex gap-2">
-              {(['Restaurants', 'Spots', 'Culture'] as SubTopicType[]).map((type) => (
-                <Button
-                  key={type}
-                  variant="outline"
-                  onClick={() => handleAddSubTopic(type)}
-                  className={styles.addButton}
-                  disabled={subTopics.some(st => st.type === type)}
-                >
-                  Add {type}
-                </Button>
-              ))}
-            </div>
+          <h2 className="text-lg font-medium text-gray-900 mb-4">Categories</h2>
+          <div className="flex gap-2">
+            {(['Restaurants', 'Spots', 'Culture'] as SubTopicType[]).map((type) => (
+              <Button
+                key={type}
+                variant="outline"
+                onClick={() => handleAddSubTopic(type)}
+                className={styles.addButton}
+                disabled={subTopics.some(st => st.type === type)}
+              >
+                {type}
+              </Button>
+            ))}
           </div>
           <SubTopicsList 
             subTopics={subTopics} 

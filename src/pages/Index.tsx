@@ -42,7 +42,7 @@ const Index = () => {
       <nav className="border-b bg-white/80 backdrop-blur-sm fixed w-full z-10">
         <div className="max-w-screen-xl mx-auto px-4 py-3 flex items-center justify-between">
           <h1 className="text-xl font-semibold bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] text-transparent bg-clip-text">
-            TravelGram
+            Wanderlens
           </h1>
           <div className="flex items-center gap-4">
             <Button 

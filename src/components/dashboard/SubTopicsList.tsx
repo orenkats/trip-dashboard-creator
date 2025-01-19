@@ -6,7 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Plus, Trash2 } from 'lucide-react';
 import { ImageDropzone } from './ImageDropzone';
 import { toast } from 'sonner';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 
 interface SubTopicsListProps {
   subTopics: SubTopic[];
@@ -37,6 +37,26 @@ export const SubTopicsList: React.FC<SubTopicsListProps> = ({ subTopics, setSubT
       }
       return st;
     }));
+  };
+
+  const handleDragEnd = (result: any) => {
+    if (!result.destination) return;
+
+    const { source, destination } = result;
+    const sourceSubTopicId = source.droppableId;
+    const destSubTopicId = destination.droppableId;
+
+    const newSubTopics = [...subTopics];
+    const sourceSubTopic = newSubTopics.find(st => st.id === sourceSubTopicId);
+    const destSubTopic = newSubTopics.find(st => st.id === destSubTopicId);
+
+    if (!sourceSubTopic || !destSubTopic) return;
+
+    const [movedPlace] = sourceSubTopic.places.splice(source.index, 1);
+    destSubTopic.places.splice(destination.index, 0, movedPlace);
+
+    setSubTopics(newSubTopics);
+    toast.success("Place moved successfully!");
   };
 
   const updatePlace = (
@@ -110,97 +130,100 @@ export const SubTopicsList: React.FC<SubTopicsListProps> = ({ subTopics, setSubT
     <div className="space-y-6">
       <h2 className="text-2xl font-semibold text-dashboard-800 border-b pb-2">Categories</h2>
 
-      <Tabs defaultValue={subTopics[0]?.id} className="w-full">
-        <TabsList className="w-full justify-start mb-6 bg-dashboard-50 p-1 rounded-lg">
+      <DragDropContext onDragEnd={handleDragEnd}>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-6">
           {subTopics.map((subTopic) => (
-            <TabsTrigger
-              key={subTopic.id}
-              value={subTopic.id}
-              className="flex-1 data-[state=active]:bg-white data-[state=active]:shadow-sm"
-            >
-              {SUB_TOPIC_LABELS[subTopic.type]}
-            </TabsTrigger>
-          ))}
-        </TabsList>
-
-        {subTopics.map((subTopic) => (
-          <TabsContent key={subTopic.id} value={subTopic.id} className="mt-6">
-            <div className="space-y-6">
-              <h3 className="text-xl font-medium text-dashboard-700">
+            <div key={subTopic.id} className="flex flex-col bg-dashboard-50 rounded-lg p-4">
+              <h3 className="text-xl font-medium text-dashboard-700 mb-4">
                 {SUB_TOPIC_LABELS[subTopic.type]}
               </h3>
 
-              <div className="grid gap-6">
-                {subTopic.places.map((place) => (
-                  <div 
-                    key={place.id} 
-                    className="p-6 bg-white rounded-xl border border-dashboard-200 shadow-sm hover:shadow-md transition-shadow"
+              <Droppable droppableId={subTopic.id}>
+                {(provided) => (
+                  <div
+                    ref={provided.innerRef}
+                    {...provided.droppableProps}
+                    className="flex-1 space-y-4"
                   >
-                    <div className="flex justify-between items-start gap-4">
-                      <div className="flex-1 space-y-4">
-                        <Input
-                          value={place.name}
-                          onChange={(e) => updatePlace(subTopic.id, place.id, 'name', e.target.value)}
-                          placeholder="Place name"
-                          className="text-lg"
-                        />
-                        <Input
-                          value={place.location}
-                          onChange={(e) => updatePlace(subTopic.id, place.id, 'location', e.target.value)}
-                          placeholder="Location"
-                        />
-                        <Textarea
-                          value={place.notes}
-                          onChange={(e) => updatePlace(subTopic.id, place.id, 'notes', e.target.value)}
-                          placeholder="Notes about this place..."
-                          className="min-h-[100px]"
-                        />
-                        <div className="space-y-3">
-                          <label className="block text-sm font-medium text-dashboard-700">
-                            Photos
-                          </label>
-                          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                            {place.photos.map((photo, index) => (
-                              <ImageDropzone
-                                key={index}
-                                currentImage={photo}
-                                onImageUpload={(file) => handlePlacePhotoUpload(subTopic.id, place.id, file)}
-                                onImageRemove={() => removePlacePhoto(subTopic.id, place.id, index)}
-                                className="h-32 w-full"
-                              />
-                            ))}
-                            <ImageDropzone
-                              onImageUpload={(file) => handlePlacePhotoUpload(subTopic.id, place.id, file)}
-                              className="h-32 w-full"
-                            />
+                    {subTopic.places.map((place, index) => (
+                      <Draggable key={place.id} draggableId={place.id} index={index}>
+                        {(provided) => (
+                          <div
+                            ref={provided.innerRef}
+                            {...provided.draggableProps}
+                            {...provided.dragHandleProps}
+                            className="bg-white rounded-xl border border-dashboard-200 shadow-sm hover:shadow-md transition-shadow p-4"
+                          >
+                            <div className="flex justify-between items-start gap-4">
+                              <div className="flex-1 space-y-3">
+                                <Input
+                                  value={place.name}
+                                  onChange={(e) => updatePlace(subTopic.id, place.id, 'name', e.target.value)}
+                                  placeholder="Place name"
+                                  className="text-lg"
+                                />
+                                <Input
+                                  value={place.location}
+                                  onChange={(e) => updatePlace(subTopic.id, place.id, 'location', e.target.value)}
+                                  placeholder="Location"
+                                />
+                                <Textarea
+                                  value={place.notes}
+                                  onChange={(e) => updatePlace(subTopic.id, place.id, 'notes', e.target.value)}
+                                  placeholder="Notes about this place..."
+                                  className="min-h-[100px]"
+                                />
+                                <div className="space-y-2">
+                                  <label className="block text-sm font-medium text-dashboard-700">
+                                    Photos
+                                  </label>
+                                  <div className="grid grid-cols-2 gap-2">
+                                    {place.photos.map((photo, index) => (
+                                      <ImageDropzone
+                                        key={index}
+                                        currentImage={photo}
+                                        onImageUpload={(file) => handlePlacePhotoUpload(subTopic.id, place.id, file)}
+                                        onImageRemove={() => removePlacePhoto(subTopic.id, place.id, index)}
+                                        className="h-24"
+                                      />
+                                    ))}
+                                    <ImageDropzone
+                                      onImageUpload={(file) => handlePlacePhotoUpload(subTopic.id, place.id, file)}
+                                      className="h-24"
+                                    />
+                                  </div>
+                                </div>
+                              </div>
+                              <Button
+                                variant="ghost"
+                                size="icon"
+                                onClick={() => deletePlace(subTopic.id, place.id)}
+                                className="text-red-500 hover:text-red-700 hover:bg-red-50"
+                              >
+                                <Trash2 className="w-4 h-4" />
+                              </Button>
+                            </div>
                           </div>
-                        </div>
-                      </div>
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        onClick={() => deletePlace(subTopic.id, place.id)}
-                        className="text-red-500 hover:text-red-700 hover:bg-red-50"
-                      >
-                        <Trash2 className="w-4 h-4" />
-                      </Button>
-                    </div>
+                        )}
+                      </Draggable>
+                    ))}
+                    {provided.placeholder}
                   </div>
-                ))}
-              </div>
+                )}
+              </Droppable>
 
               <Button
                 variant="outline"
                 onClick={() => addPlace(subTopic.id)}
-                className="w-full border-dashed border-2 hover:border-purple-500 hover:text-purple-600 transition-colors"
+                className="mt-4 border-dashed border-2 hover:border-purple-500 hover:text-purple-600 transition-colors"
               >
                 <Plus className="w-4 h-4 mr-2" />
-                Add Place to {SUB_TOPIC_LABELS[subTopic.type]}
+                Add Place
               </Button>
             </div>
-          </TabsContent>
-        ))}
-      </Tabs>
+          ))}
+        </div>
+      </DragDropContext>
     </div>
   );
 };

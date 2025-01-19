@@ -1,9 +1,9 @@
 .container {
-  @apply max-w-4xl mx-auto p-8 space-y-8 bg-gradient-to-b from-[#fdfcfb] to-[#e2d1c3] rounded-xl shadow-lg;
+  @apply max-w-4xl mx-auto p-8 space-y-8 bg-white rounded-xl shadow-sm;
 }
 
 .header {
-  @apply space-y-4 text-center;
+  @apply space-y-4 text-center mb-12;
 }
 
 .title {
@@ -15,7 +15,7 @@
 }
 
 .formSection {
-  @apply space-y-8 bg-white/80 backdrop-blur-sm p-8 rounded-xl shadow-md;
+  @apply space-y-8 bg-white/80 backdrop-blur-sm p-8 rounded-xl shadow-sm;
 }
 
 .label {

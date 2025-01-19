@@ -6,9 +6,11 @@ import { SubTopicsList } from './SubTopicsList';
 import { toast } from 'sonner';
 import { ImageDropzone } from './ImageDropzone';
 
+export type SubTopicType = 'restaurants' | 'attractions' | 'neighborhoods' | 'shopping';
+
 export interface SubTopic {
   id: string;
-  title: string;
+  type: SubTopicType;
   places: Place[];
 }
 
@@ -20,11 +22,18 @@ export interface Place {
   photos: string[];
 }
 
+const INITIAL_SUBTOPICS: SubTopic[] = [
+  { id: '1', type: 'restaurants', places: [] },
+  { id: '2', type: 'attractions', places: [] },
+  { id: '3', type: 'neighborhoods', places: [] },
+  { id: '4', type: 'shopping', places: [] },
+];
+
 export const DashboardForm = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [coverPhoto, setCoverPhoto] = useState<string>();
-  const [subTopics, setSubTopics] = useState<SubTopic[]>([]);
+  const [subTopics, setSubTopics] = useState<SubTopic[]>(INITIAL_SUBTOPICS);
 
   const handleCoverPhotoUpload = (file: File) => {
     const imageUrl = URL.createObjectURL(file);
@@ -54,8 +63,8 @@ export const DashboardForm = () => {
       toast.error("Please add a description to your dashboard");
       return;
     }
-    if (subTopics.length === 0) {
-      toast.error("Please add at least one sub-topic");
+    if (subTopics.every(st => st.places.length === 0)) {
+      toast.error("Please add at least one place to any category");
       return;
     }
     toast.success("Dashboard published successfully!");

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from "@/components/ui/button";
-import { SubTopic } from './DashboardForm';
+import { SubTopic, SubTopicType } from './DashboardForm';
 import {
   Accordion,
   AccordionContent,
@@ -18,26 +18,14 @@ interface SubTopicsListProps {
   setSubTopics: React.Dispatch<React.SetStateAction<SubTopic[]>>;
 }
 
+const SUB_TOPIC_LABELS: Record<SubTopicType, string> = {
+  restaurants: 'Restaurants',
+  attractions: 'Attractions',
+  neighborhoods: 'Neighborhoods',
+  shopping: 'Shopping',
+};
+
 export const SubTopicsList: React.FC<SubTopicsListProps> = ({ subTopics, setSubTopics }) => {
-  const addSubTopic = () => {
-    const newSubTopic: SubTopic = {
-      id: Date.now().toString(),
-      title: '',
-      places: [],
-    };
-    setSubTopics([...subTopics, newSubTopic]);
-  };
-
-  const updateSubTopicTitle = (id: string, title: string) => {
-    setSubTopics(subTopics.map(st => 
-      st.id === id ? { ...st, title } : st
-    ));
-  };
-
-  const deleteSubTopic = (id: string) => {
-    setSubTopics(subTopics.filter(st => st.id !== id));
-  };
-
   const addPlace = (subTopicId: string) => {
     setSubTopics(subTopics.map(st => {
       if (st.id === subTopicId) {
@@ -125,34 +113,16 @@ export const SubTopicsList: React.FC<SubTopicsListProps> = ({ subTopics, setSubT
 
   return (
     <div className="space-y-4">
-      <div className="flex justify-between items-center">
-        <h2 className="text-xl font-semibold text-dashboard-800">Sub-Topics</h2>
-        <Button onClick={addSubTopic} className="flex items-center gap-2">
-          <Plus className="w-4 h-4" />
-          Add Sub-Topic
-        </Button>
-      </div>
+      <h2 className="text-xl font-semibold text-dashboard-800">Categories</h2>
 
       <Accordion type="single" collapsible className="space-y-4">
         {subTopics.map((subTopic) => (
           <AccordionItem key={subTopic.id} value={subTopic.id} className="border rounded-lg p-4">
             <div className="flex items-center justify-between">
-              <Input
-                value={subTopic.title}
-                onChange={(e) => updateSubTopicTitle(subTopic.id, e.target.value)}
-                placeholder="Sub-topic title"
-                className="max-w-[200px]"
-              />
-              <div className="flex items-center gap-2">
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={() => deleteSubTopic(subTopic.id)}
-                >
-                  <Trash2 className="w-4 h-4 text-red-500" />
-                </Button>
-                <AccordionTrigger />
-              </div>
+              <h3 className="text-lg font-medium text-dashboard-700">
+                {SUB_TOPIC_LABELS[subTopic.type]}
+              </h3>
+              <AccordionTrigger />
             </div>
 
             <AccordionContent className="pt-4">
@@ -214,7 +184,7 @@ export const SubTopicsList: React.FC<SubTopicsListProps> = ({ subTopics, setSubT
                   className="w-full mt-4"
                 >
                   <Plus className="w-4 h-4 mr-2" />
-                  Add Place
+                  Add Place to {SUB_TOPIC_LABELS[subTopic.type]}
                 </Button>
               </div>
             </AccordionContent>

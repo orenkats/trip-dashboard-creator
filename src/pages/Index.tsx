@@ -1,4 +1,4 @@
-import { DashboardForm } from "@/components/dashboard/DashboardForm";
+import DashboardForm from "@/components/dashboard/DashboardForm";
 
 const Index = () => {
   return <DashboardForm />;

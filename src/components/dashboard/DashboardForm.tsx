@@ -5,7 +5,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { SubTopicsList } from './SubTopicsList';
 import { toast } from 'sonner';
 import { ImageDropzone } from './ImageDropzone';
-import { SubTopic } from './types';
+import { SubTopic, SubTopicType } from './types';
 import styles from './styles/dashboard.module.css';
 import { MapPin, X } from 'lucide-react';
 import Map from './Map';
@@ -32,19 +32,20 @@ const DashboardForm = ({ onClose }: DashboardFormProps) => {
     toast.success("Photo removed");
   };
 
-  const handleAddSubTopic = () => {
+  const handleAddSubTopic = (type: SubTopicType) => {
+    // Check if subtopic type already exists
+    if (subTopics.some(st => st.type === type)) {
+      toast.error(`${type} section already exists`);
+      return;
+    }
+
     const newSubTopic: SubTopic = {
       id: Date.now().toString(),
-      type: `Location ${subTopics.length + 1}`,
+      type: type,
       places: []
     };
     setSubTopics([...subTopics, newSubTopic]);
-  };
-
-  const handleUpdateSubTopicName = (id: string, newName: string) => {
-    setSubTopics(subTopics.map(st => 
-      st.id === id ? { ...st, type: newName } : st
-    ));
+    toast.success(`${type} section added`);
   };
 
   const handleLocationSelect = (selectedLocation: string) => {
@@ -147,19 +148,24 @@ const DashboardForm = ({ onClose }: DashboardFormProps) => {
 
         <div className="mb-8">
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-lg font-medium text-gray-900">Spots</h2>
-            <Button
-              variant="outline"
-              onClick={handleAddSubTopic}
-              className={styles.addButton}
-            >
-              Add Spot
-            </Button>
+            <h2 className="text-lg font-medium text-gray-900">Categories</h2>
+            <div className="flex gap-2">
+              {(['Restaurants', 'Spots', 'Culture'] as SubTopicType[]).map((type) => (
+                <Button
+                  key={type}
+                  variant="outline"
+                  onClick={() => handleAddSubTopic(type)}
+                  className={styles.addButton}
+                  disabled={subTopics.some(st => st.type === type)}
+                >
+                  Add {type}
+                </Button>
+              ))}
+            </div>
           </div>
           <SubTopicsList 
             subTopics={subTopics} 
             setSubTopics={setSubTopics}
-            onUpdateSubTopicName={handleUpdateSubTopicName}
           />
         </div>
 

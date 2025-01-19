@@ -1,4 +1,4 @@
-export type SubTopicType = 'restaurants' | 'attractions' | 'neighborhoods' | 'shopping';
+export type SubTopicType = string;
 
 export interface Place {
   id: string;

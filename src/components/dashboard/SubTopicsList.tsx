@@ -1,25 +1,24 @@
 import React from 'react';
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Plus } from 'lucide-react';
 import { toast } from 'sonner';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { PlaceCard } from './PlaceCard';
-import { SubTopic, SubTopicType } from './types';
+import { SubTopic } from './types';
 import styles from './styles/dashboard.module.css';
 
 interface SubTopicsListProps {
   subTopics: SubTopic[];
   setSubTopics: React.Dispatch<React.SetStateAction<SubTopic[]>>;
+  onUpdateSubTopicName: (id: string, newName: string) => void;
 }
 
-const SUB_TOPIC_LABELS: Record<SubTopicType, string> = {
-  restaurants: 'Restaurants',
-  attractions: 'Attractions',
-  neighborhoods: 'Neighborhoods',
-  shopping: 'Shopping',
-};
-
-export const SubTopicsList: React.FC<SubTopicsListProps> = ({ subTopics, setSubTopics }) => {
+export const SubTopicsList: React.FC<SubTopicsListProps> = ({ 
+  subTopics, 
+  setSubTopics,
+  onUpdateSubTopicName 
+}) => {
   const addPlace = (subTopicId: string) => {
     setSubTopics(subTopics.map(st => {
       if (st.id === subTopicId) {
@@ -105,10 +104,16 @@ export const SubTopicsList: React.FC<SubTopicsListProps> = ({ subTopics, setSubT
     }));
   };
 
+  if (subTopics.length === 0) {
+    return (
+      <div className="text-center py-8 text-dashboard-600">
+        <p className="mb-4">No categories yet. Start by adding your first category!</p>
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-6">
-      <h2 className="text-2xl font-semibold text-dashboard-800 border-b pb-2">Categories</h2>
-
       <Tabs defaultValue={subTopics[0].id} className="w-full">
         <TabsList className={styles.tabsList}>
           {subTopics.map((subTopic) => (
@@ -117,7 +122,12 @@ export const SubTopicsList: React.FC<SubTopicsListProps> = ({ subTopics, setSubT
               value={subTopic.id}
               className={styles.tabTrigger}
             >
-              {SUB_TOPIC_LABELS[subTopic.type]}
+              <Input
+                value={subTopic.type}
+                onChange={(e) => onUpdateSubTopicName(subTopic.id, e.target.value)}
+                className="w-32 text-center bg-transparent border-none focus:outline-none focus:ring-0"
+                onClick={(e) => e.stopPropagation()}
+              />
             </TabsTrigger>
           ))}
         </TabsList>
@@ -143,7 +153,7 @@ export const SubTopicsList: React.FC<SubTopicsListProps> = ({ subTopics, setSubT
               className={styles.addButton}
             >
               <Plus className="w-4 h-4 mr-2" />
-              Add Place
+              Add Memory
             </Button>
           </TabsContent>
         ))}

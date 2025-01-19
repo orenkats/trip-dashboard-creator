@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from "@/components/ui/button";
-import { Plus, MapPin, Restaurant, Compass, Theatre } from 'lucide-react';
+import { Plus, MapPin, Compass, Utensils, Landmark } from 'lucide-react';
 import { toast } from 'sonner';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { PlaceCard } from './PlaceCard';
@@ -15,11 +15,11 @@ interface SubTopicsListProps {
 const getSubTopicIcon = (type: SubTopicType) => {
   switch (type) {
     case 'Restaurants':
-      return <Restaurant className="w-4 h-4" />;
+      return <Utensils className="w-4 h-4" />;
     case 'Spots':
       return <Compass className="w-4 h-4" />;
     case 'Culture':
-      return <Theatre className="w-4 h-4" />;
+      return <Landmark className="w-4 h-4" />;
     default:
       return <MapPin className="w-4 h-4" />;
   }

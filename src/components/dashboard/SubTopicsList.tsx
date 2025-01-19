@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Plus } from 'lucide-react';
+import { Plus, MapPin } from 'lucide-react';
 import { toast } from 'sonner';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { PlaceCard } from './PlaceCard';
@@ -106,8 +106,23 @@ export const SubTopicsList: React.FC<SubTopicsListProps> = ({
 
   if (subTopics.length === 0) {
     return (
-      <div className="text-center py-8 text-dashboard-600">
-        <p className="mb-4">No categories yet. Start by adding your first category!</p>
+      <div className="text-center py-12 bg-gray-50 rounded-xl border-2 border-dashed border-gray-200">
+        <MapPin className="w-12 h-12 mx-auto text-gray-400 mb-4" />
+        <p className="text-gray-600 mb-4">No spots added yet. Start creating your travel guide!</p>
+        <Button
+          onClick={() => {
+            const newSubTopic = {
+              id: Date.now().toString(),
+              type: "New Category",
+              places: []
+            };
+            setSubTopics([...subTopics, newSubTopic]);
+          }}
+          className="bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] text-white hover:opacity-90"
+        >
+          <Plus className="w-4 h-4 mr-2" />
+          Add Your First Category
+        </Button>
       </div>
     );
   }
@@ -115,12 +130,12 @@ export const SubTopicsList: React.FC<SubTopicsListProps> = ({
   return (
     <div className="space-y-6">
       <Tabs defaultValue={subTopics[0].id} className="w-full">
-        <TabsList className={styles.tabsList}>
+        <TabsList className="bg-gray-100/50 p-1 rounded-xl flex overflow-x-auto hide-scrollbar">
           {subTopics.map((subTopic) => (
             <TabsTrigger 
               key={subTopic.id} 
               value={subTopic.id}
-              className={styles.tabTrigger}
+              className="flex-shrink-0 data-[state=active]:bg-white data-[state=active]:shadow-sm rounded-lg transition-all"
             >
               <Input
                 value={subTopic.type}
@@ -133,8 +148,8 @@ export const SubTopicsList: React.FC<SubTopicsListProps> = ({
         </TabsList>
 
         {subTopics.map((subTopic) => (
-          <TabsContent key={subTopic.id} value={subTopic.id} className="space-y-4">
-            <div className="grid gap-4">
+          <TabsContent key={subTopic.id} value={subTopic.id} className="space-y-4 mt-6">
+            <div className="grid gap-6">
               {subTopic.places.map((place) => (
                 <PlaceCard
                   key={place.id}
@@ -150,10 +165,10 @@ export const SubTopicsList: React.FC<SubTopicsListProps> = ({
             <Button
               variant="outline"
               onClick={() => addPlace(subTopic.id)}
-              className={styles.addButton}
+              className="w-full py-6 border-dashed border-2 hover:border-[#fd1d1d] hover:text-[#fd1d1d] transition-colors"
             >
               <Plus className="w-4 h-4 mr-2" />
-              Add Memory
+              Add Another Spot
             </Button>
           </TabsContent>
         ))}

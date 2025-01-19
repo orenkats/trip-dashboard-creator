@@ -118,7 +118,7 @@ export const SubTopicsList: React.FC<SubTopicsListProps> = ({
     return (
       <div className="text-center py-12 bg-gray-50 rounded-xl border-2 border-dashed border-gray-200">
         <MapPin className="w-12 h-12 mx-auto text-gray-400 mb-4" />
-        <p className="text-gray-600 mb-4">No categories added yet. Start creating your travel guide!</p>
+        <p className="text-gray-600 mb-4">Start creating your travel guide!</p>
       </div>
     );
   }
@@ -162,7 +162,7 @@ export const SubTopicsList: React.FC<SubTopicsListProps> = ({
               className="w-full py-6 border-dashed border-2 hover:border-[#fd1d1d] hover:text-[#fd1d1d] transition-colors"
             >
               <Plus className="w-4 h-4 mr-2" />
-              Add {subTopic.type} Location
+              Add {subTopic.type.slice(0, -1)}
             </Button>
           </TabsContent>
         ))}

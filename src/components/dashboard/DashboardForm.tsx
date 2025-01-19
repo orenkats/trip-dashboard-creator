@@ -5,22 +5,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { SubTopicsList } from './SubTopicsList';
 import { toast } from 'sonner';
 import { ImageDropzone } from './ImageDropzone';
-
-export type SubTopicType = 'restaurants' | 'attractions' | 'neighborhoods' | 'shopping';
-
-export interface SubTopic {
-  id: string;
-  type: SubTopicType;
-  places: Place[];
-}
-
-export interface Place {
-  id: string;
-  name: string;
-  location: string;
-  notes: string;
-  photos: string[];
-}
+import { SubTopic } from './types';
+import styles from './styles/dashboard.module.css';
 
 const INITIAL_SUBTOPICS: SubTopic[] = [
   { id: '1', type: 'restaurants', places: [] },
@@ -71,21 +57,15 @@ export const DashboardForm = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-6 space-y-8 bg-gradient-to-b from-white to-dashboard-100 rounded-xl shadow-sm">
-      <div className="space-y-4 text-center">
-        <h1 className="text-4xl font-bold text-dashboard-800 bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-pink-600">
-          Create New Dashboard
-        </h1>
-        <p className="text-dashboard-600 text-lg">
-          Share your travel experiences with the world
-        </p>
+    <div className={styles.container}>
+      <div className={styles.header}>
+        <h1 className={styles.title}>Create New Dashboard</h1>
+        <p className={styles.subtitle}>Share your travel experiences with the world</p>
       </div>
 
-      <div className="space-y-6">
+      <div className={styles.formSection}>
         <div>
-          <label htmlFor="title" className="block text-sm font-medium text-dashboard-700 mb-2">
-            Dashboard Title
-          </label>
+          <label htmlFor="title" className={styles.label}>Dashboard Title</label>
           <Input
             id="title"
             placeholder="Enter your dashboard title"
@@ -96,9 +76,7 @@ export const DashboardForm = () => {
         </div>
 
         <div>
-          <label htmlFor="description" className="block text-sm font-medium text-dashboard-700 mb-2">
-            Description
-          </label>
+          <label htmlFor="description" className={styles.label}>Description</label>
           <Textarea
             id="description"
             placeholder="Describe your travel experience..."
@@ -109,9 +87,7 @@ export const DashboardForm = () => {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-dashboard-700 mb-2">
-            Cover Photo
-          </label>
+          <label className={styles.label}>Cover Photo</label>
           <ImageDropzone
             onImageUpload={handleCoverPhotoUpload}
             currentImage={coverPhoto}
@@ -122,7 +98,7 @@ export const DashboardForm = () => {
 
         <SubTopicsList subTopics={subTopics} setSubTopics={setSubTopics} />
 
-        <div className="flex justify-end space-x-4 pt-6">
+        <div className={styles.buttonContainer}>
           <Button 
             variant="outline" 
             onClick={handleSaveDraft}

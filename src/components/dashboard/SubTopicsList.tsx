@@ -1,12 +1,11 @@
 import React from 'react';
 import { Button } from "@/components/ui/button";
-import { SubTopic, SubTopicType } from './DashboardForm';
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Plus, Trash2 } from 'lucide-react';
-import { ImageDropzone } from './ImageDropzone';
+import { Plus } from 'lucide-react';
 import { toast } from 'sonner';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { PlaceCard } from './PlaceCard';
+import { SubTopic, SubTopicType } from './types';
+import styles from './styles/dashboard.module.css';
 
 interface SubTopicsListProps {
   subTopics: SubTopic[];
@@ -111,12 +110,12 @@ export const SubTopicsList: React.FC<SubTopicsListProps> = ({ subTopics, setSubT
       <h2 className="text-2xl font-semibold text-dashboard-800 border-b pb-2">Categories</h2>
 
       <Tabs defaultValue={subTopics[0].id} className="w-full">
-        <TabsList className="w-full justify-start mb-6">
+        <TabsList className={styles.tabsList}>
           {subTopics.map((subTopic) => (
             <TabsTrigger 
               key={subTopic.id} 
               value={subTopic.id}
-              className="px-6"
+              className={styles.tabTrigger}
             >
               {SUB_TOPIC_LABELS[subTopic.type]}
             </TabsTrigger>
@@ -127,67 +126,21 @@ export const SubTopicsList: React.FC<SubTopicsListProps> = ({ subTopics, setSubT
           <TabsContent key={subTopic.id} value={subTopic.id} className="space-y-4">
             <div className="grid gap-4">
               {subTopic.places.map((place) => (
-                <div
+                <PlaceCard
                   key={place.id}
-                  className="bg-white rounded-xl border border-dashboard-200 shadow-sm hover:shadow-md transition-shadow p-4"
-                >
-                  <div className="flex justify-between items-start gap-4">
-                    <div className="flex-1 space-y-3">
-                      <Input
-                        value={place.name}
-                        onChange={(e) => updatePlace(subTopic.id, place.id, 'name', e.target.value)}
-                        placeholder="Place name"
-                        className="text-lg"
-                      />
-                      <Input
-                        value={place.location}
-                        onChange={(e) => updatePlace(subTopic.id, place.id, 'location', e.target.value)}
-                        placeholder="Location"
-                      />
-                      <Textarea
-                        value={place.notes}
-                        onChange={(e) => updatePlace(subTopic.id, place.id, 'notes', e.target.value)}
-                        placeholder="Notes about this place..."
-                        className="min-h-[100px]"
-                      />
-                      <div className="space-y-2">
-                        <label className="block text-sm font-medium text-dashboard-700">
-                          Photos
-                        </label>
-                        <div className="grid grid-cols-2 gap-2">
-                          {place.photos.map((photo, index) => (
-                            <ImageDropzone
-                              key={index}
-                              currentImage={photo}
-                              onImageUpload={(file) => handlePlacePhotoUpload(subTopic.id, place.id, file)}
-                              onImageRemove={() => removePlacePhoto(subTopic.id, place.id, index)}
-                              className="h-24"
-                            />
-                          ))}
-                          <ImageDropzone
-                            onImageUpload={(file) => handlePlacePhotoUpload(subTopic.id, place.id, file)}
-                            className="h-24"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      onClick={() => deletePlace(subTopic.id, place.id)}
-                      className="text-red-500 hover:text-red-700 hover:bg-red-50"
-                    >
-                      <Trash2 className="w-4 h-4" />
-                    </Button>
-                  </div>
-                </div>
+                  place={place}
+                  onUpdate={(field, value) => updatePlace(subTopic.id, place.id, field, value)}
+                  onPhotoUpload={(file) => handlePlacePhotoUpload(subTopic.id, place.id, file)}
+                  onPhotoRemove={(photoIndex) => removePlacePhoto(subTopic.id, place.id, photoIndex)}
+                  onDelete={() => deletePlace(subTopic.id, place.id)}
+                />
               ))}
             </div>
 
             <Button
               variant="outline"
               onClick={() => addPlace(subTopic.id)}
-              className="mt-4 border-dashed border-2 hover:border-purple-500 hover:text-purple-600 transition-colors"
+              className={styles.addButton}
             >
               <Plus className="w-4 h-4 mr-2" />
               Add Place

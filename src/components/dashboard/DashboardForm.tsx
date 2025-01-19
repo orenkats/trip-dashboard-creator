@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { SubTopicsList } from './SubTopicsList';
 import { toast } from 'sonner';
+import { ImageDropzone } from './ImageDropzone';
 
 export interface SubTopic {
   id: string;
@@ -16,12 +17,25 @@ export interface Place {
   name: string;
   location: string;
   notes: string;
+  photos: string[];
 }
 
 export const DashboardForm = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
+  const [coverPhoto, setCoverPhoto] = useState<string>();
   const [subTopics, setSubTopics] = useState<SubTopic[]>([]);
+
+  const handleCoverPhotoUpload = (file: File) => {
+    const imageUrl = URL.createObjectURL(file);
+    setCoverPhoto(imageUrl);
+    toast.success("Cover photo uploaded successfully!");
+  };
+
+  const handleRemoveCoverPhoto = () => {
+    setCoverPhoto(undefined);
+    toast.success("Cover photo removed");
+  };
 
   const handleSaveDraft = () => {
     if (!title) {
@@ -78,6 +92,18 @@ export const DashboardForm = () => {
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             className="w-full min-h-[120px]"
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-dashboard-700 mb-2">
+            Cover Photo
+          </label>
+          <ImageDropzone
+            onImageUpload={handleCoverPhotoUpload}
+            currentImage={coverPhoto}
+            onImageRemove={handleRemoveCoverPhoto}
+            className="max-w-xl"
           />
         </div>
 

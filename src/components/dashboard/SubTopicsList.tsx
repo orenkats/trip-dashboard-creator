@@ -10,6 +10,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Plus, Trash2 } from 'lucide-react';
+import { ImageDropzone } from './ImageDropzone';
+import { toast } from 'sonner';
 
 interface SubTopicsListProps {
   subTopics: SubTopic[];
@@ -46,6 +48,7 @@ export const SubTopicsList: React.FC<SubTopicsListProps> = ({ subTopics, setSubT
             name: '',
             location: '',
             notes: '',
+            photos: [],
           }],
         };
       }
@@ -53,7 +56,12 @@ export const SubTopicsList: React.FC<SubTopicsListProps> = ({ subTopics, setSubT
     }));
   };
 
-  const updatePlace = (subTopicId: string, placeId: string, field: keyof Omit<SubTopic['places'][0], 'id'>, value: string) => {
+  const updatePlace = (
+    subTopicId: string,
+    placeId: string,
+    field: keyof Omit<SubTopic['places'][0], 'id' | 'photos'>,
+    value: string
+  ) => {
     setSubTopics(subTopics.map(st => {
       if (st.id === subTopicId) {
         return {
@@ -65,6 +73,42 @@ export const SubTopicsList: React.FC<SubTopicsListProps> = ({ subTopics, setSubT
       }
       return st;
     }));
+  };
+
+  const handlePlacePhotoUpload = (subTopicId: string, placeId: string, file: File) => {
+    const imageUrl = URL.createObjectURL(file);
+    setSubTopics(subTopics.map(st => {
+      if (st.id === subTopicId) {
+        return {
+          ...st,
+          places: st.places.map(p => 
+            p.id === placeId ? { ...p, photos: [...p.photos, imageUrl] } : p
+          ),
+        };
+      }
+      return st;
+    }));
+    toast.success("Photo uploaded successfully!");
+  };
+
+  const removePlacePhoto = (subTopicId: string, placeId: string, photoIndex: number) => {
+    setSubTopics(subTopics.map(st => {
+      if (st.id === subTopicId) {
+        return {
+          ...st,
+          places: st.places.map(p => {
+            if (p.id === placeId) {
+              const newPhotos = [...p.photos];
+              newPhotos.splice(photoIndex, 1);
+              return { ...p, photos: newPhotos };
+            }
+            return p;
+          }),
+        };
+      }
+      return st;
+    }));
+    toast.success("Photo removed");
   };
 
   const deletePlace = (subTopicId: string, placeId: string) => {
@@ -132,6 +176,26 @@ export const SubTopicsList: React.FC<SubTopicsListProps> = ({ subTopics, setSubT
                           onChange={(e) => updatePlace(subTopic.id, place.id, 'notes', e.target.value)}
                           placeholder="Notes about this place..."
                         />
+                        <div className="space-y-2">
+                          <label className="block text-sm font-medium text-dashboard-700">
+                            Photos
+                          </label>
+                          <div className="grid grid-cols-2 gap-4">
+                            {place.photos.map((photo, index) => (
+                              <ImageDropzone
+                                key={index}
+                                currentImage={photo}
+                                onImageUpload={(file) => handlePlacePhotoUpload(subTopic.id, place.id, file)}
+                                onImageRemove={() => removePlacePhoto(subTopic.id, place.id, index)}
+                                className="h-32"
+                              />
+                            ))}
+                            <ImageDropzone
+                              onImageUpload={(file) => handlePlacePhotoUpload(subTopic.id, place.id, file)}
+                              className="h-32"
+                            />
+                          </div>
+                        </div>
                       </div>
                       <Button
                         variant="ghost"

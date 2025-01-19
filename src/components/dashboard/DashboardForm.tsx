@@ -8,6 +8,7 @@ import { ImageDropzone } from './ImageDropzone';
 import { SubTopic } from './types';
 import styles from './styles/dashboard.module.css';
 import { MapPin, X } from 'lucide-react';
+import Map from './Map';
 
 interface DashboardFormProps {
   onClose?: () => void;
@@ -44,6 +45,10 @@ const DashboardForm = ({ onClose }: DashboardFormProps) => {
     setSubTopics(subTopics.map(st => 
       st.id === id ? { ...st, type: newName } : st
     ));
+  };
+
+  const handleLocationSelect = (selectedLocation: string) => {
+    setLocation(selectedLocation);
   };
 
   const handleSaveDraft = () => {
@@ -107,14 +112,16 @@ const DashboardForm = ({ onClose }: DashboardFormProps) => {
         </div>
 
         <div className="mb-8">
-          <label htmlFor="location" className={styles.label}>Location</label>
-          <Input
-            id="location"
-            placeholder="Where is this place?"
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
-            className="w-full text-lg bg-gray-50/50 border-gray-200"
-          />
+          <label className={styles.label}>Location</label>
+          <div className="space-y-4">
+            <Map onLocationSelect={handleLocationSelect} />
+            <Input
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+              placeholder="Click on the map or type the location"
+              className="w-full text-lg bg-gray-50/50 border-gray-200"
+            />
+          </div>
         </div>
 
         <div className="mb-8">

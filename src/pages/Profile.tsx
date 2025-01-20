@@ -85,40 +85,27 @@ const Profile = () => {
   ]);
 
   useEffect(() => {
-    // Get saved post IDs from localStorage
     const savedPostIds = JSON.parse(localStorage.getItem('savedPosts') || '[]');
-    
-    // Filter all posts to get only saved ones
-    // In a real app, you would fetch this from an API
     const allPosts = [...userPosts];
     const saved = allPosts.filter(post => savedPostIds.includes(post.id));
     setSavedPosts(saved);
   }, [userPosts]);
-
-  const handlePostClick = (post: Dashboard) => {
-    setSelectedPost(post);
-  };
-
-  const handlePostClose = () => {
-    setSelectedPost(null);
-  };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-[#F8F8F8]">
       <Navigation onNewPost={() => setShowNewDashboard(true)} />
       
       {showNewDashboard ? (
-        <DashboardForm 
-          onClose={() => setShowNewDashboard(false)} 
-        />
+        <DashboardForm onClose={() => setShowNewDashboard(false)} />
       ) : selectedPost ? (
-        <PostDetail 
-          post={selectedPost}
-          onClose={handlePostClose}
-        />
+        <div className="max-w-screen-xl mx-auto">
+          <PostDetail 
+            post={selectedPost}
+            onClose={() => setSelectedPost(null)}
+          />
+        </div>
       ) : (
         <>
-          {/* Profile Header */}
           <div className="bg-white border-b mt-16">
             <div className="max-w-screen-xl mx-auto px-4 py-8">
               <div className="flex items-center gap-6">
@@ -143,7 +130,6 @@ const Profile = () => {
             </div>
           </div>
 
-          {/* Tabs Navigation */}
           <div className="max-w-screen-xl mx-auto px-4">
             <Tabs defaultValue="posts" className="w-full">
               <TabsList className="grid w-full grid-cols-2 mt-4">
@@ -157,10 +143,14 @@ const Profile = () => {
                 </TabsTrigger>
               </TabsList>
               <TabsContent value="posts" className="mt-6">
-                <PostList posts={userPosts} onPostClick={handlePostClick} />
+                <div className="max-w-screen-xl mx-auto">
+                  <PostList posts={userPosts} onPostClick={setSelectedPost} />
+                </div>
               </TabsContent>
               <TabsContent value="saved" className="mt-6">
-                <PostList posts={savedPosts} onPostClick={handlePostClick} />
+                <div className="max-w-screen-xl mx-auto">
+                  <PostList posts={savedPosts} onPostClick={setSelectedPost} />
+                </div>
               </TabsContent>
             </Tabs>
           </div>

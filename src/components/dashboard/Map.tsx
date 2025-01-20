@@ -31,7 +31,7 @@ const Map: React.FC<MapProps> = ({ onLocationSelect }) => {
           />
           <Button
             onClick={handleMapsUrlSubmit}
-            className="w-full bg-[#9b87f5] hover:bg-[#7E69AB] text-white"
+            className="w-full bg-[#6E59A5] hover:bg-[#7E69AB] text-white"
           >
             Share Map
           </Button>
@@ -49,7 +49,7 @@ const Map: React.FC<MapProps> = ({ onLocationSelect }) => {
         <Button
           variant="outline"
           onClick={handleShareOnGoogleMaps}
-          className="w-full flex items-center justify-center gap-2 text-[#9b87f5] hover:text-[#7E69AB] hover:border-[#7E69AB]"
+          className="w-full flex items-center justify-center gap-2 text-[#6E59A5] hover:text-[#7E69AB] hover:border-[#7E69AB]"
         >
           <Share2 className="w-4 h-4" />
           Open in Google Maps

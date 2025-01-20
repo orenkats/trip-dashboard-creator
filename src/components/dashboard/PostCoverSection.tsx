@@ -5,8 +5,6 @@ import { Textarea } from '../ui/textarea';
 
 interface PostCoverSectionProps {
   coverPhoto: string;
-  description: string;
-  location: string;
   isEditing: boolean;
   editedDescription: string;
   editedLocation: string;
@@ -16,8 +14,6 @@ interface PostCoverSectionProps {
 
 export const PostCoverSection: React.FC<PostCoverSectionProps> = ({
   coverPhoto,
-  description,
-  location,
   isEditing,
   editedDescription,
   editedLocation,
@@ -52,10 +48,10 @@ export const PostCoverSection: React.FC<PostCoverSectionProps> = ({
           </div>
         ) : (
           <>
-            <p className="text-lg mb-2">{description}</p>
+            <p className="text-lg mb-2">{editedDescription}</p>
             <div className="flex items-center gap-2">
               <MapPin size={16} />
-              {location}
+              {editedLocation}
             </div>
           </>
         )}

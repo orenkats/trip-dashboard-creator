@@ -1,126 +1,69 @@
-import React from 'react';
-import { Dashboard } from './types';
-import { Card, CardContent } from '../ui/card';
-import { ScrollArea } from '../ui/scroll-area';
-import { Comments } from './Comments';
-import { PostHeader } from './PostHeader';
-import { PostCoverSection } from './PostCoverSection';
-import { usePostEdit } from './hooks/usePostEdit';
-import { PostContent } from './PostContent';
-import CategorySection from './CategorySection';
-import CaptionSection from './CaptionSection';
-import CoverPhotoSection from './CoverPhotoSection';
-import LocationSection from './LocationSection';
-import TitleSection from './TitleSection';
+import React, { useState } from 'react';
+import { Post } from "../../types/dashboard";
+import PostDetailEdit from './PostDetailEdit';
+import PostDetailView from './PostDetailView';
 
 interface PostDetailProps {
-  post: Dashboard;
+  post: Post;
   onClose: () => void;
 }
 
 export const PostDetail: React.FC<PostDetailProps> = ({ post, onClose }) => {
-  const {
-    currentPost,
-    isEditing,
-    editedTitle,
-    editedDescription,
-    editedLocation,
-    editedSubTopics,
-    setEditedTitle,
-    setEditedDescription,
-    setEditedLocation,
-    setEditedSubTopics,
-    setIsEditing,
-    handleSaveEdit,
-    handleBookmark,
-    handleAddComment,
-  } = usePostEdit(post);
+  const [currentPost, setCurrentPost] = useState<Post>(post);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedTitle, setEditedTitle] = useState(post.title);
+  const [editedDescription, setEditedDescription] = useState(post.description);
+  const [editedLocation, setEditedLocation] = useState(post.location);
 
-  if (isEditing) {
-    return (
-      <div className="max-w-2xl mx-auto p-6 space-y-8 bg-white rounded-xl shadow-sm">
-        <PostHeader
-          title={currentPost.title}
-          isEditing={isEditing}
-          editedTitle={editedTitle}
-          isSaved={currentPost.isSaved || false}
-          authorId={currentPost.authorId}
-          authorUsername={currentPost.authorUsername}
-          onEditedTitleChange={setEditedTitle}
-          onSaveEdit={handleSaveEdit}
-          onToggleEdit={() => setIsEditing(false)}
-          onBookmark={handleBookmark}
-          onClose={onClose}
-        />
+  const handleSaveEdit = () => {
+    setCurrentPost(prev => ({
+      ...prev,
+      title: editedTitle,
+      description: editedDescription,
+      location: editedLocation
+    }));
+    setIsEditing(false);
+  };
 
-        <TitleSection 
-          title={editedTitle}
-          onTitleChange={setEditedTitle}
-        />
-
-        <CaptionSection 
-          description={editedDescription}
-          onDescriptionChange={setEditedDescription}
-        />
-
-        <CoverPhotoSection 
-          coverPhoto={currentPost.coverPhoto}
-          onCoverPhotoChange={() => {}}
-        />
-
-        <CategorySection 
-          subTopics={editedSubTopics}
-          onSubTopicsChange={setEditedSubTopics}
-        />
-
-        <LocationSection
-          location={editedLocation}
-          onLocationChange={setEditedLocation}
-          onLocationSelect={setEditedLocation}
-        />
-      </div>
-    );
-  }
+  const handleBookmark = () => {
+    setCurrentPost(prev => ({
+      ...prev,
+      isSaved: !prev.isSaved,
+      savedCount: prev.isSaved ? (prev.savedCount - 1) : (prev.savedCount + 1)
+    }));
+  };
 
   return (
-    <div className="max-w-screen-xl mx-auto">
-      <PostHeader
-        title={currentPost.title}
-        isEditing={isEditing}
-        editedTitle={editedTitle}
-        isSaved={currentPost.isSaved || false}
-        authorId={currentPost.authorId}
-        authorUsername={currentPost.authorUsername}
-        onEditedTitleChange={setEditedTitle}
-        onSaveEdit={handleSaveEdit}
-        onToggleEdit={() => setIsEditing(true)}
-        onBookmark={handleBookmark}
-        onClose={onClose}
-      />
-      
-      <PostCoverSection
-        coverPhoto={currentPost.coverPhoto || ''}
-        description={currentPost.description}
-        location={currentPost.location}
-        isEditing={isEditing}
-        editedDescription={editedDescription}
-        editedLocation={editedLocation}
-        onEditedDescriptionChange={setEditedDescription}
-        onEditedLocationChange={setEditedLocation}
-      />
-
-      <ScrollArea className="h-[calc(100vh-400px)]">
-        <PostContent subTopics={currentPost.subTopics} />
-        
-        <Card className="mt-6">
-          <CardContent className="pt-6">
-            <Comments 
-              comments={currentPost.comments || []} 
-              onAddComment={handleAddComment}
-            />
-          </CardContent>
-        </Card>
-      </ScrollArea>
+    <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50">
+      <div className="bg-white rounded-lg w-full max-w-3xl max-h-[90vh] overflow-y-auto p-6">
+        {isEditing ? (
+          <PostDetailEdit
+            currentPost={currentPost}
+            editedTitle={editedTitle}
+            editedDescription={editedDescription}
+            editedLocation={editedLocation}
+            setEditedTitle={setEditedTitle}
+            setEditedDescription={setEditedDescription}
+            setEditedLocation={setEditedLocation}
+            handleSaveEdit={handleSaveEdit}
+            setIsEditing={setIsEditing}
+            handleBookmark={handleBookmark}
+            onClose={onClose}
+          />
+        ) : (
+          <PostDetailView
+            currentPost={currentPost}
+            editedTitle={editedTitle}
+            editedDescription={editedDescription}
+            editedLocation={editedLocation}
+            setEditedTitle={setEditedTitle}
+            handleSaveEdit={handleSaveEdit}
+            setIsEditing={setIsEditing}
+            handleBookmark={handleBookmark}
+            onClose={onClose}
+          />
+        )}
+      </div>
     </div>
   );
 };

@@ -16,7 +16,7 @@ export const PostContent: React.FC<PostContentProps> = ({ subTopics }) => {
   return (
     <Tabs defaultValue={subTopics[0]?.type} className="w-full">
       <div className="relative">
-        <TabsList className="mb-4 flex overflow-x-auto hide-scrollbar pb-2 -mx-2 px-2">
+        <TabsList className="mb-4 flex overflow-x-auto hide-scrollbar pb-2 -mx-2 px-2 w-full justify-start">
           {subTopics.map((subTopic) => (
             <TabsTrigger 
               key={subTopic.id} 

@@ -4,12 +4,20 @@ import { Button } from "@/components/ui/button";
 
 interface NavigationProps {
   onNewPost?: () => void;
+  onProfileClick?: () => void;
 }
 
-export const Navigation = ({ onNewPost }: NavigationProps) => {
+export const Navigation = ({ onNewPost, onProfileClick }: NavigationProps) => {
   const navigate = useNavigate();
   const location = useLocation();
   const isIndexPage = location.pathname === "/";
+
+  const handleProfileClick = () => {
+    if (onProfileClick) {
+      onProfileClick();
+    }
+    navigate("/profile");
+  };
 
   return (
     <nav className="border-b bg-white/80 backdrop-blur-sm fixed top-0 left-0 right-0 w-full z-10">
@@ -49,11 +57,14 @@ export const Navigation = ({ onNewPost }: NavigationProps) => {
               <Plus size={20} />
             </Button>
           )}
-          <Link to="/profile">
-            <Button variant="ghost" size="icon" className="h-9 w-9">
-              <User size={20} />
-            </Button>
-          </Link>
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            className="h-9 w-9"
+            onClick={handleProfileClick}
+          >
+            <User size={20} />
+          </Button>
         </div>
       </div>
     </nav>

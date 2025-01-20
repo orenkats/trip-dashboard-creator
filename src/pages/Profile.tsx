@@ -6,11 +6,14 @@ import { Navigation } from "@/components/dashboard/Navigation";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import DashboardForm from "@/components/dashboard/DashboardForm";
 import { PostDetail } from "@/components/dashboard/PostDetail";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const Profile = () => {
   const [showNewDashboard, setShowNewDashboard] = useState(false);
   const [selectedPost, setSelectedPost] = useState<Dashboard | null>(null);
   const [savedPosts, setSavedPosts] = useState<Dashboard[]>([]);
+  const navigate = useNavigate();
+  const location = useLocation();
   
   const [userPosts, setUserPosts] = useState<Dashboard[]>([
     {
@@ -91,14 +94,23 @@ const Profile = () => {
     setSavedPosts(saved);
   }, [userPosts]);
 
+  const handleNavigationClick = () => {
+    if (selectedPost) {
+      setSelectedPost(null);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-[#F8F8F8]">
-      <Navigation onNewPost={() => setShowNewDashboard(true)} />
+      <Navigation 
+        onNewPost={() => setShowNewDashboard(true)} 
+        onProfileClick={handleNavigationClick}
+      />
       
       {showNewDashboard ? (
         <DashboardForm onClose={() => setShowNewDashboard(false)} />
       ) : selectedPost ? (
-        <div className="max-w-screen-xl mx-auto">
+        <div className="container max-w-4xl mx-auto px-4 py-6">
           <PostDetail 
             post={selectedPost}
             onClose={() => setSelectedPost(null)}
@@ -143,14 +155,10 @@ const Profile = () => {
                 </TabsTrigger>
               </TabsList>
               <TabsContent value="posts" className="mt-6">
-                <div className="max-w-screen-xl mx-auto">
-                  <PostList posts={userPosts} onPostClick={setSelectedPost} />
-                </div>
+                <PostList posts={userPosts} onPostClick={setSelectedPost} />
               </TabsContent>
               <TabsContent value="saved" className="mt-6">
-                <div className="max-w-screen-xl mx-auto">
-                  <PostList posts={savedPosts} onPostClick={setSelectedPost} />
-                </div>
+                <PostList posts={savedPosts} onPostClick={setSelectedPost} />
               </TabsContent>
             </Tabs>
           </div>

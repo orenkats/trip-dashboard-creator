@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from "../ui/button";
-import { Plus, MapPin, Compass, Utensils, Landmark } from 'lucide-react';
+import { Plus, Compass, Utensils, Landmark, Pencil } from 'lucide-react';
 import { toast } from 'sonner';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import { PlaceCard } from './PlaceCard';
@@ -21,7 +21,7 @@ const getSubTopicIcon = (type: SubTopicType) => {
     case 'Culture':
       return <Landmark className="w-4 h-4" />;
     default:
-      return <MapPin className="w-4 h-4" />;
+      return <Compass className="w-4 h-4" />;
   }
 };
 
@@ -117,7 +117,7 @@ export const SubTopicsList: React.FC<SubTopicsListProps> = ({
   if (subTopics.length === 0) {
     return (
       <div className="text-center py-12 bg-gray-50 rounded-xl border-2 border-dashed border-gray-200">
-        <MapPin className="w-12 h-12 mx-auto text-gray-400 mb-4" />
+        <Pencil className="w-12 h-12 mx-auto text-gray-400 mb-4" />
         <p className="text-gray-600 mb-4">Start creating your travel guide!</p>
       </div>
     );

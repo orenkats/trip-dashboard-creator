@@ -3,7 +3,7 @@ import { Button } from "../../components/ui/button";
 import { SubTopicsList } from './SubTopicsList';
 import { toast } from 'sonner';
 import { SubTopic, SubTopicType } from './types';
-import { Box } from 'lucide-react';
+import { Box, Pencil } from 'lucide-react';
 import styles from './styles/dashboard.module.css';
 
 interface CategorySectionProps {

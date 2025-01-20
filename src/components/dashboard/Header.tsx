@@ -2,7 +2,7 @@ import React from 'react';
 import { MapPin } from 'lucide-react';
 import styles from './styles/dashboard.module.css';
 
-const Header = () => {
+const Header: React.FC = () => {
   return (
     <div className={styles.header}>
       <MapPin className="w-8 h-8 mx-auto text-[#fd1d1d]" />

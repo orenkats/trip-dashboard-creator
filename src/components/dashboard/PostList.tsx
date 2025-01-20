@@ -2,6 +2,7 @@ import { Post } from './types';
 import { BookmarkIcon, MapPin, Edit2, SlidersHorizontal } from 'lucide-react';
 import { Button } from '../ui/button';
 import { useToast } from "@/hooks/use-toast";
+import { useNavigate } from 'react-router-dom';
 import {
   Select,
   SelectContent,
@@ -21,6 +22,7 @@ type SortOption = 'newest' | 'oldest' | 'mostSaved' | 'leastSaved';
 
 export const PostList = ({ posts, onPostClick, onSavePost }: PostListProps) => {
   const { toast } = useToast();
+  const navigate = useNavigate();
   const [sortBy, setSortBy] = useState<SortOption>('newest');
   const [locationFilter, setLocationFilter] = useState<string>('all');
 
@@ -33,6 +35,11 @@ export const PostList = ({ posts, onPostClick, onSavePost }: PostListProps) => {
         description: post.isSaved ? "Post removed from your bookmarks" : "Post saved to your bookmarks",
       });
     }
+  };
+
+  const handleUsernameClick = (e: React.MouseEvent, username: string) => {
+    e.stopPropagation();
+    navigate(`/profile/${username}`);
   };
 
   // Get unique locations for filter dropdown
@@ -134,7 +141,12 @@ export const PostList = ({ posts, onPostClick, onSavePost }: PostListProps) => {
             <div className="p-4">
               <p className="text-gray-600 text-sm mb-4">{post.description}</p>
               <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-500">{post.authorUsername}</span>
+                <button
+                  onClick={(e) => handleUsernameClick(e, post.authorUsername)}
+                  className="text-sm text-gray-500 hover:text-gray-700 transition-colors"
+                >
+                  {post.authorUsername}
+                </button>
                 <Button 
                   variant="ghost" 
                   size="sm"

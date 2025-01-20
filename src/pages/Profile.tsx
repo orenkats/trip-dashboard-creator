@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { Post } from "@/features/posts/types";
 import { Navigation } from "@/components/dashboard/Navigation";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -81,6 +82,7 @@ const initialUserPosts: Post[] = [
 ];
 
 const Profile = () => {
+  const { username } = useParams();
   const [showNewDashboard, setShowNewDashboard] = useState(false);
   const [selectedPost, setSelectedPost] = useState<Post | null>(null);
   const [savedPosts, setSavedPosts] = useState<Post[]>([]);
@@ -96,6 +98,8 @@ const Profile = () => {
       setSelectedPost(null);
     }
   };
+
+  const isCurrentUser = username === "@currentuser";
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-[#F8F8F8]">
@@ -116,11 +120,11 @@ const Profile = () => {
           <div className="max-w-screen-xl mx-auto">
             <div className="flex items-center gap-4 mb-8">
               <Avatar className="h-20 w-20">
-                <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-                <AvatarFallback>CN</AvatarFallback>
+                <AvatarImage src="https://github.com/shadcn.png" alt={username} />
+                <AvatarFallback>{username?.slice(1, 3).toUpperCase()}</AvatarFallback>
               </Avatar>
               <div>
-                <h1 className="text-2xl font-bold">@travelblogger</h1>
+                <h1 className="text-2xl font-bold">{username}</h1>
                 <p className="text-gray-500">Exploring the world one city at a time</p>
               </div>
             </div>
@@ -130,9 +134,11 @@ const Profile = () => {
                 <TabsTrigger value="posts" className="flex-1">
                   Posts
                 </TabsTrigger>
-                <TabsTrigger value="saved" className="flex-1">
-                  Saved
-                </TabsTrigger>
+                {isCurrentUser && (
+                  <TabsTrigger value="saved" className="flex-1">
+                    Saved
+                  </TabsTrigger>
+                )}
               </TabsList>
               <TabsContent value="posts" className="mt-6">
                 <PostList 
@@ -141,13 +147,15 @@ const Profile = () => {
                   onSavePost={handleSavePost}
                 />
               </TabsContent>
-              <TabsContent value="saved" className="mt-6">
-                <PostList 
-                  posts={savedPosts} 
-                  onPostClick={setSelectedPost}
-                  onSavePost={handleSavePost}
-                />
-              </TabsContent>
+              {isCurrentUser && (
+                <TabsContent value="saved" className="mt-6">
+                  <PostList 
+                    posts={savedPosts} 
+                    onPostClick={setSelectedPost}
+                    onSavePost={handleSavePost}
+                  />
+                </TabsContent>
+              )}
             </Tabs>
           </div>
         )}

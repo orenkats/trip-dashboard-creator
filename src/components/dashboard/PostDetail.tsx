@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Dashboard, Comment } from './types';
-import { X, MapPin, BookmarkIcon } from 'lucide-react';
+import { X, MapPin, BookmarkIcon, Edit2, Check } from 'lucide-react';
 import { Button } from '../ui/button';
 import { Card, CardContent } from '../ui/card';
 import { ScrollArea } from '../ui/scroll-area';
@@ -8,6 +8,8 @@ import { PlaceDetail } from './PlaceDetail';
 import { Comments } from './Comments';
 import { useToast } from "@/hooks/use-toast";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Input } from '../ui/input';
+import { Textarea } from '../ui/textarea';
 
 interface PostDetailProps {
   post: Dashboard;
@@ -16,6 +18,10 @@ interface PostDetailProps {
 
 export const PostDetail = ({ post, onClose }: PostDetailProps) => {
   const [currentPost, setCurrentPost] = useState(post);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedTitle, setEditedTitle] = useState(post.title);
+  const [editedDescription, setEditedDescription] = useState(post.description);
+  const [editedLocation, setEditedLocation] = useState(post.location);
   const { toast } = useToast();
 
   const handleBookmark = () => {
@@ -45,11 +51,42 @@ export const PostDetail = ({ post, onClose }: PostDetailProps) => {
     }));
   };
 
+  const handleSaveEdit = () => {
+    setCurrentPost(prev => ({
+      ...prev,
+      title: editedTitle,
+      description: editedDescription,
+      location: editedLocation
+    }));
+    setIsEditing(false);
+    toast({
+      title: "Changes saved",
+      description: "Your post has been updated successfully",
+    });
+  };
+
   return (
     <div className="max-w-screen-xl mx-auto">
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-2xl font-semibold">{currentPost.title}</h2>
+        {isEditing ? (
+          <Input
+            value={editedTitle}
+            onChange={(e) => setEditedTitle(e.target.value)}
+            className="text-2xl font-semibold w-full mr-4"
+          />
+        ) : (
+          <h2 className="text-2xl font-semibold">{currentPost.title}</h2>
+        )}
         <div className="flex gap-2">
+          {currentPost.authorId === "1" && (
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => isEditing ? handleSaveEdit() : setIsEditing(true)}
+            >
+              {isEditing ? <Check size={20} /> : <Edit2 size={20} />}
+            </Button>
+          )}
           <Button
             variant="ghost"
             size="sm"
@@ -76,11 +113,32 @@ export const PostDetail = ({ post, onClose }: PostDetailProps) => {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
         <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-          <p className="text-lg mb-2">{currentPost.description}</p>
-          <div className="flex items-center gap-2">
-            <MapPin size={16} />
-            {currentPost.location}
-          </div>
+          {isEditing ? (
+            <div className="space-y-2">
+              <Textarea
+                value={editedDescription}
+                onChange={(e) => setEditedDescription(e.target.value)}
+                className="text-black mb-2"
+                rows={3}
+              />
+              <div className="flex items-center gap-2">
+                <MapPin size={16} />
+                <Input
+                  value={editedLocation}
+                  onChange={(e) => setEditedLocation(e.target.value)}
+                  className="text-black"
+                />
+              </div>
+            </div>
+          ) : (
+            <>
+              <p className="text-lg mb-2">{currentPost.description}</p>
+              <div className="flex items-center gap-2">
+                <MapPin size={16} />
+                {currentPost.location}
+              </div>
+            </>
+          )}
         </div>
       </div>
 

@@ -37,7 +37,7 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({
       </Button>
       <Button 
         onClick={handlePublish}
-        className="bg-gradient-to-r from-dashboard-700 via-dashboard-600 to-dashboard-500 hover:opacity-90 text-white"
+        className="bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 hover:opacity-90 text-white"
       >
         Share Post
       </Button>

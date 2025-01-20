@@ -1,17 +1,15 @@
-import React from 'react';
-import { Card, CardContent } from '../ui/card';
-import { PlaceDetail } from './PlaceDetail';
+import React from "react";
+import { Card, CardContent } from "../ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
-import { SubTopic } from './types';
+import { SubTopic } from "./types";
+import PlaceCard from "./PlaceCard";
 
 interface PostContentProps {
   subTopics: SubTopic[];
 }
 
-export const PostContent: React.FC<PostContentProps> = ({ subTopics }) => {
-  if (subTopics.length === 0) {
-    return null;
-  }
+const PostContent: React.FC<PostContentProps> = ({ subTopics }) => {
+  if (!subTopics.length) return null;
 
   return (
     <Tabs defaultValue={subTopics[0]?.type} className="w-full">
@@ -35,7 +33,7 @@ export const PostContent: React.FC<PostContentProps> = ({ subTopics }) => {
             <CardContent className="pt-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {subTopic.places.map((place) => (
-                  <PlaceDetail key={place.id} place={place} />
+                  <PlaceCard key={place.id} place={place} />
                 ))}
               </div>
             </CardContent>
@@ -45,3 +43,5 @@ export const PostContent: React.FC<PostContentProps> = ({ subTopics }) => {
     </Tabs>
   );
 };
+
+export default PostContent;

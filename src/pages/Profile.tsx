@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from "react"
+import React, { useState, useEffect } from "react"
 import { Navigation } from "../components/dashboard/Navigation"
 import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../components/ui/tabs"

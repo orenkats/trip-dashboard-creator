@@ -1,15 +1,15 @@
 import React from 'react'
 import { Routes, Route } from 'react-router-dom'
-import Home from './pages/Home'
-import Profile from './pages/Profile'
-import Discover from './pages/Discover'
+import Home from '@/pages/Home'
+import Discover from '@/pages/Discover'
+import Profile from '@/pages/Profile'
 
-function App() {
+const App = () => {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/profile/:username" element={<Profile />} />
       <Route path="/discover" element={<Discover />} />
+      <Route path="/profile/:username" element={<Profile />} />
     </Routes>
   )
 }

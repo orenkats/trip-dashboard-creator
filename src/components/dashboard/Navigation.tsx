@@ -39,13 +39,11 @@ export const Navigation = ({ onNewPost }: NavigationProps) => {
               New Travel Post
             </Button>
           )}
-          {!isIndexPage && (
-            <Link to="/profile">
-              <Button variant="ghost" size="icon">
-                <User size={20} />
-              </Button>
-            </Link>
-          )}
+          <Link to="/profile">
+            <Button variant="ghost" size="icon">
+              <User size={20} />
+            </Button>
+          </Link>
         </div>
       </div>
     </nav>

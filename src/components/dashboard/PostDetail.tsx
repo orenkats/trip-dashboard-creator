@@ -45,6 +45,7 @@ export const PostDetail: React.FC<PostDetailProps> = ({ post, onClose }) => {
           editedTitle={editedTitle}
           isSaved={currentPost.isSaved || false}
           authorId={currentPost.authorId}
+          authorUsername={currentPost.authorUsername}
           onEditedTitleChange={setEditedTitle}
           onSaveEdit={handleSaveEdit}
           onToggleEdit={() => setIsEditing(false)}
@@ -89,6 +90,7 @@ export const PostDetail: React.FC<PostDetailProps> = ({ post, onClose }) => {
         editedTitle={editedTitle}
         isSaved={currentPost.isSaved || false}
         authorId={currentPost.authorId}
+        authorUsername={currentPost.authorUsername}
         onEditedTitleChange={setEditedTitle}
         onSaveEdit={handleSaveEdit}
         onToggleEdit={() => setIsEditing(true)}

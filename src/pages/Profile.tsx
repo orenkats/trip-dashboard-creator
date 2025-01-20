@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Dashboard } from "@/features/posts/types";
+import { Post } from "@/features/posts/types";
 import { Navigation } from "@/components/dashboard/Navigation";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -8,7 +8,7 @@ import { PostDetail } from "@/components/dashboard/PostDetail";
 import { PostList } from "@/components/dashboard/PostList";
 import { usePostList } from "@/features/posts/hooks/usePostList";
 
-const initialUserPosts: Dashboard[] = [
+const initialUserPosts: Post[] = [
     {
       id: "user-post-1",
       title: "My Trip to Paris",
@@ -82,8 +82,8 @@ const initialUserPosts: Dashboard[] = [
 
 const Profile = () => {
   const [showNewDashboard, setShowNewDashboard] = useState(false);
-  const [selectedPost, setSelectedPost] = useState<Dashboard | null>(null);
-  const [savedPosts, setSavedPosts] = useState<Dashboard[]>([]);
+  const [selectedPost, setSelectedPost] = useState<Post | null>(null);
+  const [savedPosts, setSavedPosts] = useState<Post[]>([]);
   const { posts: userPosts, handleSavePost } = usePostList(initialUserPosts);
 
   useEffect(() => {

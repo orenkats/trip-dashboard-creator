@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { Dashboard } from "@/features/posts/types";
+import { Post } from "@/features/posts/types";
 import NewPostForm from "@/components/dashboard/NewPostForm";
 import { PostList } from "@/components/dashboard/PostList";
 import { PostDetail } from "@/components/dashboard/PostDetail";
 import { Navigation } from "@/components/dashboard/Navigation";
 import { usePostList } from "@/features/posts/hooks/usePostList";
 
-const initialPosts: Dashboard[] = [
+const initialPosts: Post[] = [
   {
     id: "1",
     title: "Hidden Gems in Rome",
@@ -92,7 +92,7 @@ const initialPosts: Dashboard[] = [
 
 const Index = () => {
   const [showNewDashboard, setShowNewDashboard] = useState(false);
-  const [selectedPost, setSelectedPost] = useState<Dashboard | null>(null);
+  const [selectedPost, setSelectedPost] = useState<Post | null>(null);
   const { posts, handleSavePost } = usePostList(initialPosts);
 
   return (

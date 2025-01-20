@@ -1,4 +1,4 @@
-import { Home, Plus, User, Search } from "lucide-react";
+import { Compass, Plus, User, Search } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
@@ -37,8 +37,8 @@ export const Navigation = ({ onNewPost, onProfileClick }: NavigationProps) => {
           className="flex items-center gap-2"
           onClick={handleHomeClick}
         >
-          <Home size={24} className="text-[#8B5CF6]" />
-          <h1 className="text-xl font-semibold bg-gradient-to-r from-[#8B5CF6] via-[#9b87f5] to-[#D6BCFA] text-transparent bg-clip-text">
+          <Compass size={24} className="text-[#FEC6A1]" />
+          <h1 className="text-xl font-semibold bg-gradient-to-r from-[#FEC6A1] via-[#FDE1D3] to-[#FEF7CD] text-transparent bg-clip-text">
             Exploria
           </h1>
         </Button>

@@ -1,8 +1,7 @@
-'use client'
-
+import React from 'react'
 import { Navigation } from "@/components/dashboard/Navigation"
 
-export default function Discover() {
+const Discover = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-[#F8F8F8]">
       <Navigation />
@@ -15,3 +14,5 @@ export default function Discover() {
     </div>
   )
 }
+
+export default Discover

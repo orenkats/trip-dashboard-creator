@@ -1,4 +1,5 @@
 import React from "react";
+import { useParams } from "react-router-dom";
 import { Navigation } from "../components/dashboard/Navigation";
 import NewPostForm from "../components/dashboard/NewPostForm";
 import { PostDetail } from "../components/dashboard/PostDetail";
@@ -39,6 +40,7 @@ const initialUserPosts: Post[] = [
 ];
 
 const Profile: React.FC = () => {
+  const { userId } = useParams();
   const {
     showNewDashboard,
     selectedPost,
@@ -48,6 +50,8 @@ const Profile: React.FC = () => {
     setSelectedPost,
     handleSavePost,
   } = useProfileData(initialUserPosts);
+
+  const isCurrentUserProfile = !userId || userId === "1"; // Assuming "1" is the current user's ID
 
   const renderContent = () => {
     if (showNewDashboard) {
@@ -66,12 +70,12 @@ const Profile: React.FC = () => {
     return (
       <div className="max-w-screen-xl mx-auto space-y-6">
         <ProfileHeader 
-          username="@travelblogger"
-          bio="Exploring the world one city at a time"
+          username={isCurrentUserProfile ? "@travelblogger" : `@user${userId}`}
+          bio={isCurrentUserProfile ? "Exploring the world one city at a time" : "Another travel enthusiast"}
         />
         <ProfileTabs
           posts={posts}
-          savedPosts={savedPosts}
+          savedPosts={isCurrentUserProfile ? savedPosts : []}
           onPostClick={setSelectedPost}
           onSavePost={handleSavePost}
         />

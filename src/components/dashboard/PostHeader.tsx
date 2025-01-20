@@ -2,6 +2,7 @@ import React from 'react';
 import { Button } from '../ui/button';
 import { BookmarkIcon, Edit2, Check, X } from 'lucide-react';
 import { Input } from '../ui/input';
+import { useNavigate } from 'react-router-dom';
 
 interface PostHeaderProps {
   title: string;
@@ -9,6 +10,7 @@ interface PostHeaderProps {
   editedTitle: string;
   isSaved: boolean;
   authorId: string;
+  authorUsername: string;
   onEditedTitleChange: (value: string) => void;
   onSaveEdit: () => void;
   onToggleEdit: () => void;
@@ -22,14 +24,21 @@ export const PostHeader: React.FC<PostHeaderProps> = ({
   editedTitle,
   isSaved,
   authorId,
+  authorUsername,
   onEditedTitleChange,
   onSaveEdit,
   onToggleEdit,
   onBookmark,
   onClose,
 }) => {
+  const navigate = useNavigate();
+
+  const handleUsernameClick = () => {
+    navigate(`/profile/${authorId}`);
+  };
+
   return (
-    <div className="flex justify-between items-center mb-6">
+    <div className="flex flex-col gap-2 mb-6">
       {isEditing ? (
         <Input
           value={editedTitle}
@@ -37,7 +46,15 @@ export const PostHeader: React.FC<PostHeaderProps> = ({
           className="text-2xl font-semibold w-full mr-4"
         />
       ) : (
-        <h2 className="text-2xl font-semibold">{title}</h2>
+        <>
+          <h2 className="text-2xl font-semibold">{title}</h2>
+          <button
+            onClick={handleUsernameClick}
+            className="text-sm text-gray-600 hover:text-gray-900 transition-colors w-fit"
+          >
+            {authorUsername}
+          </button>
+        </>
       )}
       <div className="flex gap-2">
         {authorId === "1" && (

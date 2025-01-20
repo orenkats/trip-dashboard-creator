@@ -1,8 +1,8 @@
 import React from 'react';
-import { Button } from "@/components/ui/button";
+import { Button } from "../ui/button";
 import { Plus, MapPin, Compass, Utensils, Landmark } from 'lucide-react';
 import { toast } from 'sonner';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import { PlaceCard } from './PlaceCard';
 import { SubTopic, SubTopicType } from './types';
 import styles from './styles/dashboard.module.css';

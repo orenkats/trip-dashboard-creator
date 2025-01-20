@@ -3,7 +3,7 @@ import { Dashboard } from "@/features/posts/types";
 import { Navigation } from "@/components/dashboard/Navigation";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import DashboardForm from "@/components/dashboard/DashboardForm";
+import NewPostForm from "@/components/dashboard/NewPostForm";
 import { PostDetail } from "@/components/dashboard/PostDetail";
 import { PostList } from "@/components/dashboard/PostList";
 import { usePostList } from "@/features/posts/hooks/usePostList";
@@ -106,7 +106,7 @@ const Profile = () => {
       
       <main className="pt-20 pb-12 px-4">
         {showNewDashboard ? (
-          <DashboardForm onClose={() => setShowNewDashboard(false)} />
+          <NewPostForm onClose={() => setShowNewDashboard(false)} />
         ) : selectedPost ? (
           <PostDetail 
             post={selectedPost}

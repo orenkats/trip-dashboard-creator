@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Dashboard } from "@/features/posts/types";
-import DashboardForm from "@/components/dashboard/DashboardForm";
+import NewPostForm from "@/components/dashboard/NewPostForm";
 import { PostList } from "@/components/dashboard/PostList";
 import { PostDetail } from "@/components/dashboard/PostDetail";
 import { Navigation } from "@/components/dashboard/Navigation";
@@ -101,7 +101,7 @@ const Index = () => {
       
       <main className="pt-20 pb-12 px-4">
         {showNewDashboard ? (
-          <DashboardForm onClose={() => setShowNewDashboard(false)} />
+          <NewPostForm onClose={() => setShowNewDashboard(false)} />
         ) : selectedPost ? (
           <PostDetail 
             post={selectedPost}

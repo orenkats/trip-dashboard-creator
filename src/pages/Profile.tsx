@@ -12,7 +12,6 @@ const Profile = () => {
   const [selectedPost, setSelectedPost] = useState<Dashboard | null>(null);
   const [savedPosts, setSavedPosts] = useState<Dashboard[]>([]);
   
-  // Mock data for user's posts with subTopics
   const [userPosts, setUserPosts] = useState<Dashboard[]>([
     {
       id: "user-post-1",

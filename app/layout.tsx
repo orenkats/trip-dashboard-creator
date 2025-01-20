@@ -1,14 +1,12 @@
-import { Toaster } from "@/components/ui/toaster"
-import { Toaster as Sonner } from "@/components/ui/sonner"
-import { TooltipProvider } from "@/components/ui/tooltip"
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import './globals.css'
+import type { Metadata } from "next"
+import { Inter } from "next/font/google"
+import "./globals.css"
 
-const queryClient = new QueryClient()
+const inter = Inter({ subsets: ["latin"] })
 
-export const metadata = {
-  title: 'Wanderpost - Share Your Travel Stories',
-  description: 'Share and discover curated travel experiences from influencers around the world',
+export const metadata: Metadata = {
+  title: "Wanderpost - Share Your Travel Stories",
+  description: "Share and discover curated travel experiences from influencers around the world",
 }
 
 export default function RootLayout({
@@ -18,15 +16,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
-        <QueryClientProvider client={queryClient}>
-          <TooltipProvider>
-            <Toaster />
-            <Sonner />
-            {children}
-          </TooltipProvider>
-        </QueryClientProvider>
-      </body>
+      <head>
+        <meta charSet="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="author" content="Lovable" />
+        <meta property="og:image" content="/og-image.png" />
+      </head>
+      <body className={inter.className}>{children}</body>
     </html>
   )
 }

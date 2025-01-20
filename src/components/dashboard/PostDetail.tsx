@@ -7,6 +7,10 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { PostHeader } from './PostHeader';
 import { PostCoverSection } from './PostCoverSection';
 import { usePostEdit } from './hooks/usePostEdit';
+import CategorySection from './CategorySection';
+import CaptionSection from './CaptionSection';
+import CoverPhotoSection from './CoverPhotoSection';
+import LocationSection from './LocationSection';
 
 interface PostDetailProps {
   post: Dashboard;
@@ -20,14 +24,56 @@ export const PostDetail = ({ post, onClose }: PostDetailProps) => {
     editedTitle,
     editedDescription,
     editedLocation,
+    editedSubTopics,
     setEditedTitle,
     setEditedDescription,
     setEditedLocation,
+    setEditedSubTopics,
     setIsEditing,
     handleSaveEdit,
     handleBookmark,
     handleAddComment,
   } = usePostEdit(post);
+
+  if (isEditing) {
+    return (
+      <div className="max-w-2xl mx-auto p-6 space-y-8 bg-white rounded-xl shadow-sm">
+        <PostHeader
+          title={currentPost.title}
+          isEditing={isEditing}
+          editedTitle={editedTitle}
+          isSaved={currentPost.isSaved || false}
+          authorId={currentPost.authorId}
+          onEditedTitleChange={setEditedTitle}
+          onSaveEdit={handleSaveEdit}
+          onToggleEdit={() => setIsEditing(false)}
+          onBookmark={handleBookmark}
+          onClose={onClose}
+        />
+
+        <CaptionSection 
+          description={editedDescription}
+          onDescriptionChange={setEditedDescription}
+        />
+
+        <CoverPhotoSection 
+          coverPhoto={currentPost.coverPhoto}
+          onCoverPhotoChange={() => {}}
+        />
+
+        <CategorySection 
+          subTopics={editedSubTopics}
+          onSubTopicsChange={setEditedSubTopics}
+        />
+
+        <LocationSection
+          location={editedLocation}
+          onLocationChange={setEditedLocation}
+          onLocationSelect={setEditedLocation}
+        />
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-screen-xl mx-auto">

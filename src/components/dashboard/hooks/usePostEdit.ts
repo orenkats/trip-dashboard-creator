@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useToast } from "@/hooks/use-toast";
-import { Dashboard } from '../types';
+import { Dashboard, SubTopic } from '../types';
 
 export const usePostEdit = (post: Dashboard) => {
   const [currentPost, setCurrentPost] = useState(post);
@@ -8,6 +8,7 @@ export const usePostEdit = (post: Dashboard) => {
   const [editedTitle, setEditedTitle] = useState(post.title);
   const [editedDescription, setEditedDescription] = useState(post.description);
   const [editedLocation, setEditedLocation] = useState(post.location);
+  const [editedSubTopics, setEditedSubTopics] = useState<SubTopic[]>(post.subTopics);
   const { toast } = useToast();
 
   const handleSaveEdit = () => {
@@ -15,7 +16,8 @@ export const usePostEdit = (post: Dashboard) => {
       ...prev,
       title: editedTitle,
       description: editedDescription,
-      location: editedLocation
+      location: editedLocation,
+      subTopics: editedSubTopics
     }));
     setIsEditing(false);
     toast({
@@ -57,9 +59,11 @@ export const usePostEdit = (post: Dashboard) => {
     editedTitle,
     editedDescription,
     editedLocation,
+    editedSubTopics,
     setEditedTitle,
     setEditedDescription,
     setEditedLocation,
+    setEditedSubTopics,
     setIsEditing,
     handleSaveEdit,
     handleBookmark,

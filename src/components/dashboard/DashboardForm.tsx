@@ -50,12 +50,6 @@ const DashboardForm = ({ onClose }: DashboardFormProps) => {
       <div className={styles.formSection}>
         <TitleSection title={title} onTitleChange={setTitle} />
         
-        <LocationSection
-          location={location}
-          onLocationChange={setLocation}
-          onLocationSelect={setLocation}
-        />
-
         <CaptionSection 
           description={description} 
           onDescriptionChange={setDescription} 
@@ -69,6 +63,12 @@ const DashboardForm = ({ onClose }: DashboardFormProps) => {
         <CategorySection 
           subTopics={subTopics}
           onSubTopicsChange={setSubTopics}
+        />
+
+        <LocationSection
+          location={location}
+          onLocationChange={setLocation}
+          onLocationSelect={setLocation}
         />
 
         <ActionButtons

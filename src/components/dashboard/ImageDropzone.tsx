@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { ImagePlus, X } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { cn } from '../../lib/utils';
 
 interface ImageDropzoneProps {
   onImageUpload: (file: File) => void;

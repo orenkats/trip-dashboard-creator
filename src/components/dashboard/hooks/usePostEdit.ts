@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import { useToast } from "@/hooks/use-toast";
-import { Dashboard, SubTopic } from '../types';
+import { useState } from "react";
+import { useToast } from "../../../hooks/use-toast";
+import { Dashboard } from "../types";
 
 export const usePostEdit = (post: Dashboard) => {
   const [currentPost, setCurrentPost] = useState(post);
@@ -8,11 +8,11 @@ export const usePostEdit = (post: Dashboard) => {
   const [editedTitle, setEditedTitle] = useState(post.title);
   const [editedDescription, setEditedDescription] = useState(post.description);
   const [editedLocation, setEditedLocation] = useState(post.location);
-  const [editedSubTopics, setEditedSubTopics] = useState<SubTopic[]>(post.subTopics);
+  const [editedSubTopics, setEditedSubTopics] = useState(post.subTopics);
   const { toast } = useToast();
 
   const handleSaveEdit = () => {
-    setCurrentPost(prev => ({
+    setCurrentPost((prev) => ({
       ...prev,
       title: editedTitle,
       description: editedDescription,
@@ -22,20 +22,19 @@ export const usePostEdit = (post: Dashboard) => {
     setIsEditing(false);
     toast({
       title: "Changes saved",
-      description: "Your post has been updated successfully",
+      description: "Your post has been updated successfully"
     });
   };
 
   const handleBookmark = () => {
-    setCurrentPost(prev => ({
+    setCurrentPost((prev) => ({
       ...prev,
       isSaved: !prev.isSaved,
       savedCount: prev.isSaved ? prev.savedCount - 1 : prev.savedCount + 1
     }));
-
     toast({
       title: currentPost.isSaved ? "Removed from bookmarks" : "Added to bookmarks",
-      description: currentPost.isSaved ? "Post removed from your bookmarks" : "Post saved to your bookmarks",
+      description: currentPost.isSaved ? "Post removed from your bookmarks" : "Post saved to your bookmarks"
     });
   };
 
@@ -44,10 +43,9 @@ export const usePostEdit = (post: Dashboard) => {
       id: Math.random().toString(),
       content,
       authorUsername: "current_user",
-      createdAt: new Date().toISOString(),
+      createdAt: new Date().toISOString()
     };
-
-    setCurrentPost(prev => ({
+    setCurrentPost((prev) => ({
       ...prev,
       comments: [newComment, ...prev.comments]
     }));
@@ -67,6 +65,6 @@ export const usePostEdit = (post: Dashboard) => {
     setIsEditing,
     handleSaveEdit,
     handleBookmark,
-    handleAddComment,
+    handleAddComment
   };
 };

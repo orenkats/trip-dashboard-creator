@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from "@/components/ui/button";
+import { Button } from "../../components/ui/button";
 import { SubTopicsList } from './SubTopicsList';
 import { toast } from 'sonner';
 import { SubTopic, SubTopicType } from './types';

@@ -2,32 +2,26 @@ import React from 'react';
 import { Compass, Plus, User, Search } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Button } from "../ui/button";
+import { NavigationProps } from '../../types/dashboard';
 
-interface NavigationProps {
-  onNewPost?: () => void;
-  onProfileClick?: () => void;
-  onHomeClick?: () => void;
-}
-
-export const Navigation = ({ onNewPost, onProfileClick, onHomeClick }: NavigationProps) => {
+export const Navigation: React.FC<NavigationProps> = ({ 
+  onNewPost, 
+  onProfileClick, 
+  onHomeClick 
+}) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const isIndexPage = location.pathname === "/";
 
   const handleHomeClick = () => {
-    if (onHomeClick) {
-      onHomeClick();  // First close any open modals
-    }
+    onHomeClick?.();
     if (location.pathname !== "/") {
-      navigate("/");  // Then navigate if needed
+      navigate("/");
     }
   };
 
   const handleProfileClick = () => {
-    if (onProfileClick) {
-      onProfileClick();  // First close the modal if it's open
-    }
-    navigate("/profile"); // Then navigate to profile
+    onProfileClick?.();
+    navigate("/profile");
   };
 
   const handleDiscoverClick = () => {
@@ -57,25 +51,25 @@ export const Navigation = ({ onNewPost, onProfileClick, onHomeClick }: Navigatio
             <Search size={20} />
           </Button>
           {onNewPost && (
-            <Button 
-              variant="ghost"
-              size="sm"
-              onClick={onNewPost}
-              className="hidden sm:flex items-center gap-2"
-            >
-              <Plus size={16} />
-              <span className="hidden sm:inline">New Travel Post</span>
-            </Button>
-          )}
-          {onNewPost && (
-            <Button 
-              variant="ghost"
-              size="icon"
-              onClick={onNewPost}
-              className="sm:hidden h-9 w-9"
-            >
-              <Plus size={20} />
-            </Button>
+            <>
+              <Button 
+                variant="ghost"
+                size="sm"
+                onClick={onNewPost}
+                className="hidden sm:flex items-center gap-2"
+              >
+                <Plus size={16} />
+                <span className="hidden sm:inline">New Travel Post</span>
+              </Button>
+              <Button 
+                variant="ghost"
+                size="icon"
+                onClick={onNewPost}
+                className="sm:hidden h-9 w-9"
+              >
+                <Plus size={20} />
+              </Button>
+            </>
           )}
           <Button 
             variant="ghost" 

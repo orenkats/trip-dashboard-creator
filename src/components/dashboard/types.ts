@@ -21,7 +21,7 @@ export interface SubTopic {
   places: Place[];
 }
 
-export interface Dashboard {
+export interface Post {
   id: string;
   title: string;
   description: string;
@@ -32,6 +32,9 @@ export interface Dashboard {
   createdAt: string;
   subTopics: SubTopic[];
   savedCount: number;
-  isSaved?: boolean;
+  isSaved: boolean;
   comments: Comment[];
 }
+
+// For backward compatibility
+export type Dashboard = Post;

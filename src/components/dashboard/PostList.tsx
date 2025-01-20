@@ -1,4 +1,4 @@
-import { Dashboard } from './types';
+import { Post } from './types';
 import { BookmarkIcon, MapPin, Edit2, SlidersHorizontal } from 'lucide-react';
 import { Button } from '../ui/button';
 import { useToast } from "@/hooks/use-toast";
@@ -12,9 +12,9 @@ import {
 import { useState } from 'react';
 
 interface PostListProps {
-  posts: Dashboard[];
-  onPostClick: (post: Dashboard) => void;
-  onSavePost?: (post: Dashboard) => void;
+  posts: Post[];
+  onPostClick: (post: Post) => void;
+  onSavePost?: (post: Post) => void;
 }
 
 type SortOption = 'newest' | 'oldest' | 'mostSaved' | 'leastSaved';
@@ -24,7 +24,7 @@ export const PostList = ({ posts, onPostClick, onSavePost }: PostListProps) => {
   const [sortBy, setSortBy] = useState<SortOption>('newest');
   const [locationFilter, setLocationFilter] = useState<string>('all');
 
-  const handleSaveClick = (e: React.MouseEvent, post: Dashboard) => {
+  const handleSaveClick = (e: React.MouseEvent, post: Post) => {
     e.stopPropagation();
     if (onSavePost) {
       onSavePost(post);

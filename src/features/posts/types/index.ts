@@ -1,38 +1,4 @@
-export interface Place {
-  id: string;
-  name: string;
-  location: string;
-  notes: string;
-  photos: string[];
-}
+import { Post, SubTopic, Place, Comment } from '@/components/dashboard/types';
 
-export interface SubTopic {
-  id: string;
-  type: string;
-  places: Place[];
-}
-
-export interface Comment {
-  id: string;
-  content: string;
-  authorUsername: string;
-  createdAt: string;
-}
-
-export interface Post {
-  id: string;
-  title: string;
-  description: string;
-  coverPhoto?: string;
-  location: string;
-  authorId: string;
-  authorUsername: string;
-  createdAt: string;
-  subTopics: SubTopic[];
-  savedCount: number;
-  isSaved: boolean;
-  comments: Comment[];
-}
-
-// For backward compatibility, keep Dashboard type as an alias
-export type Dashboard = Post;
+export type { Post, SubTopic, Place, Comment };
+export type { Dashboard } from '@/components/dashboard/types';

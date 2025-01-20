@@ -1,10 +1,10 @@
-import { useState, useEffect } from 'react';
-import { Dashboard } from '../types';
+import { useState } from 'react';
+import { Post } from '../types';
 
-export const usePostList = (initialPosts: Dashboard[]) => {
-  const [posts, setPosts] = useState<Dashboard[]>(initialPosts);
+export const usePostList = (initialPosts: Post[]) => {
+  const [posts, setPosts] = useState<Post[]>(initialPosts);
 
-  const handleSavePost = (postToSave: Dashboard) => {
+  const handleSavePost = (postToSave: Post) => {
     setPosts(prevPosts => 
       prevPosts.map(post => 
         post.id === postToSave.id 

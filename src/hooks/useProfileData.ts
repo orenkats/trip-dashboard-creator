@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Post } from '../types/dashboard';
+import { ProfileData } from '../types/profile';
 import { toast } from 'sonner';
 
-export const useProfileData = (initialPosts: Post[]) => {
+const useProfileData = (initialPosts: Post[]): ProfileData => {
   const [showNewDashboard, setShowNewDashboard] = useState(false);
   const [selectedPost, setSelectedPost] = useState<Post | null>(null);
   const [posts, setPosts] = useState<Post[]>(initialPosts);
@@ -26,16 +27,22 @@ export const useProfileData = (initialPosts: Post[]) => {
       )
     );
 
-    toast(postToSave.isSaved ? "Post removed from bookmarks" : "Post saved to bookmarks");
+    toast.success(
+      postToSave.isSaved 
+        ? "Post removed from bookmarks" 
+        : "Post saved to bookmarks"
+    );
   };
 
   return {
     showNewDashboard,
-    setShowNewDashboard,
     selectedPost,
-    setSelectedPost,
     posts,
     savedPosts,
+    setShowNewDashboard,
+    setSelectedPost,
     handleSavePost,
   };
 };
+
+export default useProfileData;

@@ -4,7 +4,7 @@ import NewPostForm from "../components/dashboard/NewPostForm";
 import { PostDetail } from "../components/dashboard/PostDetail";
 import ProfileHeader from "../components/profile/ProfileHeader";
 import ProfileTabs from "../components/profile/ProfileTabs";
-import { useProfileData } from "../hooks/useProfileData";
+import useProfileData from "../hooks/useProfileData";
 import { Post } from "../types/dashboard";
 
 const initialUserPosts: Post[] = [
@@ -38,22 +38,16 @@ const initialUserPosts: Post[] = [
   }
 ];
 
-const Profile = () => {
+const Profile: React.FC = () => {
   const {
     showNewDashboard,
-    setShowNewDashboard,
     selectedPost,
-    setSelectedPost,
     posts,
     savedPosts,
+    setShowNewDashboard,
+    setSelectedPost,
     handleSavePost,
   } = useProfileData(initialUserPosts);
-
-  const handleNavigationClick = () => {
-    if (selectedPost) {
-      setSelectedPost(null);
-    }
-  };
 
   const renderContent = () => {
     if (showNewDashboard) {
@@ -70,8 +64,11 @@ const Profile = () => {
     }
 
     return (
-      <div className="max-w-screen-xl mx-auto">
-        <ProfileHeader />
+      <div className="max-w-screen-xl mx-auto space-y-6">
+        <ProfileHeader 
+          username="@travelblogger"
+          bio="Exploring the world one city at a time"
+        />
         <ProfileTabs
           posts={posts}
           savedPosts={savedPosts}
@@ -86,7 +83,7 @@ const Profile = () => {
     <div className="min-h-screen bg-gradient-to-b from-white to-[#F8F8F8]">
       <Navigation 
         onNewPost={() => setShowNewDashboard(true)} 
-        onProfileClick={handleNavigationClick}
+        onProfileClick={() => setSelectedPost(null)}
       />
       <main className="pt-20 pb-12 px-4">
         {renderContent()}

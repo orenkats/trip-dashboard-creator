@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import { Post } from './types';
 import { BookmarkIcon, MapPin, Edit2, SlidersHorizontal } from 'lucide-react';
 import { Button } from '../ui/button';
@@ -9,7 +10,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
-import { useState } from 'react';
 
 interface PostListProps {
   posts: Post[];

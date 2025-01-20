@@ -2,12 +2,11 @@ import React from 'react';
 import { Dashboard } from './types';
 import { Card, CardContent } from '../ui/card';
 import { ScrollArea } from '../ui/scroll-area';
-import { PlaceDetail } from './PlaceDetail';
 import { Comments } from './Comments';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import { PostHeader } from './PostHeader';
 import { PostCoverSection } from './PostCoverSection';
 import { usePostEdit } from './hooks/usePostEdit';
+import { PostContent } from './PostContent';
 import CategorySection from './CategorySection';
 import CaptionSection from './CaptionSection';
 import CoverPhotoSection from './CoverPhotoSection';
@@ -19,7 +18,7 @@ interface PostDetailProps {
   onClose: () => void;
 }
 
-export const PostDetail = ({ post, onClose }: PostDetailProps) => {
+export const PostDetail: React.FC<PostDetailProps> = ({ post, onClose }) => {
   const {
     currentPost,
     isEditing,
@@ -109,29 +108,7 @@ export const PostDetail = ({ post, onClose }: PostDetailProps) => {
       />
 
       <ScrollArea className="h-[calc(100vh-400px)]">
-        <Tabs defaultValue={currentPost.subTopics[0]?.type} className="w-full">
-          <TabsList className="mb-4">
-            {currentPost.subTopics.map((subTopic) => (
-              <TabsTrigger key={subTopic.id} value={subTopic.type}>
-                {subTopic.type}
-              </TabsTrigger>
-            ))}
-          </TabsList>
-
-          {currentPost.subTopics.map((subTopic) => (
-            <TabsContent key={subTopic.id} value={subTopic.type}>
-              <Card>
-                <CardContent className="pt-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {subTopic.places.map((place) => (
-                      <PlaceDetail key={place.id} place={place} />
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            </TabsContent>
-          ))}
-        </Tabs>
+        <PostContent subTopics={currentPost.subTopics} />
         
         <Card className="mt-6">
           <CardContent className="pt-6">

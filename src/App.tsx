@@ -15,6 +15,7 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
+          <Route path="/profile" element={<Index />} /> {/* Temporarily pointing to Index until we create the Profile page */}
         </Routes>
       </BrowserRouter>
     </TooltipProvider>

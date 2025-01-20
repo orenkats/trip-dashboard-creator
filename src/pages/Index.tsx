@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { Dashboard, SubTopicType } from "@/components/dashboard/types";
+import { Dashboard } from "@/components/dashboard/types";
 import { Button } from "@/components/ui/button";
-import { Plus } from "lucide-react";
+import { Plus, Home, User } from "lucide-react";
 import { Link } from "react-router-dom";
 import DashboardForm from "@/components/dashboard/DashboardForm";
 import { PostList } from "@/components/dashboard/PostList";
@@ -19,13 +19,13 @@ const Index = () => {
       description: "My favorite spots in the eternal city",
       coverPhoto: "https://images.unsplash.com/photo-1552832230-c0197dd311b5",
       location: "Rome, Italy",
-      authorId: "1",
-      authorUsername: "@travelblogger",
+      authorId: "2", // Different user
+      authorUsername: "@italyexplorer",
       createdAt: new Date().toISOString(),
       subTopics: [
         {
           id: "st1",
-          type: "Restaurants" as SubTopicType,
+          type: "Restaurants",
           places: [
             {
               id: "p1",
@@ -35,30 +35,6 @@ const Index = () => {
               photos: [
                 "https://images.unsplash.com/photo-1414235077428-338989a2e8c0",
                 "https://images.unsplash.com/photo-1467003909585-2f8a72700288",
-                "https://images.unsplash.com/photo-1544025162-d76694265947"
-              ]
-            },
-            {
-              id: "p2",
-              name: "Salumeria Roscioli",
-              location: "Via dei Giubbonari, 21/22, Rome",
-              notes: "Best cheese and cured meats. Try the burrata!",
-              photos: ["https://images.unsplash.com/photo-1466637574441-749b8f19452f"]
-            }
-          ]
-        },
-        {
-          id: "st2",
-          type: "Spots" as SubTopicType,
-          places: [
-            {
-              id: "p3",
-              name: "Giardino degli Aranci",
-              location: "Piazza Pietro D'Illiria, Rome",
-              notes: "Beautiful orange garden with amazing view of the city",
-              photos: [
-                "https://images.unsplash.com/photo-1529260830199-42c24126f198",
-                "https://images.unsplash.com/photo-1520175480921-4edfa2983e0f"
               ]
             }
           ]
@@ -73,13 +49,13 @@ const Index = () => {
       description: "Best beaches and secret spots",
       coverPhoto: "https://images.unsplash.com/photo-1504214208698-ea1916a2195a",
       location: "Koh Phangan, Thailand",
-      authorId: "1",
-      authorUsername: "@travelblogger",
+      authorId: "3", // Different user
+      authorUsername: "@asiatraveler",
       createdAt: new Date().toISOString(),
       subTopics: [
         {
           id: "st4",
-          type: "Spots" as SubTopicType,
+          type: "Spots",
           places: [
             {
               id: "p5",
@@ -87,13 +63,6 @@ const Index = () => {
               location: "North Coast, Koh Phangan",
               notes: "Hidden gem with crystal clear water. Access through jungle path.",
               photos: ["https://images.unsplash.com/photo-1507525428034-b723cf961d3e"]
-            },
-            {
-              id: "p6",
-              name: "Bottle Beach",
-              location: "Northeast Coast, Koh Phangan",
-              notes: "Pristine beach only accessible by boat or hiking",
-              photos: ["https://images.unsplash.com/photo-1519046904884-53103b34b206"]
             }
           ]
         }
@@ -105,15 +74,19 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-[#F8F8F8]">
+      {/* Navigation Bar */}
       <nav className="border-b bg-white/80 backdrop-blur-sm fixed w-full z-10">
         <div className="max-w-screen-xl mx-auto px-4 py-3 flex items-center justify-between">
           <Link to="/" onClick={() => {
             setShowNewDashboard(false);
             setSelectedPost(null);
           }}>
-            <h1 className="text-xl font-semibold bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] text-transparent bg-clip-text cursor-pointer">
-              Wanderlens
-            </h1>
+            <div className="flex items-center gap-2">
+              <Home size={24} className="text-[#fd1d1d]" />
+              <h1 className="text-xl font-semibold bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] text-transparent bg-clip-text">
+                Wanderlens
+              </h1>
+            </div>
           </Link>
           <div className="flex items-center gap-4">
             <Button 
@@ -125,11 +98,16 @@ const Index = () => {
               <Plus size={16} />
               New Travel Post
             </Button>
-            <span className="text-sm text-gray-500">@travelblogger</span>
+            <Link to="/profile">
+              <Button variant="ghost" size="icon">
+                <User size={20} />
+              </Button>
+            </Link>
           </div>
         </div>
       </nav>
       
+      {/* Main Content */}
       <main className="pt-20 pb-12 px-4">
         {showNewDashboard ? (
           <DashboardForm onClose={() => setShowNewDashboard(false)} />
@@ -139,10 +117,12 @@ const Index = () => {
             onClose={() => setSelectedPost(null)}
           />
         ) : (
-          <PostList 
-            posts={mockDashboards}
-            onPostClick={setSelectedPost}
-          />
+          <div className="max-w-screen-xl mx-auto">
+            <PostList 
+              posts={mockDashboards}
+              onPostClick={setSelectedPost}
+            />
+          </div>
         )}
       </main>
     </div>

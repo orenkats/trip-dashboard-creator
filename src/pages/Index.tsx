@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import NewPostForm from "../components/dashboard/NewPostForm";
 import { PostList } from "../components/dashboard/PostList";
 import { PostDetail } from "../components/dashboard/PostDetail";

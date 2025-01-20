@@ -3,7 +3,7 @@ import { PostHeader } from "./PostHeader";
 import { Post } from "../../types/dashboard";
 import CaptionSection from "./CaptionSection";
 import LocationSection from "./LocationSection";
-import { PostCoverSection } from "./PostCoverSection";
+import CoverPhotoSection from "./CoverPhotoSection";
 import { SubTopicsList } from "./SubTopicsList";
 import { Comments } from "./Comments";
 import { SubTopic } from './types';
@@ -32,12 +32,10 @@ const PostDetailView: React.FC<PostDetailViewProps> = ({
   onClose,
 }) => {
   const handleSubTopicsChange = (newSubTopics: SubTopic[]) => {
-    // This would typically update the post's subTopics
     console.log('Updating subtopics:', newSubTopics);
   };
 
   const handleAddComment = (content: string) => {
-    // This would typically add a new comment
     console.log('Adding comment:', content);
   };
 
@@ -62,13 +60,7 @@ const PostDetailView: React.FC<PostDetailViewProps> = ({
         onDescriptionChange={() => {}}
       />
       
-      <LocationSection
-        location={currentPost.location}
-        onLocationChange={() => {}}
-        onLocationSelect={() => {}}
-      />
-      
-      <PostCoverSection
+      <CoverPhotoSection
         coverPhoto={currentPost.coverPhoto || ''}
         description={currentPost.description}
         location={currentPost.location}
@@ -82,6 +74,12 @@ const PostDetailView: React.FC<PostDetailViewProps> = ({
       <SubTopicsList 
         subTopics={currentPost.subTopics}
         setSubTopics={handleSubTopicsChange}
+      />
+
+      <LocationSection
+        location={currentPost.location}
+        onLocationChange={() => {}}
+        onLocationSelect={() => {}}
       />
       
       <Comments 

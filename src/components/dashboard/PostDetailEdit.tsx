@@ -3,7 +3,7 @@ import { PostHeader } from "./PostHeader";
 import { Post } from "../../types/dashboard";
 import CaptionSection from "./CaptionSection";
 import LocationSection from "./LocationSection";
-import { PostCoverSection } from "./PostCoverSection";
+import CoverPhotoSection from "./CoverPhotoSection";
 import { SubTopicsList } from "./SubTopicsList";
 import { Comments } from "./Comments";
 import { SubTopic } from './types';
@@ -36,12 +36,10 @@ const PostDetailEdit: React.FC<PostDetailEditProps> = ({
   onClose,
 }) => {
   const handleSubTopicsChange = (newSubTopics: SubTopic[]) => {
-    // This would typically update the post's subTopics
     console.log('Updating subtopics:', newSubTopics);
   };
 
   const handleAddComment = (content: string) => {
-    // This would typically add a new comment
     console.log('Adding comment:', content);
   };
 
@@ -66,13 +64,7 @@ const PostDetailEdit: React.FC<PostDetailEditProps> = ({
         onDescriptionChange={setEditedDescription}
       />
       
-      <LocationSection
-        location={editedLocation}
-        onLocationChange={setEditedLocation}
-        onLocationSelect={setEditedLocation}
-      />
-      
-      <PostCoverSection
+      <CoverPhotoSection
         coverPhoto={currentPost.coverPhoto || ''}
         description={editedDescription}
         location={editedLocation}
@@ -86,6 +78,12 @@ const PostDetailEdit: React.FC<PostDetailEditProps> = ({
       <SubTopicsList 
         subTopics={currentPost.subTopics} 
         setSubTopics={handleSubTopicsChange}
+      />
+
+      <LocationSection
+        location={editedLocation}
+        onLocationChange={setEditedLocation}
+        onLocationSelect={setEditedLocation}
       />
       
       <Comments 

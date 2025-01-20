@@ -1,3 +1,4 @@
+import React from 'react';
 import { Place } from './types';
 import { Card, CardContent } from '../ui/card';
 import {
@@ -12,7 +13,7 @@ interface PlaceDetailProps {
   place: Place;
 }
 
-export const PlaceDetail = ({ place }: PlaceDetailProps) => {
+export const PlaceDetail: React.FC<PlaceDetailProps> = ({ place }) => {
   return (
     <Card>
       <CardContent className="p-4">

@@ -1,21 +1,15 @@
 import { useState, useEffect } from "react";
-import { Dashboard } from "@/components/dashboard/types";
-import { PostList } from "@/components/dashboard/PostList";
-import { User, Grid, Bookmark } from "lucide-react";
+import { Dashboard } from "@/features/posts/types";
 import { Navigation } from "@/components/dashboard/Navigation";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import DashboardForm from "@/components/dashboard/DashboardForm";
 import { PostDetail } from "@/components/dashboard/PostDetail";
-import { useNavigate, useLocation } from "react-router-dom";
+import { PostList } from "@/components/dashboard/PostList";
+import { usePostList } from "@/features/posts/hooks/usePostList";
+import { useNavigate } from "react-router-dom";
 
-const Profile = () => {
-  const [showNewDashboard, setShowNewDashboard] = useState(false);
-  const [selectedPost, setSelectedPost] = useState<Dashboard | null>(null);
-  const [savedPosts, setSavedPosts] = useState<Dashboard[]>([]);
-  const navigate = useNavigate();
-  const location = useLocation();
-  
-  const [userPosts, setUserPosts] = useState<Dashboard[]>([
+const initialUserPosts: Dashboard[] = [
     {
       id: "user-post-1",
       title: "My Trip to Paris",
@@ -85,12 +79,17 @@ const Profile = () => {
       isSaved: false,
       comments: []
     }
-  ]);
+];
+
+const Profile = () => {
+  const [showNewDashboard, setShowNewDashboard] = useState(false);
+  const [selectedPost, setSelectedPost] = useState<Dashboard | null>(null);
+  const [savedPosts, setSavedPosts] = useState<Dashboard[]>([]);
+  const { posts: userPosts, handleSavePost } = usePostList(initialUserPosts);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const savedPostIds = JSON.parse(localStorage.getItem('savedPosts') || '[]');
-    const allPosts = [...userPosts];
-    const saved = allPosts.filter(post => savedPostIds.includes(post.id));
+    const saved = userPosts.filter(post => post.isSaved);
     setSavedPosts(saved);
   }, [userPosts]);
 
@@ -117,40 +116,25 @@ const Profile = () => {
           />
         </div>
       ) : (
-        <>
-          <div className="bg-white border-b mt-16">
-            <div className="max-w-screen-xl mx-auto px-4 py-8">
-              <div className="flex items-center gap-6">
-                <div className="w-24 h-24 rounded-full bg-gray-100 flex items-center justify-center">
-                  <User className="w-12 h-12 text-gray-400" />
-                </div>
-                <div>
-                  <h1 className="text-2xl font-semibold">@currentuser</h1>
-                  <p className="text-gray-600 mt-1">Travel enthusiast | Photography lover</p>
-                  <div className="flex gap-4 mt-2">
-                    <div>
-                      <span className="font-semibold">{userPosts.length}</span>
-                      <span className="text-gray-600 ml-1">posts</span>
-                    </div>
-                    <div>
-                      <span className="font-semibold">{savedPosts.length}</span>
-                      <span className="text-gray-600 ml-1">saved</span>
-                    </div>
-                  </div>
-                </div>
+        <main className="pt-20 pb-12 px-4">
+          <div className="max-w-screen-xl mx-auto">
+            <div className="flex items-center gap-4 mb-8">
+              <Avatar className="h-20 w-20">
+                <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+                <AvatarFallback>CN</AvatarFallback>
+              </Avatar>
+              <div>
+                <h1 className="text-2xl font-bold">@travelblogger</h1>
+                <p className="text-gray-500">Exploring the world one city at a time</p>
               </div>
             </div>
-          </div>
 
-          <div className="max-w-screen-xl mx-auto px-4">
             <Tabs defaultValue="posts" className="w-full">
-              <TabsList className="grid w-full grid-cols-2 mt-4">
-                <TabsTrigger value="posts" className="flex items-center gap-2">
-                  <Grid size={16} />
+              <TabsList className="w-full justify-start">
+                <TabsTrigger value="posts" className="flex-1">
                   Posts
                 </TabsTrigger>
-                <TabsTrigger value="saved" className="flex items-center gap-2">
-                  <Bookmark size={16} />
+                <TabsTrigger value="saved" className="flex-1">
                   Saved
                 </TabsTrigger>
               </TabsList>
@@ -162,7 +146,7 @@ const Profile = () => {
               </TabsContent>
             </Tabs>
           </div>
-        </>
+        </main>
       )}
     </div>
   );

@@ -2,35 +2,10 @@ import { useState } from "react";
 import { Navigation } from "@/components/dashboard/Navigation";
 import { Input } from "@/components/ui/input";
 import { Search, User, MapPin } from "lucide-react";
+import { useSearch } from "@/features/search/hooks/useSearch";
 
 const Discover = () => {
-  const [searchQuery, setSearchQuery] = useState("");
-  
-  // Mock data for demonstration - in a real app, this would come from an API
-  const searchResults = [
-    {
-      id: "1",
-      type: "user",
-      username: "@traveler",
-      name: "World Traveler"
-    },
-    {
-      id: "2",
-      type: "post",
-      title: "Amazing Paris Trip",
-      location: "Paris, France"
-    }
-  ];
-
-  const filteredResults = searchResults.filter((result) => {
-    const searchTerm = searchQuery.toLowerCase();
-    if (result.type === "user") {
-      return result.username.toLowerCase().includes(searchTerm) || 
-             result.name.toLowerCase().includes(searchTerm);
-    }
-    return result.title.toLowerCase().includes(searchTerm) || 
-           result.location.toLowerCase().includes(searchTerm);
-  });
+  const { searchQuery, setSearchQuery, searchResults, filteredResults } = useSearch();
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-[#F8F8F8]">

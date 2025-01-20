@@ -1,12 +1,12 @@
 import React from 'react';
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
+import { Input } from "../ui/input";
+import { Textarea } from "../ui/textarea";
+import { Button } from "../ui/button";
 import { Trash2, MapPin, Camera } from 'lucide-react';
 import { ImageDropzone } from './ImageDropzone';
+import { Card, CardContent, CardHeader } from "../ui/card";
 import { Place } from './types';
 import styles from './styles/dashboard.module.css';
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
 
 interface PlaceCardProps {
   place: Place;

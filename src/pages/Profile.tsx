@@ -1,15 +1,15 @@
 'use client'
 
 import { useState, useEffect } from "react"
-import { Navigation } from "@/components/dashboard/Navigation"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import NewPostForm from "@/components/dashboard/NewPostForm"
-import { PostDetail } from "@/components/dashboard/PostDetail"
-import { PostList } from "@/components/dashboard/PostList"
-import { usePostList } from "@/features/posts/hooks/usePostList"
+import { Navigation } from "../components/dashboard/Navigation"
+import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../components/ui/tabs"
+import NewPostForm from "../components/dashboard/NewPostForm"
+import { PostDetail } from "../components/dashboard/PostDetail"
+import { PostList } from "../components/dashboard/PostList"
+import { usePostList } from "../features/posts/hooks/usePostList"
 import { useParams } from "react-router-dom"
-import { Post } from "@/features/posts/types"
+import { Post } from "../features/posts/types"
 
 const initialUserPosts: Post[] = [
   {

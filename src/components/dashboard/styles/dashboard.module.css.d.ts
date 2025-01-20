@@ -5,6 +5,7 @@ declare const styles: {
   readonly subtitle: string;
   readonly formSection: string;
   readonly inputGroup: string;
+  readonly label: string;
   readonly addButton: string;
   readonly buttonContainer: string;
 };

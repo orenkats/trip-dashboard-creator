@@ -1,7 +1,7 @@
 import React from 'react';
-import { Button } from "@/components/ui/button";
+import { Button } from "../ui/button";
 import { toast } from 'sonner';
-import { validateTravelPost } from '@/utils/location';
+import { validateTravelPost } from '../../utils/location';
 import styles from './styles/dashboard.module.css';
 
 interface ActionButtonsProps {

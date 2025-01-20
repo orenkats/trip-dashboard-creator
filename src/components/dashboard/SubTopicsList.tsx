@@ -4,8 +4,7 @@ import { Plus, MapPin, Compass, Utensils, Landmark } from 'lucide-react';
 import { toast } from 'sonner';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import { PlaceCard } from './PlaceCard';
-import { SubTopic, SubTopicType } from './types';
-import styles from './styles/dashboard.module.css';
+import { SubTopic, SubTopicType, Place } from './types';
 
 interface SubTopicsListProps {
   subTopics: SubTopic[];
@@ -50,7 +49,7 @@ export const SubTopicsList: React.FC<SubTopicsListProps> = ({
   const updatePlace = (
     subTopicId: string,
     placeId: string,
-    field: keyof Omit<SubTopic['places'][0], 'id' | 'photos'>,
+    field: keyof Omit<Place, 'id' | 'photos'>,
     value: string
   ) => {
     setSubTopics(subTopics.map(st => {

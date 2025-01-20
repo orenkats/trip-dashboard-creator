@@ -37,8 +37,8 @@ export const Navigation = ({ onNewPost, onProfileClick }: NavigationProps) => {
           className="flex items-center gap-2"
           onClick={handleHomeClick}
         >
-          <Compass size={24} className="text-[#8B7355]" />
-          <h1 className="text-xl font-semibold bg-gradient-to-r from-[#8B7355] via-[#A67B5B] to-[#C4A484] text-transparent bg-clip-text">
+          <Compass size={24} className="text-[#7C8363]" />
+          <h1 className="text-xl font-semibold bg-gradient-to-r from-[#7C8363] via-[#9CA38A] to-[#B5BCA1] text-transparent bg-clip-text">
             Exploria
           </h1>
         </Button>

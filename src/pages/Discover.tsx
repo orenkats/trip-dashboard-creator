@@ -1,7 +1,7 @@
 import React from 'react'
-import { Navigation } from '@/components/dashboard/Navigation'
-import { Input } from '@/components/ui/input'
-import { useSearch } from '@/features/search/hooks/useSearch'
+import { Navigation } from '../components/dashboard/Navigation'
+import { Input } from '../components/ui/input'
+import { useSearch } from '../features/search/hooks/useSearch'
 
 const Discover = () => {
   const { searchQuery, setSearchQuery, filteredResults } = useSearch()

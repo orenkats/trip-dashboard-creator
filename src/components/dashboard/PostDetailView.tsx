@@ -6,10 +6,6 @@ import { Comments } from "./Comments";
 
 interface PostDetailViewProps {
   currentPost: Post;
-  editedTitle: string;
-  editedDescription: string;
-  editedLocation: string;
-  setEditedTitle: (title: string) => void;
   handleSaveEdit: () => void;
   setIsEditing: (isEditing: boolean) => void;
   handleBookmark: () => void;
@@ -51,7 +47,7 @@ const PostDetailView: React.FC<PostDetailViewProps> = ({
       </div>
       
       {currentPost.coverPhoto && (
-        <div className="relative aspect-[4/3] mb-6">
+        <div className="relative aspect-[16/9] mb-6">
           <img
             src={currentPost.coverPhoto}
             alt="Cover"

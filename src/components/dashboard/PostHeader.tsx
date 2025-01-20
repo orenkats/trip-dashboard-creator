@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from '../ui/button';
-import { BookmarkIcon, Edit2, Check, X } from 'lucide-react';
+import { BookmarkIcon, X, Check } from 'lucide-react';
 import { Input } from '../ui/input';
 import { useNavigate } from 'react-router-dom';
 
@@ -40,32 +40,15 @@ export const PostHeader: React.FC<PostHeaderProps> = ({
   };
 
   return (
-    <div className="flex flex-col gap-2 mb-6">
-      {isEditing ? (
-        <Input
-          value={editedTitle}
-          onChange={(e) => onEditedTitleChange(e.target.value)}
-          className="text-2xl font-semibold w-full mr-4"
-        />
-      ) : (
-        <>
-          <h2 className="text-2xl font-semibold">{title}</h2>
-          <button
-            onClick={handleUsernameClick}
-            className="text-sm text-gray-600 hover:text-gray-900 transition-colors w-fit"
-          >
-            {authorUsername}
-          </button>
-        </>
-      )}
-      <div className="flex gap-2">
+    <div className="relative mb-6">
+      <div className="absolute right-0 top-0 flex gap-2">
         {isCurrentUserPost && (
           <Button
             variant="ghost"
             size="sm"
             onClick={() => isEditing ? onSaveEdit() : onToggleEdit()}
           >
-            {isEditing ? <Check size={20} /> : <Edit2 size={20} />}
+            {isEditing ? <Check size={20} /> : null}
           </Button>
         )}
         <Button
@@ -79,6 +62,26 @@ export const PostHeader: React.FC<PostHeaderProps> = ({
         <Button variant="ghost" size="sm" onClick={onClose}>
           <X size={20} />
         </Button>
+      </div>
+      
+      <div className="pr-24">
+        {isEditing ? (
+          <Input
+            value={editedTitle}
+            onChange={(e) => onEditedTitleChange(e.target.value)}
+            className="text-2xl font-semibold w-full mr-4"
+          />
+        ) : (
+          <>
+            <h2 className="text-2xl font-semibold">{title}</h2>
+            <button
+              onClick={handleUsernameClick}
+              className="text-sm text-gray-600 hover:text-gray-900 transition-colors w-fit"
+            >
+              {authorUsername}
+            </button>
+          </>
+        )}
       </div>
     </div>
   );

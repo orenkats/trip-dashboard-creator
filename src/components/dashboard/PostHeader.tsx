@@ -1,3 +1,4 @@
+import React from 'react';
 import { Button } from '../ui/button';
 import { BookmarkIcon, Edit2, Check, X } from 'lucide-react';
 import { Input } from '../ui/input';
@@ -15,7 +16,7 @@ interface PostHeaderProps {
   onClose: () => void;
 }
 
-export const PostHeader = ({
+export const PostHeader: React.FC<PostHeaderProps> = ({
   title,
   isEditing,
   editedTitle,
@@ -26,7 +27,7 @@ export const PostHeader = ({
   onToggleEdit,
   onBookmark,
   onClose,
-}: PostHeaderProps) => {
+}) => {
   return (
     <div className="flex justify-between items-center mb-6">
       {isEditing ? (

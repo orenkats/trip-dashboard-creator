@@ -1,3 +1,4 @@
+import React from 'react';
 import { Dashboard } from './types';
 import { Card, CardContent } from '../ui/card';
 import { ScrollArea } from '../ui/scroll-area';

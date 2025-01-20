@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from "../ui/button";
-import { Plus, Compass, Utensils, Landmark, Pencil } from 'lucide-react';
+import { Plus, Compass, Utensils, Landmark, Pencil, Hotel, Gem, Link } from 'lucide-react';
 import { toast } from 'sonner';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import { PlaceCard } from './PlaceCard';
@@ -20,6 +20,12 @@ const getSubTopicIcon = (type: SubTopicType) => {
       return <Compass className="w-4 h-4" />;
     case 'Culture':
       return <Landmark className="w-4 h-4" />;
+    case 'Hotels':
+      return <Hotel className="w-4 h-4" />;
+    case 'Hidden Gems':
+      return <Gem className="w-4 h-4" />;
+    case 'Links':
+      return <Link className="w-4 h-4" />;
     default:
       return <Compass className="w-4 h-4" />;
   }

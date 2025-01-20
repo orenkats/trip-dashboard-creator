@@ -1,4 +1,4 @@
-export type SubTopicType = 'Restaurants' | 'Spots' | 'Culture';
+export type SubTopicType = 'Restaurants' | 'Spots' | 'Culture' | 'Hotels' | 'Hidden Gems' | 'Links';
 
 export interface Comment {
   id: string;

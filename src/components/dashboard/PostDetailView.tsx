@@ -18,6 +18,7 @@ interface PostDetailViewProps {
   setIsEditing: (isEditing: boolean) => void;
   handleBookmark: () => void;
   onClose: () => void;
+  isCurrentUserPost: boolean;
 }
 
 const PostDetailView: React.FC<PostDetailViewProps> = ({
@@ -30,6 +31,7 @@ const PostDetailView: React.FC<PostDetailViewProps> = ({
   setIsEditing,
   handleBookmark,
   onClose,
+  isCurrentUserPost,
 }) => {
   const handleSubTopicsChange = (newSubTopics: SubTopic[]) => {
     console.log('Updating subtopics:', newSubTopics);
@@ -55,9 +57,10 @@ const PostDetailView: React.FC<PostDetailViewProps> = ({
         authorUsername={currentPost.authorUsername}
         onEditedTitleChange={setEditedTitle}
         onSaveEdit={handleSaveEdit}
-        onToggleEdit={() => setIsEditing(true)}
+        onToggleEdit={setIsEditing}
         onBookmark={handleBookmark}
         onClose={onClose}
+        isCurrentUserPost={isCurrentUserPost}
       />
       
       <CaptionSection

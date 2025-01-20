@@ -15,6 +15,9 @@ export const PostDetail: React.FC<PostDetailProps> = ({ post, onClose }) => {
   const [editedDescription, setEditedDescription] = useState(post.description);
   const [editedLocation, setEditedLocation] = useState(post.location);
 
+  // Check if the current user is the author of the post
+  const isCurrentUserPost = currentPost.authorId === "1"; // Assuming "1" is the current user's ID
+
   const handleSaveEdit = () => {
     setCurrentPost(prev => ({
       ...prev,
@@ -33,10 +36,18 @@ export const PostDetail: React.FC<PostDetailProps> = ({ post, onClose }) => {
     }));
   };
 
+  // Only allow editing if it's the current user's post
+  const handleToggleEdit = () => {
+    if (!isCurrentUserPost) {
+      return;
+    }
+    setIsEditing(!isEditing);
+  };
+
   return (
     <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50">
       <div className="bg-white rounded-lg w-full max-w-3xl max-h-[90vh] overflow-y-auto p-6">
-        {isEditing ? (
+        {isEditing && isCurrentUserPost ? (
           <PostDetailEdit
             currentPost={currentPost}
             editedTitle={editedTitle}
@@ -58,9 +69,10 @@ export const PostDetail: React.FC<PostDetailProps> = ({ post, onClose }) => {
             editedLocation={editedLocation}
             setEditedTitle={setEditedTitle}
             handleSaveEdit={handleSaveEdit}
-            setIsEditing={setIsEditing}
+            setIsEditing={handleToggleEdit}
             handleBookmark={handleBookmark}
             onClose={onClose}
+            isCurrentUserPost={isCurrentUserPost}
           />
         )}
       </div>

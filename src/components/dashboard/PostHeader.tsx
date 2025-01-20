@@ -16,6 +16,7 @@ interface PostHeaderProps {
   onToggleEdit: () => void;
   onBookmark: () => void;
   onClose: () => void;
+  isCurrentUserPost: boolean;
 }
 
 export const PostHeader: React.FC<PostHeaderProps> = ({
@@ -30,6 +31,7 @@ export const PostHeader: React.FC<PostHeaderProps> = ({
   onToggleEdit,
   onBookmark,
   onClose,
+  isCurrentUserPost,
 }) => {
   const navigate = useNavigate();
 
@@ -57,7 +59,7 @@ export const PostHeader: React.FC<PostHeaderProps> = ({
         </>
       )}
       <div className="flex gap-2">
-        {authorId === "1" && (
+        {isCurrentUserPost && (
           <Button
             variant="ghost"
             size="sm"

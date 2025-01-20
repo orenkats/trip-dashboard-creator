@@ -1,8 +1,8 @@
 import React from 'react'
 import { Routes, Route } from 'react-router-dom'
 import Profile from './pages/Profile'
-import Home from '../app/page'
-import Discover from '../app/discover/page'
+import Home from './pages/Home'
+import Discover from './pages/Discover'
 
 export default function App() {
   return (

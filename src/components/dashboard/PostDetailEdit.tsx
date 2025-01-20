@@ -1,11 +1,12 @@
 import React from 'react';
 import { PostHeader } from "./PostHeader";
 import { Post } from "../../types/dashboard";
-import { CaptionSection } from "./CaptionSection";
-import { LocationSection } from "./LocationSection";
-import { CoverPhotoSection } from "./CoverPhotoSection";
+import CaptionSection from "./CaptionSection";
+import LocationSection from "./LocationSection";
+import { PostCoverSection } from "./PostCoverSection";
 import { SubTopicsList } from "./SubTopicsList";
 import { Comments } from "./Comments";
+import { SubTopic } from './types';
 
 interface PostDetailEditProps {
   currentPost: Post;
@@ -34,6 +35,16 @@ const PostDetailEdit: React.FC<PostDetailEditProps> = ({
   handleBookmark,
   onClose,
 }) => {
+  const handleSubTopicsChange = (newSubTopics: SubTopic[]) => {
+    // This would typically update the post's subTopics
+    console.log('Updating subtopics:', newSubTopics);
+  };
+
+  const handleAddComment = (content: string) => {
+    // This would typically add a new comment
+    console.log('Adding comment:', content);
+  };
+
   return (
     <div className="space-y-6">
       <PostHeader
@@ -51,24 +62,36 @@ const PostDetailEdit: React.FC<PostDetailEditProps> = ({
       />
       
       <CaptionSection
-        description={currentPost.description}
-        isEditing={true}
-        editedDescription={editedDescription}
-        onEditedDescriptionChange={setEditedDescription}
+        description={editedDescription}
+        onDescriptionChange={setEditedDescription}
       />
       
       <LocationSection
-        location={currentPost.location}
+        location={editedLocation}
+        onLocationChange={setEditedLocation}
+        onLocationSelect={setEditedLocation}
+      />
+      
+      <PostCoverSection
+        coverPhoto={currentPost.coverPhoto || ''}
+        description={editedDescription}
+        location={editedLocation}
         isEditing={true}
+        editedDescription={editedDescription}
         editedLocation={editedLocation}
+        onEditedDescriptionChange={setEditedDescription}
         onEditedLocationChange={setEditedLocation}
       />
       
-      <CoverPhotoSection coverPhoto={currentPost.coverPhoto} />
+      <SubTopicsList 
+        subTopics={currentPost.subTopics} 
+        setSubTopics={handleSubTopicsChange}
+      />
       
-      <SubTopicsList subTopics={currentPost.subTopics} />
-      
-      <Comments comments={currentPost.comments} />
+      <Comments 
+        comments={currentPost.comments}
+        onAddComment={handleAddComment}
+      />
     </div>
   );
 };

@@ -16,7 +16,7 @@ const Index = () => {
       description: "My favorite spots in the eternal city",
       coverPhoto: "https://images.unsplash.com/photo-1552832230-c0197dd311b5",
       location: "Rome, Italy",
-      authorId: "2", // Different user
+      authorId: "2",
       authorUsername: "@italyexplorer",
       createdAt: new Date().toISOString(),
       subTopics: [
@@ -38,7 +38,15 @@ const Index = () => {
         }
       ],
       savedCount: 128,
-      isSaved: false
+      isSaved: false,
+      comments: [
+        {
+          id: "c1",
+          content: "Love this place! The carbonara is amazing!",
+          authorUsername: "@foodlover",
+          createdAt: new Date().toISOString(),
+        }
+      ]
     },
     {
       id: "2",
@@ -46,7 +54,7 @@ const Index = () => {
       description: "Best beaches and secret spots",
       coverPhoto: "https://images.unsplash.com/photo-1504214208698-ea1916a2195a",
       location: "Koh Phangan, Thailand",
-      authorId: "3", // Different user
+      authorId: "3",
       authorUsername: "@asiatraveler",
       createdAt: new Date().toISOString(),
       subTopics: [
@@ -65,7 +73,8 @@ const Index = () => {
         }
       ],
       savedCount: 85,
-      isSaved: true
+      isSaved: true,
+      comments: []
     }
   ];
 
@@ -73,7 +82,6 @@ const Index = () => {
     <div className="min-h-screen bg-gradient-to-b from-white to-[#F8F8F8]">
       <Navigation onNewPost={() => setShowNewDashboard(true)} />
       
-      {/* Main Content */}
       <main className="pt-20 pb-12 px-4">
         {showNewDashboard ? (
           <DashboardForm onClose={() => setShowNewDashboard(false)} />

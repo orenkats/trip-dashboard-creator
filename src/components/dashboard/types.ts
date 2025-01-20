@@ -1,5 +1,12 @@
 export type SubTopicType = 'Restaurants' | 'Spots' | 'Culture';
 
+export interface Comment {
+  id: string;
+  content: string;
+  authorUsername: string;
+  createdAt: string;
+}
+
 export interface Place {
   id: string;
   name: string;
@@ -26,4 +33,5 @@ export interface Dashboard {
   subTopics: SubTopic[];
   savedCount: number;
   isSaved?: boolean;
+  comments: Comment[];
 }

@@ -58,14 +58,14 @@ export const PostList = ({ posts, onPostClick, onSavePost }: PostListProps) => {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row gap-4 bg-white p-4 rounded-lg shadow-sm">
-        <div className="flex items-center gap-2">
+      <div className="flex flex-row gap-2 overflow-x-auto bg-white p-4 rounded-lg shadow-sm -mx-4 sm:mx-0">
+        <div className="flex items-center gap-2 flex-shrink-0">
           <SlidersHorizontal size={16} className="text-gray-500" />
           <Select
             value={sortBy}
             onValueChange={(value: SortOption) => setSortBy(value)}
           >
-            <SelectTrigger className="w-[180px]">
+            <SelectTrigger className="w-[140px] sm:w-[180px]">
               <SelectValue placeholder="Sort by..." />
             </SelectTrigger>
             <SelectContent>
@@ -76,13 +76,13 @@ export const PostList = ({ posts, onPostClick, onSavePost }: PostListProps) => {
             </SelectContent>
           </Select>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 flex-shrink-0">
           <MapPin size={16} className="text-gray-500" />
           <Select
             value={locationFilter}
             onValueChange={setLocationFilter}
           >
-            <SelectTrigger className="w-[180px]">
+            <SelectTrigger className="w-[140px] sm:w-[180px]">
               <SelectValue placeholder="Filter by location..." />
             </SelectTrigger>
             <SelectContent>

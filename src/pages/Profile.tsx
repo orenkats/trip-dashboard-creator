@@ -1,12 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { Navigation } from "../components/dashboard/Navigation";
-import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "../components/ui/tabs";
 import NewPostForm from "../components/dashboard/NewPostForm";
 import { PostDetail } from "../components/dashboard/PostDetail";
-import { PostList } from "../components/dashboard/PostList";
-import { usePostManagement } from "../hooks/usePostManagement";
-import { Post, SubTopicType } from "../types/dashboard";
+import ProfileHeader from "../components/profile/ProfileHeader";
+import ProfileTabs from "../components/profile/ProfileTabs";
+import { useProfileData } from "../hooks/useProfileData";
+import { Post } from "../types/dashboard";
 
 const initialUserPosts: Post[] = [
   {
@@ -21,7 +20,7 @@ const initialUserPosts: Post[] = [
     subTopics: [
       {
         id: "st1",
-        type: "Restaurants" as SubTopicType,
+        type: "Restaurants",
         places: [
           {
             id: "p1",
@@ -40,9 +39,15 @@ const initialUserPosts: Post[] = [
 ];
 
 const Profile = () => {
-  const [showNewDashboard, setShowNewDashboard] = useState(false);
-  const [selectedPost, setSelectedPost] = useState<Post | null>(null);
-  const { posts, savedPosts, handleSavePost } = usePostManagement(initialUserPosts);
+  const {
+    showNewDashboard,
+    setShowNewDashboard,
+    selectedPost,
+    setSelectedPost,
+    posts,
+    savedPosts,
+    handleSavePost,
+  } = useProfileData(initialUserPosts);
 
   const handleNavigationClick = () => {
     if (selectedPost) {
@@ -66,37 +71,13 @@ const Profile = () => {
 
     return (
       <div className="max-w-screen-xl mx-auto">
-        <div className="flex items-center gap-4 mb-8">
-          <Avatar className="h-20 w-20">
-            <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-            <AvatarFallback>CN</AvatarFallback>
-          </Avatar>
-          <div>
-            <h1 className="text-2xl font-bold">@travelblogger</h1>
-            <p className="text-gray-500">Exploring the world one city at a time</p>
-          </div>
-        </div>
-
-        <Tabs defaultValue="posts" className="w-full">
-          <TabsList className="w-full justify-start">
-            <TabsTrigger value="posts" className="flex-1">Posts</TabsTrigger>
-            <TabsTrigger value="saved" className="flex-1">Saved</TabsTrigger>
-          </TabsList>
-          <TabsContent value="posts" className="mt-6">
-            <PostList 
-              posts={posts} 
-              onPostClick={setSelectedPost}
-              onSavePost={handleSavePost}
-            />
-          </TabsContent>
-          <TabsContent value="saved" className="mt-6">
-            <PostList 
-              posts={savedPosts} 
-              onPostClick={setSelectedPost}
-              onSavePost={handleSavePost}
-            />
-          </TabsContent>
-        </Tabs>
+        <ProfileHeader />
+        <ProfileTabs
+          posts={posts}
+          savedPosts={savedPosts}
+          onPostClick={setSelectedPost}
+          onSavePost={handleSavePost}
+        />
       </div>
     );
   };

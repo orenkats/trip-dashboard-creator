@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useEffect } from "react"
-import { Post } from "@/features/posts/types"
 import { Navigation } from "@/components/dashboard/Navigation"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
@@ -10,98 +9,99 @@ import { PostDetail } from "@/components/dashboard/PostDetail"
 import { PostList } from "@/components/dashboard/PostList"
 import { usePostList } from "@/features/posts/hooks/usePostList"
 import { useParams } from "react-router-dom"
+import { Post } from "@/features/posts/types"
 
 const initialUserPosts: Post[] = [
-    {
-      id: "user-post-1",
-      title: "My Trip to Paris",
-      description: "Exploring the city of lights",
-      coverPhoto: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34",
-      location: "Paris, France",
-      authorId: "1",
-      authorUsername: "@currentuser",
-      createdAt: new Date().toISOString(),
-      subTopics: [
-        {
-          id: "st1",
-          type: "Restaurants",
-          places: [
-            {
-              id: "p1",
-              name: "Le Petit Bistro",
-              location: "Montmartre",
-              notes: "Amazing French cuisine",
-              photos: []
-            }
-          ]
-        },
-        {
-          id: "st2",
-          type: "Spots",
-          places: [
-            {
-              id: "p2",
-              name: "Eiffel Tower",
-              location: "Champ de Mars",
-              notes: "Iconic landmark",
-              photos: []
-            }
-          ]
-        }
-      ],
-      savedCount: 45,
-      isSaved: false,
-      comments: []
-    },
-    {
-      id: "user-post-2",
-      title: "Venice Adventures",
-      description: "Getting lost in Venice's narrow streets",
-      coverPhoto: "https://images.unsplash.com/photo-1523906834658-6e24ef2386f9",
-      location: "Venice, Italy",
-      authorId: "1",
-      authorUsername: "@currentuser",
-      createdAt: new Date().toISOString(),
-      subTopics: [
-        {
-          id: "st3",
-          type: "Culture",
-          places: [
-            {
-              id: "p3",
-              name: "St. Mark's Basilica",
-              location: "Piazza San Marco",
-              notes: "Beautiful Byzantine architecture",
-              photos: []
-            }
-          ]
-        }
-      ],
-      savedCount: 32,
-      isSaved: false,
-      comments: []
-    }
+  {
+    id: "user-post-1",
+    title: "My Trip to Paris",
+    description: "Exploring the city of lights",
+    coverPhoto: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34",
+    location: "Paris, France",
+    authorId: "1",
+    authorUsername: "@currentuser",
+    createdAt: new Date().toISOString(),
+    subTopics: [
+      {
+        id: "st1",
+        type: "Restaurants",
+        places: [
+          {
+            id: "p1",
+            name: "Le Petit Bistro",
+            location: "Montmartre",
+            notes: "Amazing French cuisine",
+            photos: []
+          }
+        ]
+      },
+      {
+        id: "st2",
+        type: "Spots",
+        places: [
+          {
+            id: "p2",
+            name: "Eiffel Tower",
+            location: "Champ de Mars",
+            notes: "Iconic landmark",
+            photos: []
+          }
+        ]
+      }
+    ],
+    savedCount: 45,
+    isSaved: false,
+    comments: []
+  },
+  {
+    id: "user-post-2",
+    title: "Venice Adventures",
+    description: "Getting lost in Venice's narrow streets",
+    coverPhoto: "https://images.unsplash.com/photo-1523906834658-6e24ef2386f9",
+    location: "Venice, Italy",
+    authorId: "1",
+    authorUsername: "@currentuser",
+    createdAt: new Date().toISOString(),
+    subTopics: [
+      {
+        id: "st3",
+        type: "Culture",
+        places: [
+          {
+            id: "p3",
+            name: "St. Mark's Basilica",
+            location: "Piazza San Marco",
+            notes: "Beautiful Byzantine architecture",
+            photos: []
+          }
+        ]
+      }
+    ],
+    savedCount: 32,
+    isSaved: false,
+    comments: []
+  }
 ];
 
 export default function Profile() {
   const { username } = useParams();
-  const [showNewDashboard, setShowNewDashboard] = useState(false)
-  const [selectedPost, setSelectedPost] = useState<Post | null>(null)
-  const [savedPosts, setSavedPosts] = useState<Post[]>([])
-  const { posts: userPosts, handleSavePost } = usePostList(initialUserPosts)
+  const [showNewDashboard, setShowNewDashboard] = useState(false);
+  const [selectedPost, setSelectedPost] = useState<Post | null>(null);
+  const [savedPosts, setSavedPosts] = useState<Post[]>([]);
+  const { posts: userPosts, handleSavePost } = usePostList(initialUserPosts);
 
   useEffect(() => {
-    const saved = userPosts.filter(post => post.isSaved)
-    setSavedPosts(saved)
-  }, [userPosts])
+    const saved = userPosts.filter(post => post.isSaved);
+    setSavedPosts(saved);
+  }, [userPosts]);
 
   const handleNavigationClick = () => {
     if (selectedPost) {
-      setSelectedPost(null)
+      setSelectedPost(null);
     }
-  }
+  };
 
-  const isCurrentUser = username === "@currentuser"
+  const isCurrentUser = username === "@currentuser";
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-[#F8F8F8]">
@@ -163,5 +163,5 @@ export default function Profile() {
         )}
       </main>
     </div>
-  )
+  );
 }

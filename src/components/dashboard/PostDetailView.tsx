@@ -62,8 +62,6 @@ const PostDetailView: React.FC<PostDetailViewProps> = ({
       
       <CoverPhotoSection
         coverPhoto={currentPost.coverPhoto || ''}
-        description={currentPost.description}
-        location={currentPost.location}
         isEditing={false}
         editedDescription={editedDescription}
         editedLocation={editedLocation}

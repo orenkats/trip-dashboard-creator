@@ -66,8 +66,6 @@ const PostDetailEdit: React.FC<PostDetailEditProps> = ({
       
       <CoverPhotoSection
         coverPhoto={currentPost.coverPhoto || ''}
-        description={editedDescription}
-        location={editedLocation}
         isEditing={true}
         editedDescription={editedDescription}
         editedLocation={editedLocation}

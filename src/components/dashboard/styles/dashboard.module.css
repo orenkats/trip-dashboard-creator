@@ -1,9 +1,9 @@
 .container {
-  @apply max-w-2xl mx-auto p-6 space-y-8;
+  @apply max-w-2xl mx-auto p-6 space-y-8 bg-white rounded-xl shadow-sm;
 }
 
 .header {
-  @apply text-center mb-8;
+  @apply text-center space-y-2 mb-8;
 }
 
 .title {
@@ -11,7 +11,7 @@
 }
 
 .subtitle {
-  @apply text-sm text-gray-500 mt-2;
+  @apply text-gray-500 text-sm;
 }
 
 .formSection {
@@ -23,9 +23,9 @@
 }
 
 .addButton {
-  @apply w-full py-6 border-2 border-dashed hover:border-primary hover:text-primary transition-colors;
+  @apply w-full justify-center border-dashed hover:bg-gray-50/50;
 }
 
 .buttonContainer {
-  @apply flex justify-end gap-4 mt-8;
+  @apply flex items-center justify-end space-x-4 pt-6 border-t;
 }

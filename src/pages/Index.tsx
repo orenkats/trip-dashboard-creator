@@ -58,6 +58,64 @@ const initialPosts: Post[] = [
             ]
           }
         ]
+      },
+      {
+        id: "st3",
+        type: "Culture" as SubTopicType,
+        places: [
+          {
+            id: "p4",
+            name: "Galleria Borghese",
+            location: "Piazzale Scipione Borghese, 5",
+            notes: "Stunning art collection featuring Bernini sculptures and Caravaggio paintings. Book tickets in advance!",
+            photos: [
+              "https://images.unsplash.com/photo-1590645780426-c4a77bcf9c33"
+            ]
+          }
+        ]
+      },
+      {
+        id: "st4",
+        type: "Hotels" as SubTopicType,
+        places: [
+          {
+            id: "p5",
+            name: "Hotel Locarno",
+            location: "Via della Penna, 22",
+            notes: "Historic art deco hotel with a beautiful bar. Perfect location near Villa Borghese.",
+            photos: [
+              "https://images.unsplash.com/photo-1566073771259-6a8506099945"
+            ]
+          }
+        ]
+      },
+      {
+        id: "st5",
+        type: "Hidden Gems" as SubTopicType,
+        places: [
+          {
+            id: "p6",
+            name: "Quartiere Coppedè",
+            location: "Quartiere Coppedè",
+            notes: "Art Nouveau architectural district off the tourist track. Look for the amazing fountain of the frogs!",
+            photos: [
+              "https://images.unsplash.com/photo-1548142813-c348350df52b"
+            ]
+          }
+        ]
+      },
+      {
+        id: "st6",
+        type: "Links" as SubTopicType,
+        places: [
+          {
+            id: "p7",
+            name: "Rome Museum Pass",
+            location: "Online Booking",
+            notes: "Official website for booking museum passes and skip-the-line tickets",
+            photos: []
+          }
+        ]
       }
     ],
     savedCount: 128,

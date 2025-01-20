@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom'
-import Profile from './app/profile/[username]/page'
+import Profile from './pages/Profile'
 
 export default function App() {
   return (

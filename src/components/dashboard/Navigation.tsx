@@ -1,5 +1,5 @@
 import { Home, Plus, User, Search } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
 interface NavigationProps {
@@ -8,6 +8,8 @@ interface NavigationProps {
 
 export const Navigation = ({ onNewPost }: NavigationProps) => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const isIndexPage = location.pathname === "/";
 
   return (
     <nav className="border-b bg-white/80 backdrop-blur-sm fixed top-0 left-0 right-0 w-full z-10">
@@ -37,11 +39,13 @@ export const Navigation = ({ onNewPost }: NavigationProps) => {
               New Travel Post
             </Button>
           )}
-          <Link to="/profile">
-            <Button variant="ghost" size="icon">
-              <User size={20} />
-            </Button>
-          </Link>
+          {!isIndexPage && (
+            <Link to="/profile">
+              <Button variant="ghost" size="icon">
+                <User size={20} />
+              </Button>
+            </Link>
+          )}
         </div>
       </div>
     </nav>

@@ -28,42 +28,37 @@ const PostDetailView: React.FC<PostDetailViewProps> = ({
 
   return (
     <div className="space-y-6">
-      <div className="relative aspect-[4/3] mb-6 rounded-xl overflow-hidden">
-        <img
-          src={currentPost.coverPhoto}
-          alt={currentPost.title}
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-        <div className="absolute bottom-0 left-0 right-0 p-6">
-          <h1 className="text-3xl font-semibold text-white mb-2">{currentPost.title}</h1>
-          <div className="flex items-center gap-2 text-white/90">
+      <div className="flex gap-6 items-start mb-6">
+        <div className="flex-1">
+          <PostHeader
+            title={currentPost.title}
+            isEditing={false}
+            editedTitle={currentPost.title}
+            isSaved={currentPost.isSaved || false}
+            authorId={currentPost.authorId}
+            authorUsername={currentPost.authorUsername}
+            onEditedTitleChange={() => {}}
+            onSaveEdit={handleSaveEdit}
+            onToggleEdit={() => setIsEditing(true)}
+            onBookmark={handleBookmark}
+            onClose={onClose}
+            isCurrentUserPost={isCurrentUserPost}
+          />
+          <div className="flex items-center gap-2 text-gray-500 mt-2">
             <MapPin size={16} />
             <span>{currentPost.location}</span>
+            <span className="text-gray-400">•</span>
+            <span className="text-gray-500">{currentPost.authorUsername}</span>
           </div>
-          <button
-            onClick={() => {}}
-            className="text-sm text-white/80 hover:text-white transition-colors mt-2"
-          >
-            {currentPost.authorUsername}
-          </button>
+        </div>
+        <div className="w-1/3 flex-shrink-0">
+          <img
+            src={currentPost.coverPhoto}
+            alt={currentPost.title}
+            className="w-full h-48 object-cover rounded-lg shadow-sm"
+          />
         </div>
       </div>
-
-      <PostHeader
-        title={currentPost.title}
-        isEditing={false}
-        editedTitle={currentPost.title}
-        isSaved={currentPost.isSaved || false}
-        authorId={currentPost.authorId}
-        authorUsername={currentPost.authorUsername}
-        onEditedTitleChange={() => {}}
-        onSaveEdit={handleSaveEdit}
-        onToggleEdit={() => setIsEditing(true)}
-        onBookmark={handleBookmark}
-        onClose={onClose}
-        isCurrentUserPost={isCurrentUserPost}
-      />
       
       <div className="text-gray-700 mb-4">
         {currentPost.description}

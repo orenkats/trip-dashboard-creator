@@ -27,7 +27,7 @@
 }
 
 .buttonContainer {
-  @apply flex items-center justify-end space-x-4 pt-6 border-t;
+  @apply flex items-center justify-center space-x-4 pt-6 border-t;
 }
 
 .placeCard {

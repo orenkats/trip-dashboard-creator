@@ -8,7 +8,7 @@ interface NavigationProps {
 
 export const Navigation = ({ onNewPost }: NavigationProps) => {
   return (
-    <nav className="border-b bg-white/80 backdrop-blur-sm fixed w-full z-10">
+    <nav className="border-b bg-white/80 backdrop-blur-sm fixed top-0 left-0 right-0 w-full z-10">
       <div className="max-w-screen-xl mx-auto px-4 py-3 flex items-center justify-between">
         <Link to="/">
           <div className="flex items-center gap-2">

@@ -1,3 +1,4 @@
+import React from 'react';
 import { Post } from './types';
 import { BookmarkIcon, MapPin, Edit2, SlidersHorizontal } from 'lucide-react';
 import { Button } from '../ui/button';

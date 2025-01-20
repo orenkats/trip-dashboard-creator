@@ -8,7 +8,7 @@ import { ImageDropzone } from './ImageDropzone';
 import { SubTopic, SubTopicType } from './types';
 import styles from './styles/dashboard.module.css';
 import { MapPin, X } from 'lucide-react';
-import Map from './Map';
+import LocationSection from './LocationSection';
 
 interface DashboardFormProps {
   onClose?: () => void;
@@ -33,7 +33,6 @@ const DashboardForm = ({ onClose }: DashboardFormProps) => {
   };
 
   const handleAddSubTopic = (type: SubTopicType) => {
-    // Check if subtopic type already exists
     if (subTopics.some(st => st.type === type)) {
       toast.error(`${type} section already exists`);
       return;
@@ -46,10 +45,6 @@ const DashboardForm = ({ onClose }: DashboardFormProps) => {
     };
     setSubTopics([...subTopics, newSubTopic]);
     toast.success(`${type} section added`);
-  };
-
-  const handleLocationSelect = (selectedLocation: string) => {
-    setLocation(selectedLocation);
   };
 
   const handleSaveDraft = () => {
@@ -112,18 +107,11 @@ const DashboardForm = ({ onClose }: DashboardFormProps) => {
           />
         </div>
 
-        <div className="mb-8">
-          <label className={styles.label}>Location</label>
-          <div className="space-y-4">
-            <Map onLocationSelect={handleLocationSelect} />
-            <Input
-              value={location}
-              onChange={(e) => setLocation(e.target.value)}
-              placeholder="Click on the map or type the location"
-              className="w-full text-lg bg-gray-50/50 border-gray-200"
-            />
-          </div>
-        </div>
+        <LocationSection
+          location={location}
+          onLocationChange={setLocation}
+          onLocationSelect={setLocation}
+        />
 
         <div className="mb-8">
           <label htmlFor="description" className={styles.label}>Caption</label>

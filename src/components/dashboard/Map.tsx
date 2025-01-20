@@ -1,42 +1,18 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Input } from '../ui/input';
-import { toast } from 'sonner';
 import { Button } from '../ui/button';
 import { Share2, MapPin } from 'lucide-react';
+import { MapProps } from './types/map';
+import { useMapLocation } from './hooks/useMapLocation';
 
-interface MapProps {
-  onLocationSelect?: (location: string) => void;
-}
-
-const Map = ({ onLocationSelect }: MapProps) => {
-  const [mapsUrl, setMapsUrl] = useState('');
-  const [location, setLocation] = useState('');
-
-  const handleMapsUrlSubmit = () => {
-    if (!mapsUrl) {
-      toast.error('Please enter a Google Maps URL');
-      return;
-    }
-
-    try {
-      // Extract location name from the URL if possible
-      const locationName = decodeURIComponent(mapsUrl.split('/')[5] || 'Selected Location');
-      setLocation(locationName);
-      onLocationSelect?.(locationName);
-      toast.success('Location added successfully');
-    } catch (error) {
-      toast.error('Invalid Google Maps URL');
-    }
-  };
-
-  const handleShareOnGoogleMaps = () => {
-    if (mapsUrl) {
-      window.open(mapsUrl, '_blank');
-      toast.success('Opening location in Google Maps');
-    } else {
-      toast.error('Please add a Google Maps link first');
-    }
-  };
+const Map: React.FC<MapProps> = ({ onLocationSelect }) => {
+  const {
+    mapsUrl,
+    setMapsUrl,
+    location,
+    handleMapsUrlSubmit,
+    handleShareOnGoogleMaps
+  } = useMapLocation(onLocationSelect);
 
   return (
     <div className="space-y-4">

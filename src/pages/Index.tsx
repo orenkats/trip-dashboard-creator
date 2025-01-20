@@ -34,6 +34,21 @@ const Index = () => {
               ]
             }
           ]
+        },
+        {
+          id: "st2",
+          type: "Spots",
+          places: [
+            {
+              id: "p2",
+              name: "Trastevere",
+              location: "Trastevere, Rome",
+              notes: "Charming neighborhood with cobblestone streets and authentic Roman atmosphere",
+              photos: [
+                "https://images.unsplash.com/photo-1529260830199-42c24126f198",
+              ]
+            }
+          ]
         }
       ],
       savedCount: 128,

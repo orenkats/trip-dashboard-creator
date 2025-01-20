@@ -7,7 +7,6 @@ import DashboardForm from "@/components/dashboard/DashboardForm";
 import { PostDetail } from "@/components/dashboard/PostDetail";
 import { PostList } from "@/components/dashboard/PostList";
 import { usePostList } from "@/features/posts/hooks/usePostList";
-import { useNavigate } from "react-router-dom";
 
 const initialUserPosts: Dashboard[] = [
     {
@@ -86,7 +85,6 @@ const Profile = () => {
   const [selectedPost, setSelectedPost] = useState<Dashboard | null>(null);
   const [savedPosts, setSavedPosts] = useState<Dashboard[]>([]);
   const { posts: userPosts, handleSavePost } = usePostList(initialUserPosts);
-  const navigate = useNavigate();
 
   useEffect(() => {
     const saved = userPosts.filter(post => post.isSaved);
@@ -106,17 +104,15 @@ const Profile = () => {
         onProfileClick={handleNavigationClick}
       />
       
-      {showNewDashboard ? (
-        <DashboardForm onClose={() => setShowNewDashboard(false)} />
-      ) : selectedPost ? (
-        <div className="container max-w-4xl mx-auto px-4 py-6">
+      <main className="pt-20 pb-12 px-4">
+        {showNewDashboard ? (
+          <DashboardForm onClose={() => setShowNewDashboard(false)} />
+        ) : selectedPost ? (
           <PostDetail 
             post={selectedPost}
             onClose={() => setSelectedPost(null)}
           />
-        </div>
-      ) : (
-        <main className="pt-20 pb-12 px-4">
+        ) : (
           <div className="max-w-screen-xl mx-auto">
             <div className="flex items-center gap-4 mb-8">
               <Avatar className="h-20 w-20">
@@ -139,15 +135,23 @@ const Profile = () => {
                 </TabsTrigger>
               </TabsList>
               <TabsContent value="posts" className="mt-6">
-                <PostList posts={userPosts} onPostClick={setSelectedPost} />
+                <PostList 
+                  posts={userPosts} 
+                  onPostClick={setSelectedPost}
+                  onSavePost={handleSavePost}
+                />
               </TabsContent>
               <TabsContent value="saved" className="mt-6">
-                <PostList posts={savedPosts} onPostClick={setSelectedPost} />
+                <PostList 
+                  posts={savedPosts} 
+                  onPostClick={setSelectedPost}
+                  onSavePost={handleSavePost}
+                />
               </TabsContent>
             </Tabs>
           </div>
-        </main>
-      )}
+        )}
+      </main>
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
-import { Share2, MapPin } from 'lucide-react';
+import { Share2, Navigation } from 'lucide-react';
 import { MapProps } from './types/map';
 import { useMapLocation } from './hooks/useMapLocation';
 
@@ -18,7 +18,7 @@ const Map: React.FC<MapProps> = ({ onLocationSelect }) => {
     <div className="space-y-4">
       <div className="bg-gray-50 rounded-lg p-6 space-y-4">
         <div className="flex items-center gap-2 text-gray-600 mb-2">
-          <MapPin className="w-4 h-4" />
+          <Navigation className="w-4 h-4" />
           <p className="text-sm">Share your Google Maps location</p>
         </div>
         

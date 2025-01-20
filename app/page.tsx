@@ -1,5 +1,6 @@
 'use client'
 
+import React from "react"
 import { useState } from "react"
 import { Post } from "@/features/posts/types"
 import NewPostForm from "@/components/dashboard/NewPostForm"

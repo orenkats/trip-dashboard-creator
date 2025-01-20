@@ -3,6 +3,7 @@ import { Button } from "../../components/ui/button";
 import { SubTopicsList } from './SubTopicsList';
 import { toast } from 'sonner';
 import { SubTopic, SubTopicType } from './types';
+import { Box } from 'lucide-react';
 import styles from './styles/dashboard.module.css';
 
 interface CategorySectionProps {
@@ -29,7 +30,7 @@ const CategorySection: React.FC<CategorySectionProps> = ({ subTopics, onSubTopic
   return (
     <div className="mb-8">
       <h2 className="text-lg font-medium text-gray-900 mb-4">Categories</h2>
-      <div className="flex gap-2 mb-8">
+      <div className="flex gap-2 mb-6">
         {(['Restaurants', 'Spots', 'Culture'] as SubTopicType[]).map((type) => (
           <Button
             key={type}

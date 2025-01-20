@@ -1,7 +1,8 @@
 import { Dashboard } from "@/components/dashboard/types";
 import { PostList } from "@/components/dashboard/PostList";
-import { User } from "lucide-react";
+import { User, Grid, Bookmark } from "lucide-react";
 import { Navigation } from "@/components/dashboard/Navigation";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const Profile = () => {
   // Mock data for user's posts
@@ -34,9 +35,26 @@ const Profile = () => {
     }
   ];
 
+  // Mock data for saved posts
+  const savedPosts: Dashboard[] = [
+    {
+      id: "saved-1",
+      title: "Hidden Gems in Rome",
+      description: "Secret spots in the eternal city",
+      coverPhoto: "https://images.unsplash.com/photo-1552832230-c0197dd311b5",
+      location: "Rome, Italy",
+      authorId: "2",
+      authorUsername: "@italyexplorer",
+      createdAt: new Date().toISOString(),
+      subTopics: [],
+      savedCount: 128,
+      isSaved: true
+    }
+  ];
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-[#F8F8F8]">
-      <Navigation />
+      <Navigation onNewPost={() => {}} />
       
       {/* Profile Header */}
       <div className="bg-white border-b mt-16">
@@ -54,7 +72,7 @@ const Profile = () => {
                   <span className="text-gray-600 ml-1">posts</span>
                 </div>
                 <div>
-                  <span className="font-semibold">124</span>
+                  <span className="font-semibold">{savedPosts.length}</span>
                   <span className="text-gray-600 ml-1">saved</span>
                 </div>
               </div>
@@ -63,10 +81,26 @@ const Profile = () => {
         </div>
       </div>
 
-      {/* Posts Grid */}
-      <div className="max-w-screen-xl mx-auto px-4 py-8">
-        <h2 className="text-xl font-semibold mb-6">My Travel Stories</h2>
-        <PostList posts={userPosts} onPostClick={() => {}} />
+      {/* Tabs Navigation */}
+      <div className="max-w-screen-xl mx-auto px-4">
+        <Tabs defaultValue="posts" className="w-full">
+          <TabsList className="grid w-full grid-cols-2 mt-4">
+            <TabsTrigger value="posts" className="flex items-center gap-2">
+              <Grid size={16} />
+              Posts
+            </TabsTrigger>
+            <TabsTrigger value="saved" className="flex items-center gap-2">
+              <Bookmark size={16} />
+              Saved
+            </TabsTrigger>
+          </TabsList>
+          <TabsContent value="posts" className="mt-6">
+            <PostList posts={userPosts} onPostClick={() => {}} />
+          </TabsContent>
+          <TabsContent value="saved" className="mt-6">
+            <PostList posts={savedPosts} onPostClick={() => {}} />
+          </TabsContent>
+        </Tabs>
       </div>
     </div>
   );

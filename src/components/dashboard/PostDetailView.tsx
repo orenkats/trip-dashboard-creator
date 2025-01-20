@@ -42,7 +42,6 @@ const PostDetailView: React.FC<PostDetailViewProps> = ({
   };
 
   const handleCoverPhotoChange = (photo?: string) => {
-    // Handle cover photo change in view mode (likely no-op)
     console.log('Cover photo changed:', photo);
   };
 
@@ -57,7 +56,7 @@ const PostDetailView: React.FC<PostDetailViewProps> = ({
         authorUsername={currentPost.authorUsername}
         onEditedTitleChange={setEditedTitle}
         onSaveEdit={handleSaveEdit}
-        onToggleEdit={setIsEditing}
+        onToggleEdit={() => setIsEditing(true)} // Fixed the type mismatch here
         onBookmark={handleBookmark}
         onClose={onClose}
         isCurrentUserPost={isCurrentUserPost}

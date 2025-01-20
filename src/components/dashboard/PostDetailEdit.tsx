@@ -44,7 +44,6 @@ const PostDetailEdit: React.FC<PostDetailEditProps> = ({
   };
 
   const handleCoverPhotoChange = (photo?: string) => {
-    // Handle cover photo change
     console.log('Cover photo changed:', photo);
   };
 
@@ -62,6 +61,7 @@ const PostDetailEdit: React.FC<PostDetailEditProps> = ({
         onToggleEdit={() => setIsEditing(false)}
         onBookmark={handleBookmark}
         onClose={onClose}
+        isCurrentUserPost={true} // Since we're in edit mode, this must be true
       />
       
       <CaptionSection

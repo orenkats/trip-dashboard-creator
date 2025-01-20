@@ -1,6 +1,12 @@
 import { Place } from './types';
 import { Card, CardContent } from '../ui/card';
-import { ScrollArea } from '../ui/scroll-area';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "../ui/carousel";
 
 interface PlaceDetailProps {
   place: Place;
@@ -14,19 +20,27 @@ export const PlaceDetail = ({ place }: PlaceDetailProps) => {
         <p className="text-sm text-gray-500 mb-2">{place.location}</p>
         <p className="text-sm mb-4">{place.notes}</p>
         {place.photos.length > 0 && (
-          <ScrollArea className="h-[300px] w-full rounded-md border">
-            <div className="space-y-2 p-2">
+          <Carousel className="w-full">
+            <CarouselContent>
               {place.photos.map((photo, index) => (
-                <div key={index} className="relative aspect-video">
-                  <img 
-                    src={photo} 
-                    alt={`${place.name} photo ${index + 1}`}
-                    className="w-full h-full object-cover rounded-md"
-                  />
-                </div>
+                <CarouselItem key={index}>
+                  <div className="relative aspect-video">
+                    <img 
+                      src={photo} 
+                      alt={`${place.name} photo ${index + 1}`}
+                      className="w-full h-full object-cover rounded-md"
+                    />
+                  </div>
+                </CarouselItem>
               ))}
-            </div>
-          </ScrollArea>
+            </CarouselContent>
+            {place.photos.length > 1 && (
+              <>
+                <CarouselPrevious />
+                <CarouselNext />
+              </>
+            )}
+          </Carousel>
         )}
       </CardContent>
     </Card>

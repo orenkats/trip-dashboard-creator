@@ -5,9 +5,11 @@ import { User, Grid, Bookmark } from "lucide-react";
 import { Navigation } from "@/components/dashboard/Navigation";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import DashboardForm from "@/components/dashboard/DashboardForm";
+import { PostDetail } from "@/components/dashboard/PostDetail";
 
 const Profile = () => {
   const [showNewDashboard, setShowNewDashboard] = useState(false);
+  const [selectedPost, setSelectedPost] = useState<Dashboard | null>(null);
   
   // Mock data for user's posts
   const [userPosts, setUserPosts] = useState<Dashboard[]>([
@@ -23,7 +25,7 @@ const Profile = () => {
       subTopics: [],
       savedCount: 45,
       isSaved: false,
-      comments: [] // Add empty comments array
+      comments: []
     },
     {
       id: "user-post-2",
@@ -37,7 +39,7 @@ const Profile = () => {
       subTopics: [],
       savedCount: 32,
       isSaved: false,
-      comments: [] // Add empty comments array
+      comments: []
     }
   ]);
 
@@ -55,9 +57,17 @@ const Profile = () => {
       subTopics: [],
       savedCount: 128,
       isSaved: true,
-      comments: [] // Add empty comments array
+      comments: []
     }
   ];
+
+  const handlePostClick = (post: Dashboard) => {
+    setSelectedPost(post);
+  };
+
+  const handlePostClose = () => {
+    setSelectedPost(null);
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-[#F8F8F8]">
@@ -66,6 +76,11 @@ const Profile = () => {
       {showNewDashboard ? (
         <DashboardForm 
           onClose={() => setShowNewDashboard(false)} 
+        />
+      ) : selectedPost ? (
+        <PostDetail 
+          post={selectedPost}
+          onClose={handlePostClose}
         />
       ) : (
         <>
@@ -108,10 +123,10 @@ const Profile = () => {
                 </TabsTrigger>
               </TabsList>
               <TabsContent value="posts" className="mt-6">
-                <PostList posts={userPosts} onPostClick={() => {}} />
+                <PostList posts={userPosts} onPostClick={handlePostClick} />
               </TabsContent>
               <TabsContent value="saved" className="mt-6">
-                <PostList posts={savedPosts} onPostClick={() => {}} />
+                <PostList posts={savedPosts} onPostClick={handlePostClick} />
               </TabsContent>
             </Tabs>
           </div>

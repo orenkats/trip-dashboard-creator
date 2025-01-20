@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Dashboard, SubTopicType } from "@/components/dashboard/types";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
+import { Link } from "react-router-dom";
 import DashboardForm from "@/components/dashboard/DashboardForm";
 import { PostList } from "@/components/dashboard/PostList";
 import { PostDetail } from "@/components/dashboard/PostDetail";
@@ -106,9 +107,14 @@ const Index = () => {
     <div className="min-h-screen bg-gradient-to-b from-white to-[#F8F8F8]">
       <nav className="border-b bg-white/80 backdrop-blur-sm fixed w-full z-10">
         <div className="max-w-screen-xl mx-auto px-4 py-3 flex items-center justify-between">
-          <h1 className="text-xl font-semibold bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] text-transparent bg-clip-text">
-            Wanderlens
-          </h1>
+          <Link to="/" onClick={() => {
+            setShowNewDashboard(false);
+            setSelectedPost(null);
+          }}>
+            <h1 className="text-xl font-semibold bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] text-transparent bg-clip-text cursor-pointer">
+              Wanderlens
+            </h1>
+          </Link>
           <div className="flex items-center gap-4">
             <Button 
               variant="ghost"

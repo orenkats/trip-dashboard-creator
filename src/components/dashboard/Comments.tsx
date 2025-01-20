@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Comment } from "./types";
 import { Button } from "../ui/button";
 import { Textarea } from "../ui/textarea";
-import { useToast } from "@/hooks/use-toast";
+import { useToast } from "../../hooks/use-toast";
 
 interface CommentsProps {
   comments: Comment[];

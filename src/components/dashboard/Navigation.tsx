@@ -39,7 +39,7 @@ export const Navigation = ({ onNewPost, onProfileClick }: NavigationProps) => {
         >
           <Home size={24} className="text-[#fd1d1d]" />
           <h1 className="text-xl font-semibold bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] text-transparent bg-clip-text">
-            Wanderlens
+            Wanderpost
           </h1>
         </Button>
         <div className="flex items-center gap-2 sm:gap-4">

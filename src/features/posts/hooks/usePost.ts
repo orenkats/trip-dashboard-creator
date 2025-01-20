@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { Post } from '../types';
-import { useToast } from "../../../hooks/use-toast";
+import { Dashboard } from '../types';
+import { useToast } from '@/hooks/use-toast';
 
-export const usePost = (post: Post) => {
+export const usePost = (post: Dashboard) => {
   const [currentPost, setCurrentPost] = useState(post);
   const [isEditing, setIsEditing] = useState(false);
   const [editedTitle, setEditedTitle] = useState(post.title);

@@ -25,7 +25,7 @@ export interface Post {
   id: string;
   title: string;
   description: string;
-  coverPhoto: string; // Making this required
+  coverPhoto?: string;
   location: string;
   authorId: string;
   authorUsername: string;

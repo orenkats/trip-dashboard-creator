@@ -1,10 +1,11 @@
 import React from 'react';
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
 import { Plus, MapPin, Compass, Utensils, Landmark } from 'lucide-react';
 import { toast } from 'sonner';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { PlaceCard } from './PlaceCard';
-import { SubTopic, SubTopicType, Place } from './types';
+import { SubTopic, SubTopicType } from './types';
+import styles from './styles/dashboard.module.css';
 
 interface SubTopicsListProps {
   subTopics: SubTopic[];
@@ -49,7 +50,7 @@ export const SubTopicsList: React.FC<SubTopicsListProps> = ({
   const updatePlace = (
     subTopicId: string,
     placeId: string,
-    field: keyof Omit<Place, 'id' | 'photos'>,
+    field: keyof Omit<SubTopic['places'][0], 'id' | 'photos'>,
     value: string
   ) => {
     setSubTopics(subTopics.map(st => {

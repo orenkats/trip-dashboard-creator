@@ -1,5 +1,5 @@
 import React from 'react';
-import { Textarea } from "../ui/textarea";
+import { Textarea } from "@/components/ui/textarea";
 import styles from './styles/dashboard.module.css';
 
 interface CaptionSectionProps {

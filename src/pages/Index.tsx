@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
-import { Post } from "../features/posts/types"
-import NewPostForm from "../components/dashboard/NewPostForm"
-import { PostList } from "../components/dashboard/PostList"
-import { PostDetail } from "../components/dashboard/PostDetail"
-import { Navigation } from "../components/dashboard/Navigation"
-import { usePostList } from "../features/posts/hooks/usePostList"
+import { useState } from "react";
+import { Post } from "@/features/posts/types";
+import NewPostForm from "@/components/dashboard/NewPostForm";
+import { PostList } from "@/components/dashboard/PostList";
+import { PostDetail } from "@/components/dashboard/PostDetail";
+import { Navigation } from "@/components/dashboard/Navigation";
+import { usePostList } from "@/features/posts/hooks/usePostList";
 
 const initialPosts: Post[] = [
   {
@@ -90,14 +90,15 @@ const initialPosts: Post[] = [
   }
 ];
 
-export default function Home() {
-  const [showNewDashboard, setShowNewDashboard] = useState(false)
-  const [selectedPost, setSelectedPost] = useState<Post | null>(null)
-  const { posts, handleSavePost } = usePostList(initialPosts)
+const Index = () => {
+  const [showNewDashboard, setShowNewDashboard] = useState(false);
+  const [selectedPost, setSelectedPost] = useState<Post | null>(null);
+  const { posts, handleSavePost } = usePostList(initialPosts);
 
   return (
-    <>
+    <div className="min-h-screen bg-gradient-to-b from-white to-[#F8F8F8]">
       <Navigation onNewPost={() => setShowNewDashboard(true)} />
+      
       <main className="pt-20 pb-12 px-4">
         {showNewDashboard ? (
           <NewPostForm onClose={() => setShowNewDashboard(false)} />
@@ -116,6 +117,8 @@ export default function Home() {
           </div>
         )}
       </main>
-    </>
-  )
-}
+    </div>
+  );
+};
+
+export default Index;

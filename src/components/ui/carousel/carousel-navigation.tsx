@@ -1,7 +1,7 @@
 import * as React from "react"
 import { ArrowLeft, ArrowRight } from "lucide-react"
-import { cn } from "../../../lib/utils"
-import { Button } from "../button"
+import { cn } from "@/lib/utils"
+import { Button } from "@/components/ui/button"
 import { useCarousel } from "./carousel-context"
 
 const CarouselPrevious = React.forwardRef<

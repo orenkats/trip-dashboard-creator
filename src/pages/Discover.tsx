@@ -1,29 +1,65 @@
-import React from 'react'
-import { Navigation } from '../components/dashboard/Navigation'
-import { Input } from '../components/ui/input'
-import { useSearch } from '../features/search/hooks/useSearch'
+import { useState } from "react";
+import { Navigation } from "@/components/dashboard/Navigation";
+import { Input } from "@/components/ui/input";
+import { Search, User, MapPin } from "lucide-react";
+import { useSearch } from "@/features/search/hooks/useSearch";
 
 const Discover = () => {
-  const { searchQuery, setSearchQuery, filteredResults } = useSearch()
+  const { searchQuery, setSearchQuery, searchResults, filteredResults } = useSearch();
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-[#F8F8F8]">
       <Navigation />
+      
       <main className="pt-20 pb-12 px-4">
         <div className="max-w-screen-xl mx-auto">
-          <div className="max-w-xl mx-auto">
-            <Input
-              type="search"
-              placeholder="Search places, users, or posts..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full"
-            />
+          <div className="bg-white/80 backdrop-blur-lg border border-gray-200 rounded-xl p-4 mb-8">
+            <div className="relative">
+              <Search className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
+              <Input
+                placeholder="Search users or posts..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="pl-10 h-12 text-lg bg-transparent border-none focus-visible:ring-0 focus-visible:ring-offset-0"
+                autoFocus
+              />
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            {searchQuery && filteredResults.map((result) => (
+              <div
+                key={result.id}
+                className="flex items-center gap-4 p-4 bg-white/80 backdrop-blur-sm hover:bg-gray-50/80 transition-colors cursor-pointer rounded-xl border border-gray-200"
+              >
+                {result.type === "user" ? (
+                  <>
+                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white">
+                      <User className="w-6 h-6" />
+                    </div>
+                    <div>
+                      <p className="font-medium text-gray-900">{result.name}</p>
+                      <p className="text-sm text-gray-500">{result.username}</p>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center text-white">
+                      <MapPin className="w-6 h-6" />
+                    </div>
+                    <div>
+                      <p className="font-medium text-gray-900">{result.title}</p>
+                      <p className="text-sm text-gray-500">{result.location}</p>
+                    </div>
+                  </>
+                )}
+              </div>
+            ))}
           </div>
         </div>
       </main>
     </div>
-  )
-}
+  );
+};
 
-export default Discover
+export default Discover;

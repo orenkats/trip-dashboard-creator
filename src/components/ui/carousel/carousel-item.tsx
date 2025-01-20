@@ -1,12 +1,12 @@
-import * as React from "react"
-import { cn } from "@/lib/utils"
-import { useCarousel } from "./carousel-context"
+import * as React from "react";
+import { cn } from "../../../lib/utils";
+import { useCarousel } from "./carousel-context";
 
 const CarouselItem = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => {
-  const { orientation } = useCarousel()
+  const { orientation } = useCarousel();
 
   return (
     <div
@@ -20,8 +20,9 @@ const CarouselItem = React.forwardRef<
       )}
       {...props}
     />
-  )
-})
-CarouselItem.displayName = "CarouselItem"
+  );
+});
 
-export { CarouselItem }
+CarouselItem.displayName = "CarouselItem";
+
+export { CarouselItem };

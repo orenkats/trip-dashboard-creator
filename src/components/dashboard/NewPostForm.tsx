@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Button } from "@/components/ui/button";
-import { X } from 'lucide-react';
-import { toast } from 'sonner';
+import { Button } from "../ui/button";
+import { X } from "lucide-react";
+import { toast } from "sonner";
 import { SubTopic, Dashboard } from './types';
 import styles from './styles/dashboard.module.css';
+
 import Header from './Header';
 import TitleSection from './TitleSection';
 import LocationSection from './LocationSection';

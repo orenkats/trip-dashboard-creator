@@ -1,12 +1,11 @@
 import { useState } from "react";
-import { Post } from "@/features/posts/types";
-import NewPostForm from "@/components/dashboard/NewPostForm";
-import { PostList } from "@/components/dashboard/PostList";
-import { PostDetail } from "@/components/dashboard/PostDetail";
-import { Navigation } from "@/components/dashboard/Navigation";
-import { usePostList } from "@/features/posts/hooks/usePostList";
+import NewPostForm from "../components/dashboard/NewPostForm";
+import { PostList } from "../components/dashboard/PostList";
+import { PostDetail } from "../components/dashboard/PostDetail";
+import { Navigation } from "../components/dashboard/Navigation";
+import { usePostList } from "../features/posts/hooks/usePostList";
 
-const initialPosts: Post[] = [
+const initialPosts = [
   {
     id: "1",
     title: "Hidden Gems in Rome",

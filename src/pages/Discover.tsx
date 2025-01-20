@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { Navigation } from "@/components/dashboard/Navigation";
-import { Input } from "@/components/ui/input";
+import { Navigation } from "../components/dashboard/Navigation";
+import { Input } from "../components/ui/input";
 import { Search, User, MapPin } from "lucide-react";
-import { useSearch } from "@/features/search/hooks/useSearch";
+import { useSearch } from "../features/search/hooks/useSearch";
 
 const Discover = () => {
   const { searchQuery, setSearchQuery, searchResults, filteredResults } = useSearch();

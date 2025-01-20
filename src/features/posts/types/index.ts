@@ -1,35 +1,7 @@
-export interface Place {
-  id: string;
-  name: string;
-  location: string;
-  notes: string;
-  photos: string[];
-}
+import { SubTopicType, SubTopic, Post as DashboardPost } from '../../../components/dashboard/types';
 
-export interface SubTopic {
-  id: string;
-  type: string;
-  places: Place[];
-}
+export type { SubTopicType, SubTopic };
 
-export interface Comment {
-  id: string;
-  content: string;
-  authorUsername: string;
-  createdAt: string;
-}
-
-export interface Post {
-  id: string;
-  title: string;
-  description: string;
-  coverPhoto: string;
-  location: string;
-  authorId: string;
-  authorUsername: string;
-  createdAt: string;
-  subTopics: SubTopic[];
-  savedCount: number;
-  isSaved: boolean;
-  comments: Comment[];
+export interface Post extends DashboardPost {
+  coverPhoto: string; // Make coverPhoto required
 }

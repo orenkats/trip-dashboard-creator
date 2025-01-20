@@ -1,13 +1,14 @@
-import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { Post } from "@/features/posts/types";
-import { Navigation } from "@/components/dashboard/Navigation";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import NewPostForm from "@/components/dashboard/NewPostForm";
-import { PostDetail } from "@/components/dashboard/PostDetail";
-import { PostList } from "@/components/dashboard/PostList";
-import { usePostList } from "@/features/posts/hooks/usePostList";
+'use client'
+
+import { useState, useEffect } from "react"
+import { Post } from "@/features/posts/types"
+import { Navigation } from "@/components/dashboard/Navigation"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import NewPostForm from "@/components/dashboard/NewPostForm"
+import { PostDetail } from "@/components/dashboard/PostDetail"
+import { PostList } from "@/components/dashboard/PostList"
+import { usePostList } from "@/features/posts/hooks/usePostList"
 
 const initialUserPosts: Post[] = [
     {
@@ -81,25 +82,24 @@ const initialUserPosts: Post[] = [
     }
 ];
 
-const Profile = () => {
-  const { username } = useParams();
-  const [showNewDashboard, setShowNewDashboard] = useState(false);
-  const [selectedPost, setSelectedPost] = useState<Post | null>(null);
-  const [savedPosts, setSavedPosts] = useState<Post[]>([]);
-  const { posts: userPosts, handleSavePost } = usePostList(initialUserPosts);
+export default function Profile({ params }: { params: { username: string } }) {
+  const [showNewDashboard, setShowNewDashboard] = useState(false)
+  const [selectedPost, setSelectedPost] = useState<Post | null>(null)
+  const [savedPosts, setSavedPosts] = useState<Post[]>([])
+  const { posts: userPosts, handleSavePost } = usePostList(initialUserPosts)
 
   useEffect(() => {
-    const saved = userPosts.filter(post => post.isSaved);
-    setSavedPosts(saved);
-  }, [userPosts]);
+    const saved = userPosts.filter(post => post.isSaved)
+    setSavedPosts(saved)
+  }, [userPosts])
 
   const handleNavigationClick = () => {
     if (selectedPost) {
-      setSelectedPost(null);
+      setSelectedPost(null)
     }
-  };
+  }
 
-  const isCurrentUser = username === "@currentuser";
+  const isCurrentUser = params.username === "@currentuser"
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-[#F8F8F8]">
@@ -120,11 +120,11 @@ const Profile = () => {
           <div className="max-w-screen-xl mx-auto">
             <div className="flex items-center gap-4 mb-8">
               <Avatar className="h-20 w-20">
-                <AvatarImage src="https://github.com/shadcn.png" alt={username} />
-                <AvatarFallback>{username?.slice(1, 3).toUpperCase()}</AvatarFallback>
+                <AvatarImage src="https://github.com/shadcn.png" alt={params.username} />
+                <AvatarFallback>{params.username?.slice(1, 3).toUpperCase()}</AvatarFallback>
               </Avatar>
               <div>
-                <h1 className="text-2xl font-bold">{username}</h1>
+                <h1 className="text-2xl font-bold">{params.username}</h1>
                 <p className="text-gray-500">Exploring the world one city at a time</p>
               </div>
             </div>
@@ -161,7 +161,5 @@ const Profile = () => {
         )}
       </main>
     </div>
-  );
-};
-
-export default Profile;
+  )
+}

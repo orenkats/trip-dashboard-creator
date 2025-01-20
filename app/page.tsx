@@ -1,10 +1,12 @@
-import { useState } from "react";
-import { Post } from "@/features/posts/types";
-import NewPostForm from "@/components/dashboard/NewPostForm";
-import { PostList } from "@/components/dashboard/PostList";
-import { PostDetail } from "@/components/dashboard/PostDetail";
-import { Navigation } from "@/components/dashboard/Navigation";
-import { usePostList } from "@/features/posts/hooks/usePostList";
+'use client'
+
+import { useState } from "react"
+import { Post } from "@/features/posts/types"
+import NewPostForm from "@/components/dashboard/NewPostForm"
+import { PostList } from "@/components/dashboard/PostList"
+import { PostDetail } from "@/components/dashboard/PostDetail"
+import { Navigation } from "@/components/dashboard/Navigation"
+import { usePostList } from "@/features/posts/hooks/usePostList"
 
 const initialPosts: Post[] = [
   {
@@ -90,10 +92,10 @@ const initialPosts: Post[] = [
   }
 ];
 
-const Index = () => {
-  const [showNewDashboard, setShowNewDashboard] = useState(false);
-  const [selectedPost, setSelectedPost] = useState<Post | null>(null);
-  const { posts, handleSavePost } = usePostList(initialPosts);
+export default function Home() {
+  const [showNewDashboard, setShowNewDashboard] = useState(false)
+  const [selectedPost, setSelectedPost] = useState<Post | null>(null)
+  const { posts, handleSavePost } = usePostList(initialPosts)
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-[#F8F8F8]">
@@ -118,7 +120,5 @@ const Index = () => {
         )}
       </main>
     </div>
-  );
-};
-
-export default Index;
+  )
+}

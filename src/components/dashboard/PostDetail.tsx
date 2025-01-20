@@ -11,6 +11,7 @@ import CategorySection from './CategorySection';
 import CaptionSection from './CaptionSection';
 import CoverPhotoSection from './CoverPhotoSection';
 import LocationSection from './LocationSection';
+import TitleSection from './TitleSection';
 
 interface PostDetailProps {
   post: Dashboard;
@@ -49,6 +50,11 @@ export const PostDetail = ({ post, onClose }: PostDetailProps) => {
           onToggleEdit={() => setIsEditing(false)}
           onBookmark={handleBookmark}
           onClose={onClose}
+        />
+
+        <TitleSection 
+          title={editedTitle}
+          onTitleChange={setEditedTitle}
         />
 
         <CaptionSection 

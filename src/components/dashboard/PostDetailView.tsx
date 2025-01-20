@@ -28,7 +28,7 @@ const PostDetailView: React.FC<PostDetailViewProps> = ({
 
   return (
     <div className="space-y-6">
-      <div className="relative h-64 -mx-6 -mt-6 mb-6">
+      <div className="relative h-32 -mx-2 -mt-6 mb-6">
         <img
           src={currentPost.coverPhoto}
           alt={currentPost.title}
@@ -36,7 +36,7 @@ const PostDetailView: React.FC<PostDetailViewProps> = ({
         />
       </div>
 
-      <div className="px-6">
+      <div className="px-2">
         <PostHeader
           title={currentPost.title}
           isEditing={false}

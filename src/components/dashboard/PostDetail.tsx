@@ -2,11 +2,12 @@ import { useState } from 'react';
 import { Dashboard, Comment } from './types';
 import { X, MapPin, BookmarkIcon } from 'lucide-react';
 import { Button } from '../ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
+import { Card, CardContent } from '../ui/card';
 import { ScrollArea } from '../ui/scroll-area';
 import { PlaceDetail } from './PlaceDetail';
 import { Comments } from './Comments';
 import { useToast } from "@/hooks/use-toast";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 interface PostDetailProps {
   post: Dashboard;
@@ -34,7 +35,7 @@ export const PostDetail = ({ post, onClose }: PostDetailProps) => {
     const newComment: Comment = {
       id: Math.random().toString(),
       content,
-      authorUsername: "current_user", // In a real app, this would come from auth
+      authorUsername: "current_user",
       createdAt: new Date().toISOString(),
     };
 
@@ -84,22 +85,31 @@ export const PostDetail = ({ post, onClose }: PostDetailProps) => {
       </div>
 
       <ScrollArea className="h-[calc(100vh-400px)]">
-        {currentPost.subTopics.map((subTopic) => (
-          <Card key={subTopic.id} className="mb-6">
-            <CardHeader>
-              <CardTitle>{subTopic.type}</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {subTopic.places.map((place) => (
-                  <PlaceDetail key={place.id} place={place} />
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-        ))}
+        <Tabs defaultValue={currentPost.subTopics[0]?.type} className="w-full">
+          <TabsList className="mb-4">
+            {currentPost.subTopics.map((subTopic) => (
+              <TabsTrigger key={subTopic.id} value={subTopic.type}>
+                {subTopic.type}
+              </TabsTrigger>
+            ))}
+          </TabsList>
+
+          {currentPost.subTopics.map((subTopic) => (
+            <TabsContent key={subTopic.id} value={subTopic.type}>
+              <Card>
+                <CardContent className="pt-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {subTopic.places.map((place) => (
+                      <PlaceDetail key={place.id} place={place} />
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+          ))}
+        </Tabs>
         
-        <Card className="mb-6">
+        <Card className="mt-6">
           <CardContent className="pt-6">
             <Comments 
               comments={currentPost.comments || []} 

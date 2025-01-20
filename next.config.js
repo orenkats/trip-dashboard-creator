@@ -9,6 +9,10 @@ const nextConfig = {
     };
     return config;
   },
+  // Ensure we're using the correct port
+  serverOptions: {
+    port: 8080
+  }
 }
 
 module.exports = nextConfig

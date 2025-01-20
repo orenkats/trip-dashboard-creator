@@ -95,13 +95,30 @@ const Index = () => {
   const [selectedPost, setSelectedPost] = useState<Post | null>(null);
   const { posts, handleSavePost } = usePostList(initialPosts);
 
+  const handleNewPost = () => {
+    setShowNewDashboard(true);
+    setSelectedPost(null);
+  };
+
+  const handleCloseNewPost = () => {
+    setShowNewDashboard(false);
+  };
+
+  const handleNavigateHome = () => {
+    setShowNewDashboard(false);
+    setSelectedPost(null);
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-[#F8F8F8]">
-      <Navigation onNewPost={() => setShowNewDashboard(true)} />
+      <Navigation 
+        onNewPost={handleNewPost} 
+        onHomeClick={handleNavigateHome}
+      />
       
       <main className="pt-20 pb-12 px-4">
         {showNewDashboard ? (
-          <NewPostForm onClose={() => setShowNewDashboard(false)} />
+          <NewPostForm onClose={handleCloseNewPost} />
         ) : selectedPost ? (
           <PostDetail 
             post={selectedPost}

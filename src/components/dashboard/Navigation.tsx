@@ -5,16 +5,20 @@ import { Button } from "../ui/button";
 interface NavigationProps {
   onNewPost?: () => void;
   onProfileClick?: () => void;
+  onHomeClick?: () => void;
 }
 
-export const Navigation = ({ onNewPost, onProfileClick }: NavigationProps) => {
+export const Navigation = ({ onNewPost, onProfileClick, onHomeClick }: NavigationProps) => {
   const navigate = useNavigate();
   const location = useLocation();
   const isIndexPage = location.pathname === "/";
 
   const handleHomeClick = () => {
+    if (onHomeClick) {
+      onHomeClick();  // First close any open modals
+    }
     if (location.pathname !== "/") {
-      navigate("/");
+      navigate("/");  // Then navigate if needed
     }
   };
 

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Navigation } from "../components/dashboard/Navigation";
 import { Input } from "../components/ui/input";
 import { Search, User, MapPin } from "lucide-react";

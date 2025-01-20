@@ -6,77 +6,78 @@ import NewPostForm from "../components/dashboard/NewPostForm";
 import { PostDetail } from "../components/dashboard/PostDetail";
 import { PostList } from "../components/dashboard/PostList";
 import { usePostList } from "../features/posts/hooks/usePostList";
+import { Post, SubTopicType } from "../components/dashboard/types";
 
 const initialUserPosts: Post[] = [
-    {
-      id: "user-post-1",
-      title: "My Trip to Paris",
-      description: "Exploring the city of lights",
-      coverPhoto: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34",
-      location: "Paris, France",
-      authorId: "1",
-      authorUsername: "@currentuser",
-      createdAt: new Date().toISOString(),
-      subTopics: [
-        {
-          id: "st1",
-          type: "Restaurants",
-          places: [
-            {
-              id: "p1",
-              name: "Le Petit Bistro",
-              location: "Montmartre",
-              notes: "Amazing French cuisine",
-              photos: []
-            }
-          ]
-        },
-        {
-          id: "st2",
-          type: "Spots",
-          places: [
-            {
-              id: "p2",
-              name: "Eiffel Tower",
-              location: "Champ de Mars",
-              notes: "Iconic landmark",
-              photos: []
-            }
-          ]
-        }
-      ],
-      savedCount: 45,
-      isSaved: false,
-      comments: []
-    },
-    {
-      id: "user-post-2",
-      title: "Venice Adventures",
-      description: "Getting lost in Venice's narrow streets",
-      coverPhoto: "https://images.unsplash.com/photo-1523906834658-6e24ef2386f9",
-      location: "Venice, Italy",
-      authorId: "1",
-      authorUsername: "@currentuser",
-      createdAt: new Date().toISOString(),
-      subTopics: [
-        {
-          id: "st3",
-          type: "Culture",
-          places: [
-            {
-              id: "p3",
-              name: "St. Mark's Basilica",
-              location: "Piazza San Marco",
-              notes: "Beautiful Byzantine architecture",
-              photos: []
-            }
-          ]
-        }
-      ],
-      savedCount: 32,
-      isSaved: false,
-      comments: []
-    }
+  {
+    id: "user-post-1",
+    title: "My Trip to Paris",
+    description: "Exploring the city of lights",
+    coverPhoto: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34",
+    location: "Paris, France",
+    authorId: "1",
+    authorUsername: "@currentuser",
+    createdAt: new Date().toISOString(),
+    subTopics: [
+      {
+        id: "st1",
+        type: "Restaurants" as SubTopicType,
+        places: [
+          {
+            id: "p1",
+            name: "Le Petit Bistro",
+            location: "Montmartre",
+            notes: "Amazing French cuisine",
+            photos: []
+          }
+        ]
+      },
+      {
+        id: "st2",
+        type: "Spots" as SubTopicType,
+        places: [
+          {
+            id: "p2",
+            name: "Eiffel Tower",
+            location: "Champ de Mars",
+            notes: "Iconic landmark",
+            photos: []
+          }
+        ]
+      }
+    ],
+    savedCount: 45,
+    isSaved: false,
+    comments: []
+  },
+  {
+    id: "user-post-2",
+    title: "Venice Adventures",
+    description: "Getting lost in Venice's narrow streets",
+    coverPhoto: "https://images.unsplash.com/photo-1523906834658-6e24ef2386f9",
+    location: "Venice, Italy",
+    authorId: "1",
+    authorUsername: "@currentuser",
+    createdAt: new Date().toISOString(),
+    subTopics: [
+      {
+        id: "st3",
+        type: "Culture" as SubTopicType,
+        places: [
+          {
+            id: "p3",
+            name: "St. Mark's Basilica",
+            location: "Piazza San Marco",
+            notes: "Beautiful Byzantine architecture",
+            photos: []
+          }
+        ]
+      }
+    ],
+    savedCount: 32,
+    isSaved: false,
+    comments: []
+  }
 ];
 
 const Profile = () => {

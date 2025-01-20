@@ -4,8 +4,9 @@ import { PostList } from "../components/dashboard/PostList";
 import { PostDetail } from "../components/dashboard/PostDetail";
 import { Navigation } from "../components/dashboard/Navigation";
 import { usePostList } from "../features/posts/hooks/usePostList";
+import { Post, SubTopicType } from "../components/dashboard/types";
 
-const initialPosts = [
+const initialPosts: Post[] = [
   {
     id: "1",
     title: "Hidden Gems in Rome",
@@ -18,7 +19,7 @@ const initialPosts = [
     subTopics: [
       {
         id: "st1",
-        type: "Restaurants",
+        type: "Restaurants" as SubTopicType,
         places: [
           {
             id: "p1",
@@ -27,14 +28,14 @@ const initialPosts = [
             notes: "Amazing pasta carbonara and wine selection. Make reservations!",
             photos: [
               "https://images.unsplash.com/photo-1414235077428-338989a2e8c0",
-              "https://images.unsplash.com/photo-1467003909585-2f8a72700288",
+              "https://images.unsplash.com/photo-1467003909585-2f8a72700288"
             ]
           }
         ]
       },
       {
         id: "st2",
-        type: "Spots",
+        type: "Spots" as SubTopicType,
         places: [
           {
             id: "p2",
@@ -42,7 +43,7 @@ const initialPosts = [
             location: "Trastevere, Rome",
             notes: "Charming neighborhood with cobblestone streets and authentic Roman atmosphere",
             photos: [
-              "https://images.unsplash.com/photo-1529260830199-42c24126f198",
+              "https://images.unsplash.com/photo-1529260830199-42c24126f198"
             ]
           }
         ]
@@ -55,7 +56,7 @@ const initialPosts = [
         id: "c1",
         content: "Love this place! The carbonara is amazing!",
         authorUsername: "@foodlover",
-        createdAt: new Date().toISOString(),
+        createdAt: new Date().toISOString()
       }
     ]
   },
@@ -71,7 +72,7 @@ const initialPosts = [
     subTopics: [
       {
         id: "st4",
-        type: "Spots",
+        type: "Spots" as SubTopicType,
         places: [
           {
             id: "p5",

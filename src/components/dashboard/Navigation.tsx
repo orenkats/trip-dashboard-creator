@@ -1,5 +1,5 @@
 import { Home, Plus, User, Search } from "lucide-react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
 interface NavigationProps {
@@ -19,10 +19,10 @@ export const Navigation = ({ onNewPost, onProfileClick }: NavigationProps) => {
   };
 
   const handleProfileClick = () => {
-    navigate("/profile");
     if (onProfileClick) {
-      onProfileClick();
+      onProfileClick();  // First close the modal if it's open
     }
+    navigate("/profile"); // Then navigate to profile
   };
 
   const handleDiscoverClick = () => {

@@ -64,10 +64,6 @@ export const PostDetail: React.FC<PostDetailProps> = ({ post, onClose }) => {
         ) : (
           <PostDetailView
             currentPost={currentPost}
-            editedTitle={editedTitle}
-            editedDescription={editedDescription}
-            editedLocation={editedLocation}
-            setEditedTitle={setEditedTitle}
             handleSaveEdit={handleSaveEdit}
             setIsEditing={handleToggleEdit}
             handleBookmark={handleBookmark}

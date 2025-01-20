@@ -52,13 +52,6 @@ const PostDetailView: React.FC<PostDetailViewProps> = ({
           isCurrentUserPost={isCurrentUserPost}
         />
         
-        <div className="flex items-center gap-2 text-gray-500 mt-2">
-          <MapPin size={16} />
-          <span>{currentPost.location}</span>
-          <span className="text-gray-400">•</span>
-          <span className="text-gray-500">{currentPost.authorUsername}</span>
-        </div>
-        
         <div className="text-gray-700 mt-6">
           {currentPost.description}
         </div>

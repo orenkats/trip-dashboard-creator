@@ -1,7 +1,7 @@
 import React from 'react';
 import { PostHeader } from "./PostHeader";
 import { Post } from "../../types/dashboard";
-import { PostContent } from "./PostContent"; // Changed to named import
+import { PostContent } from "./PostContent";
 import { Comments } from "./Comments";
 import { MapPin } from 'lucide-react';
 
@@ -27,8 +27,8 @@ const PostDetailView: React.FC<PostDetailViewProps> = ({
   };
 
   return (
-    <div className="space-y-6 overflow-hidden">
-      <div className="relative h-48 sm:h-64 md:h-72 -mx-6 -mt-6">
+    <div className="space-y-6">
+      <div className="relative h-32 -mx-2 -mt-6 mb-6">
         <img
           src={currentPost.coverPhoto}
           alt={currentPost.title}

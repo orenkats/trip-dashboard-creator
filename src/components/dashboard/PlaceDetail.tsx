@@ -20,11 +20,11 @@ export const PlaceDetail = ({ place }: PlaceDetailProps) => {
         <p className="text-sm text-gray-500 mb-2">{place.location}</p>
         <p className="text-sm mb-4">{place.notes}</p>
         {place.photos.length > 0 && (
-          <Carousel className="w-full max-w-[300px] mx-auto md:max-w-full">
+          <Carousel className="w-full max-w-[250px] mx-auto md:max-w-[400px]">
             <CarouselContent>
               {place.photos.map((photo, index) => (
                 <CarouselItem key={index}>
-                  <div className="relative aspect-[4/3] md:aspect-video">
+                  <div className="relative aspect-square md:aspect-[4/3]">
                     <img 
                       src={photo} 
                       alt={`${place.name} photo ${index + 1}`}
@@ -36,8 +36,8 @@ export const PlaceDetail = ({ place }: PlaceDetailProps) => {
             </CarouselContent>
             {place.photos.length > 1 && (
               <>
-                <CarouselPrevious />
-                <CarouselNext />
+                <CarouselPrevious className="hidden md:flex" />
+                <CarouselNext className="hidden md:flex" />
               </>
             )}
           </Carousel>

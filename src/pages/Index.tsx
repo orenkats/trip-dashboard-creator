@@ -31,6 +31,16 @@ const initialPosts: Post[] = [
               "https://images.unsplash.com/photo-1414235077428-338989a2e8c0",
               "https://images.unsplash.com/photo-1467003909585-2f8a72700288"
             ]
+          },
+          {
+            id: "p3",
+            name: "Salumeria Roscioli",
+            location: "Via dei Giubbonari, 21/22, Rome",
+            notes: "Hidden in a deli, this restaurant serves some of the best cacio e pepe in Rome. The cheese and cured meat selection is outstanding!",
+            photos: [
+              "https://images.unsplash.com/photo-1498579150354-977475b7ea0b",
+              "https://images.unsplash.com/photo-1528735602780-2552fd46c7af"
+            ]
           }
         ]
       },

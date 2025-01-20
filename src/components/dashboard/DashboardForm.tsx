@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { SubTopicsList } from './SubTopicsList';
+import { X } from 'lucide-react';
 import { toast } from 'sonner';
-import { ImageDropzone } from './ImageDropzone';
-import { SubTopic, SubTopicType } from './types';
+import { SubTopic } from './types';
 import styles from './styles/dashboard.module.css';
-import { MapPin, X } from 'lucide-react';
+import Header from './Header';
+import TitleSection from './TitleSection';
 import LocationSection from './LocationSection';
+import CaptionSection from './CaptionSection';
+import CoverPhotoSection from './CoverPhotoSection';
+import CategorySection from './CategorySection';
+import ActionButtons from './ActionButtons';
 
 interface DashboardFormProps {
   onClose?: () => void;
@@ -21,57 +23,11 @@ const DashboardForm = ({ onClose }: DashboardFormProps) => {
   const [coverPhoto, setCoverPhoto] = useState<string>();
   const [subTopics, setSubTopics] = useState<SubTopic[]>([]);
 
-  const handleCoverPhotoUpload = (file: File) => {
-    const imageUrl = URL.createObjectURL(file);
-    setCoverPhoto(imageUrl);
-    toast.success("Photo uploaded successfully!");
-  };
-
-  const handleRemoveCoverPhoto = () => {
-    setCoverPhoto(undefined);
-    toast.success("Photo removed");
-  };
-
-  const handleAddSubTopic = (type: SubTopicType) => {
-    if (subTopics.some(st => st.type === type)) {
-      toast.error(`${type} section already exists`);
-      return;
-    }
-
-    const newSubTopic: SubTopic = {
-      id: Date.now().toString(),
-      type: type,
-      places: []
-    };
-    setSubTopics([...subTopics, newSubTopic]);
-    toast.success(`${type} section added`);
-  };
-
   const handleSaveDraft = () => {
-    if (!title) {
-      toast.error("Please add a title to your travel post");
-      return;
-    }
-    if (!location) {
-      toast.error("Please add a location to your travel post");
-      return;
-    }
     toast.success("Draft saved successfully!");
   };
 
   const handlePublish = () => {
-    if (!title) {
-      toast.error("Please add a title to your travel post");
-      return;
-    }
-    if (!description) {
-      toast.error("Please add a description to your travel post");
-      return;
-    }
-    if (!location) {
-      toast.error("Please add a location to your travel post");
-      return;
-    }
     toast.success("Travel post published successfully!");
     onClose?.();
   };
@@ -89,87 +45,39 @@ const DashboardForm = ({ onClose }: DashboardFormProps) => {
         </Button>
       )}
       
-      <div className={styles.header}>
-        <MapPin className="w-8 h-8 mx-auto text-[#fd1d1d]" />
-        <h1 className={styles.title}>New Travel Post</h1>
-        <p className={styles.subtitle}>Share your favorite spots with your followers</p>
-      </div>
+      <Header />
 
       <div className={styles.formSection}>
-        <div className="mb-8">
-          <label htmlFor="title" className={styles.label}>Title</label>
-          <Input
-            id="title"
-            placeholder="What's this post about?"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            className="w-full text-lg bg-gray-50/50 border-gray-200"
-          />
-        </div>
-
+        <TitleSection title={title} onTitleChange={setTitle} />
+        
         <LocationSection
           location={location}
           onLocationChange={setLocation}
           onLocationSelect={setLocation}
         />
 
-        <div className="mb-8">
-          <label htmlFor="description" className={styles.label}>Caption</label>
-          <Textarea
-            id="description"
-            placeholder="Share the story behind these places..."
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            className="w-full min-h-[120px] bg-gray-50/50 border-gray-200"
-          />
-        </div>
+        <CaptionSection 
+          description={description} 
+          onDescriptionChange={setDescription} 
+        />
 
-        <div className="mb-8">
-          <label className={styles.label}>Cover Photo</label>
-          <ImageDropzone
-            onImageUpload={handleCoverPhotoUpload}
-            currentImage={coverPhoto}
-            onImageRemove={handleRemoveCoverPhoto}
-            className="w-full aspect-[4/3]"
-          />
-        </div>
+        <CoverPhotoSection 
+          coverPhoto={coverPhoto}
+          onCoverPhotoChange={setCoverPhoto}
+        />
 
-        <div className="mb-8">
-          <h2 className="text-lg font-medium text-gray-900 mb-4">Categories</h2>
-          <div className="flex gap-2">
-            {(['Restaurants', 'Spots', 'Culture'] as SubTopicType[]).map((type) => (
-              <Button
-                key={type}
-                variant="outline"
-                onClick={() => handleAddSubTopic(type)}
-                className={styles.addButton}
-                disabled={subTopics.some(st => st.type === type)}
-              >
-                {type}
-              </Button>
-            ))}
-          </div>
-          <SubTopicsList 
-            subTopics={subTopics} 
-            setSubTopics={setSubTopics}
-          />
-        </div>
+        <CategorySection 
+          subTopics={subTopics}
+          onSubTopicsChange={setSubTopics}
+        />
 
-        <div className={styles.buttonContainer}>
-          <Button 
-            variant="outline" 
-            onClick={handleSaveDraft}
-            className="hover:bg-gray-50"
-          >
-            Save Draft
-          </Button>
-          <Button 
-            onClick={handlePublish}
-            className="bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] hover:opacity-90 text-white"
-          >
-            Share Post
-          </Button>
-        </div>
+        <ActionButtons
+          title={title}
+          description={description}
+          location={location}
+          onSaveDraft={handleSaveDraft}
+          onPublish={handlePublish}
+        />
       </div>
     </div>
   );

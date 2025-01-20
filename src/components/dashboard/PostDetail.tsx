@@ -3,7 +3,7 @@ import { Card, CardContent } from '../ui/card';
 import { ScrollArea } from '../ui/scroll-area';
 import { PlaceDetail } from './PlaceDetail';
 import { Comments } from './Comments';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import { PostHeader } from './PostHeader';
 import { PostCoverSection } from './PostCoverSection';
 import { usePostEdit } from './hooks/usePostEdit';

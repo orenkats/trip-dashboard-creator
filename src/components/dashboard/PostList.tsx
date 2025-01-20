@@ -1,7 +1,7 @@
 import { Post } from './types';
 import { BookmarkIcon, MapPin, Edit2, SlidersHorizontal } from 'lucide-react';
 import { Button } from '../ui/button';
-import { useToast } from "@/hooks/use-toast";
+import { useToast } from "../hooks/use-toast";
 import { useNavigate } from 'react-router-dom';
 import {
   Select,

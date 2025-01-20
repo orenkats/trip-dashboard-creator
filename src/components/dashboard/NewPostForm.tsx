@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button } from "@/components/ui/button";
+import { Button } from "../ui/button";
 import { X } from 'lucide-react';
 import { toast } from 'sonner';
 import { SubTopic, Dashboard } from './types';

@@ -22,9 +22,9 @@ export const Navigation = ({ onNewPost }: NavigationProps) => {
             </h1>
           </div>
         </Link>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2 sm:gap-4">
           <Link to="/discover">
-            <Button variant="ghost" size="icon">
+            <Button variant="ghost" size="icon" className="h-9 w-9">
               <Search size={20} />
             </Button>
           </Link>
@@ -33,14 +33,24 @@ export const Navigation = ({ onNewPost }: NavigationProps) => {
               variant="ghost"
               size="sm"
               onClick={onNewPost}
-              className="flex items-center gap-2"
+              className="hidden sm:flex items-center gap-2"
             >
               <Plus size={16} />
-              New Travel Post
+              <span className="hidden sm:inline">New Travel Post</span>
+            </Button>
+          )}
+          {onNewPost && (
+            <Button 
+              variant="ghost"
+              size="icon"
+              onClick={onNewPost}
+              className="sm:hidden h-9 w-9"
+            >
+              <Plus size={20} />
             </Button>
           )}
           <Link to="/profile">
-            <Button variant="ghost" size="icon">
+            <Button variant="ghost" size="icon" className="h-9 w-9">
               <User size={20} />
             </Button>
           </Link>

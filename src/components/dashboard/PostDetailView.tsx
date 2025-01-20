@@ -39,6 +39,11 @@ const PostDetailView: React.FC<PostDetailViewProps> = ({
     console.log('Adding comment:', content);
   };
 
+  const handleCoverPhotoChange = (photo?: string) => {
+    // Handle cover photo change in view mode (likely no-op)
+    console.log('Cover photo changed:', photo);
+  };
+
   return (
     <div className="space-y-6">
       <PostHeader
@@ -62,11 +67,7 @@ const PostDetailView: React.FC<PostDetailViewProps> = ({
       
       <CoverPhotoSection
         coverPhoto={currentPost.coverPhoto || ''}
-        isEditing={false}
-        editedDescription={editedDescription}
-        editedLocation={editedLocation}
-        onEditedDescriptionChange={() => {}}
-        onEditedLocationChange={() => {}}
+        onCoverPhotoChange={handleCoverPhotoChange}
       />
       
       <SubTopicsList 

@@ -43,6 +43,11 @@ const PostDetailEdit: React.FC<PostDetailEditProps> = ({
     console.log('Adding comment:', content);
   };
 
+  const handleCoverPhotoChange = (photo?: string) => {
+    // Handle cover photo change
+    console.log('Cover photo changed:', photo);
+  };
+
   return (
     <div className="space-y-6">
       <PostHeader
@@ -66,11 +71,7 @@ const PostDetailEdit: React.FC<PostDetailEditProps> = ({
       
       <CoverPhotoSection
         coverPhoto={currentPost.coverPhoto || ''}
-        isEditing={true}
-        editedDescription={editedDescription}
-        editedLocation={editedLocation}
-        onEditedDescriptionChange={setEditedDescription}
-        onEditedLocationChange={setEditedLocation}
+        onCoverPhotoChange={handleCoverPhotoChange}
       />
       
       <SubTopicsList 

@@ -12,30 +12,45 @@ export const Navigation = ({ onNewPost, onProfileClick }: NavigationProps) => {
   const location = useLocation();
   const isIndexPage = location.pathname === "/";
 
+  const handleHomeClick = () => {
+    if (location.pathname !== "/") {
+      navigate("/");
+    }
+  };
+
   const handleProfileClick = () => {
+    navigate("/profile");
     if (onProfileClick) {
       onProfileClick();
     }
-    navigate("/profile");
+  };
+
+  const handleDiscoverClick = () => {
+    navigate("/discover");
   };
 
   return (
     <nav className="border-b bg-white/80 backdrop-blur-sm fixed top-0 left-0 right-0 w-full z-10">
       <div className="max-w-screen-xl mx-auto px-4 py-3 flex items-center justify-between">
-        <Link to="/">
-          <div className="flex items-center gap-2">
-            <Home size={24} className="text-[#fd1d1d]" />
-            <h1 className="text-xl font-semibold bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] text-transparent bg-clip-text">
-              Wanderlens
-            </h1>
-          </div>
-        </Link>
+        <Button
+          variant="ghost"
+          className="flex items-center gap-2"
+          onClick={handleHomeClick}
+        >
+          <Home size={24} className="text-[#fd1d1d]" />
+          <h1 className="text-xl font-semibold bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] text-transparent bg-clip-text">
+            Wanderlens
+          </h1>
+        </Button>
         <div className="flex items-center gap-2 sm:gap-4">
-          <Link to="/discover">
-            <Button variant="ghost" size="icon" className="h-9 w-9">
-              <Search size={20} />
-            </Button>
-          </Link>
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            className="h-9 w-9"
+            onClick={handleDiscoverClick}
+          >
+            <Search size={20} />
+          </Button>
           {onNewPost && (
             <Button 
               variant="ghost"

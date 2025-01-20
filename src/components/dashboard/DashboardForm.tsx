@@ -30,32 +30,29 @@ const DashboardForm = ({ onClose }: DashboardFormProps) => {
   const handlePublish = () => {
     // Create a new post object
     const newPost: Dashboard = {
-      id: Date.now().toString(), // Generate a unique ID
+      id: Date.now().toString(),
       title,
       description,
       coverPhoto,
       location,
-      authorId: "1", // In a real app, this would come from auth
-      authorUsername: "@travelblogger", // In a real app, this would come from auth
+      authorId: "1",
+      authorUsername: "@travelblogger",
       createdAt: new Date().toISOString(),
       subTopics,
       savedCount: 0,
-      isSaved: false
+      isSaved: false,
+      comments: [] // Add empty comments array
     };
 
-    // In a real application, this would be an API call to save the post
-    // For now, we'll just show a success message and close the form
     console.log('New post created:', newPost);
     toast.success("Travel post published successfully!");
     
-    // Reset form
     setTitle('');
     setDescription('');
     setLocation('');
     setCoverPhoto(undefined);
     setSubTopics([]);
     
-    // Close the form
     onClose?.();
   };
 

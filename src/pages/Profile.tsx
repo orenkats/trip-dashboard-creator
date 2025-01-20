@@ -17,12 +17,13 @@ const Profile = () => {
       description: "Exploring the city of lights",
       coverPhoto: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34",
       location: "Paris, France",
-      authorId: "1", // Current user
+      authorId: "1",
       authorUsername: "@currentuser",
       createdAt: new Date().toISOString(),
       subTopics: [],
       savedCount: 45,
-      isSaved: false
+      isSaved: false,
+      comments: [] // Add empty comments array
     },
     {
       id: "user-post-2",
@@ -30,12 +31,13 @@ const Profile = () => {
       description: "Getting lost in Venice's narrow streets",
       coverPhoto: "https://images.unsplash.com/photo-1523906834658-6e24ef2386f9",
       location: "Venice, Italy",
-      authorId: "1", // Current user
+      authorId: "1",
       authorUsername: "@currentuser",
       createdAt: new Date().toISOString(),
       subTopics: [],
       savedCount: 32,
-      isSaved: false
+      isSaved: false,
+      comments: [] // Add empty comments array
     }
   ]);
 
@@ -52,7 +54,8 @@ const Profile = () => {
       createdAt: new Date().toISOString(),
       subTopics: [],
       savedCount: 128,
-      isSaved: true
+      isSaved: true,
+      comments: [] // Add empty comments array
     }
   ];
 

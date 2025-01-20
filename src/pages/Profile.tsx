@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Dashboard } from "@/components/dashboard/types";
 import { PostList } from "@/components/dashboard/PostList";
 import { User, Grid, Bookmark } from "lucide-react";
@@ -10,6 +10,7 @@ import { PostDetail } from "@/components/dashboard/PostDetail";
 const Profile = () => {
   const [showNewDashboard, setShowNewDashboard] = useState(false);
   const [selectedPost, setSelectedPost] = useState<Dashboard | null>(null);
+  const [savedPosts, setSavedPosts] = useState<Dashboard[]>([]);
   
   // Mock data for user's posts with subTopics
   const [userPosts, setUserPosts] = useState<Dashboard[]>([
@@ -84,23 +85,16 @@ const Profile = () => {
     }
   ]);
 
-  // Mock data for saved posts
-  const savedPosts: Dashboard[] = [
-    {
-      id: "saved-1",
-      title: "Hidden Gems in Rome",
-      description: "Secret spots in the eternal city",
-      coverPhoto: "https://images.unsplash.com/photo-1552832230-c0197dd311b5",
-      location: "Rome, Italy",
-      authorId: "2",
-      authorUsername: "@italyexplorer",
-      createdAt: new Date().toISOString(),
-      subTopics: [],
-      savedCount: 128,
-      isSaved: true,
-      comments: []
-    }
-  ];
+  useEffect(() => {
+    // Get saved post IDs from localStorage
+    const savedPostIds = JSON.parse(localStorage.getItem('savedPosts') || '[]');
+    
+    // Filter all posts to get only saved ones
+    // In a real app, you would fetch this from an API
+    const allPosts = [...userPosts];
+    const saved = allPosts.filter(post => savedPostIds.includes(post.id));
+    setSavedPosts(saved);
+  }, [userPosts]);
 
   const handlePostClick = (post: Dashboard) => {
     setSelectedPost(post);

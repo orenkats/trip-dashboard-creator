@@ -1,13 +1,28 @@
 import { Dashboard } from './types';
 import { BookmarkIcon, MapPin, Edit2 } from 'lucide-react';
 import { Button } from '../ui/button';
+import { useToast } from "@/hooks/use-toast";
 
 interface PostListProps {
   posts: Dashboard[];
   onPostClick: (post: Dashboard) => void;
+  onSavePost?: (post: Dashboard) => void;
 }
 
-export const PostList = ({ posts, onPostClick }: PostListProps) => {
+export const PostList = ({ posts, onPostClick, onSavePost }: PostListProps) => {
+  const { toast } = useToast();
+
+  const handleSaveClick = (e: React.MouseEvent, post: Dashboard) => {
+    e.stopPropagation();
+    if (onSavePost) {
+      onSavePost(post);
+      toast({
+        title: post.isSaved ? "Removed from bookmarks" : "Added to bookmarks",
+        description: post.isSaved ? "Post removed from your bookmarks" : "Post saved to your bookmarks",
+      });
+    }
+  };
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {posts.map((post) => (
@@ -52,6 +67,7 @@ export const PostList = ({ posts, onPostClick }: PostListProps) => {
                 variant="ghost" 
                 size="sm"
                 className={post.isSaved ? "text-[#fd1d1d]" : "text-gray-500"}
+                onClick={(e) => handleSaveClick(e, post)}
               >
                 <BookmarkIcon size={16} className="mr-1" />
                 {post.savedCount}

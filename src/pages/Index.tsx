@@ -8,8 +8,7 @@ import { Navigation } from "@/components/dashboard/Navigation";
 const Index = () => {
   const [showNewDashboard, setShowNewDashboard] = useState(false);
   const [selectedPost, setSelectedPost] = useState<Dashboard | null>(null);
-  
-  const mockDashboards: Dashboard[] = [
+  const [posts, setPosts] = useState<Dashboard[]>([
     {
       id: "1",
       title: "Hidden Gems in Rome",
@@ -76,7 +75,29 @@ const Index = () => {
       isSaved: true,
       comments: []
     }
-  ];
+  ]);
+
+  const handleSavePost = (postToSave: Dashboard) => {
+    setPosts(prevPosts => 
+      prevPosts.map(post => 
+        post.id === postToSave.id 
+          ? {
+              ...post,
+              isSaved: !post.isSaved,
+              savedCount: post.isSaved ? post.savedCount - 1 : post.savedCount + 1
+            }
+          : post
+      )
+    );
+
+    // Store saved post IDs in localStorage
+    const savedPostIds = JSON.parse(localStorage.getItem('savedPosts') || '[]');
+    if (postToSave.isSaved) {
+      localStorage.setItem('savedPosts', JSON.stringify(savedPostIds.filter((id: string) => id !== postToSave.id)));
+    } else {
+      localStorage.setItem('savedPosts', JSON.stringify([...savedPostIds, postToSave.id]));
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-[#F8F8F8]">
@@ -93,8 +114,9 @@ const Index = () => {
         ) : (
           <div className="max-w-screen-xl mx-auto">
             <PostList 
-              posts={mockDashboards}
+              posts={posts}
               onPostClick={setSelectedPost}
+              onSavePost={handleSavePost}
             />
           </div>
         )}

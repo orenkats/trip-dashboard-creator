@@ -2,6 +2,5 @@ import { SubTopicType, SubTopic, Post as DashboardPost } from '../../../componen
 
 export type { SubTopicType, SubTopic };
 
-export interface Post extends DashboardPost {
-  coverPhoto: string; // Make coverPhoto required
-}
+// Now both Post types will be identical
+export type Post = DashboardPost;

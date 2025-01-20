@@ -21,13 +21,13 @@ const CoverPhotoSection: React.FC<CoverPhotoSectionProps> = ({ coverPhoto, onCov
   };
 
   return (
-    <div className="mb-8">
+    <div className="mb-6">
       <label className={styles.label}>Cover Photo</label>
       <ImageDropzone
         onImageUpload={handleCoverPhotoUpload}
         currentImage={coverPhoto}
         onImageRemove={handleRemoveCoverPhoto}
-        className="w-full aspect-[4/3]"
+        className="w-full aspect-[16/9]"
       />
     </div>
   );

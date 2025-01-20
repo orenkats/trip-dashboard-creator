@@ -16,7 +16,7 @@ const LocationSection: React.FC<LocationSectionProps> = ({
 }) => {
   return (
     <div className="mb-8">
-      <Label className="text-base font-medium text-gray-900 mb-2 block">Location</Label>
+      <Label className="text-base font-medium text-gray-900 mb-2 block">Map</Label>
       <div className="space-y-4">
         <Map onLocationSelect={onLocationSelect} />
         <Input

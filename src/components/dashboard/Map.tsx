@@ -33,7 +33,7 @@ const Map: React.FC<MapProps> = ({ onLocationSelect }) => {
             onClick={handleMapsUrlSubmit}
             className="w-full bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] text-white hover:opacity-90"
           >
-            Add Location
+            Share Map
           </Button>
         </div>
 

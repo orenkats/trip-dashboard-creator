@@ -1,3 +1,4 @@
+import React from 'react';
 import { MapPin } from 'lucide-react';
 import { Input } from '../ui/input';
 import { Textarea } from '../ui/textarea';
@@ -13,7 +14,7 @@ interface PostCoverSectionProps {
   onEditedLocationChange: (value: string) => void;
 }
 
-export const PostCoverSection = ({
+export const PostCoverSection: React.FC<PostCoverSectionProps> = ({
   coverPhoto,
   description,
   location,
@@ -22,7 +23,7 @@ export const PostCoverSection = ({
   editedLocation,
   onEditedDescriptionChange,
   onEditedLocationChange,
-}: PostCoverSectionProps) => {
+}) => {
   return (
     <div className="aspect-[21/9] relative rounded-xl overflow-hidden mb-6">
       <img 

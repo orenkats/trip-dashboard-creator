@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Comment } from "./types";
 import { Button } from "../ui/button";
 import { Textarea } from "../ui/textarea";
@@ -9,7 +9,7 @@ interface CommentsProps {
   onAddComment: (content: string) => void;
 }
 
-export const Comments = ({ comments, onAddComment }: CommentsProps) => {
+export const Comments: React.FC<CommentsProps> = ({ comments, onAddComment }) => {
   const [newComment, setNewComment] = useState("");
   const { toast } = useToast();
 

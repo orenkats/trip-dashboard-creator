@@ -9,6 +9,10 @@ interface PostContentProps {
 }
 
 export const PostContent: React.FC<PostContentProps> = ({ subTopics }) => {
+  if (subTopics.length === 0) {
+    return null;
+  }
+
   return (
     <Tabs defaultValue={subTopics[0]?.type} className="w-full">
       <TabsList className="mb-4">

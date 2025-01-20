@@ -1,12 +1,8 @@
 import React from 'react';
 import { PostHeader } from "./PostHeader";
 import { Post } from "../../types/dashboard";
-import CaptionSection from "./CaptionSection";
-import LocationSection from "./LocationSection";
-import CoverPhotoSection from "./CoverPhotoSection";
-import { SubTopicsList } from "./SubTopicsList";
+import { PostContent } from "./PostContent";
 import { Comments } from "./Comments";
-import { SubTopic } from './types';
 
 interface PostDetailViewProps {
   currentPost: Post;
@@ -23,26 +19,14 @@ interface PostDetailViewProps {
 
 const PostDetailView: React.FC<PostDetailViewProps> = ({
   currentPost,
-  editedTitle,
-  editedDescription,
-  editedLocation,
-  setEditedTitle,
   handleSaveEdit,
   setIsEditing,
   handleBookmark,
   onClose,
   isCurrentUserPost,
 }) => {
-  const handleSubTopicsChange = (newSubTopics: SubTopic[]) => {
-    console.log('Updating subtopics:', newSubTopics);
-  };
-
   const handleAddComment = (content: string) => {
     console.log('Adding comment:', content);
-  };
-
-  const handleCoverPhotoChange = (photo?: string) => {
-    console.log('Cover photo changed:', photo);
   };
 
   return (
@@ -66,15 +50,17 @@ const PostDetailView: React.FC<PostDetailViewProps> = ({
         {currentPost.description}
       </div>
       
-      <CoverPhotoSection
-        coverPhoto={currentPost.coverPhoto || ''}
-        onCoverPhotoChange={handleCoverPhotoChange}
-      />
+      {currentPost.coverPhoto && (
+        <div className="relative aspect-[4/3] mb-6">
+          <img
+            src={currentPost.coverPhoto}
+            alt="Cover"
+            className="w-full h-full object-cover rounded-xl"
+          />
+        </div>
+      )}
       
-      <SubTopicsList 
-        subTopics={currentPost.subTopics}
-        setSubTopics={handleSubTopicsChange}
-      />
+      <PostContent subTopics={currentPost.subTopics} />
 
       <div className="text-gray-700 mb-4">
         Location: {currentPost.location}

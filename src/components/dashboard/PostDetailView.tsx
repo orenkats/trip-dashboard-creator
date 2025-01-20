@@ -1,7 +1,7 @@
 import React from 'react';
 import { PostHeader } from "./PostHeader";
 import { Post } from "../../types/dashboard";
-import { PostContent } from "./PostContent";
+import { PostContent } from "./PostContent"; // Changed to named import
 import { Comments } from "./Comments";
 import { MapPin } from 'lucide-react';
 

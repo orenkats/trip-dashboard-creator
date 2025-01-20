@@ -2,13 +2,13 @@ import React from "react";
 import { Card, CardContent } from "../ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import { SubTopic } from "./types";
-import PlaceCard from "./PlaceCard";
+import { PlaceCard } from "./PlaceCard"; // Changed to named import
 
 interface PostContentProps {
   subTopics: SubTopic[];
 }
 
-const PostContent: React.FC<PostContentProps> = ({ subTopics }) => {
+export const PostContent: React.FC<PostContentProps> = ({ subTopics }) => { // Changed back to named export
   if (!subTopics.length) return null;
 
   return (
@@ -43,5 +43,3 @@ const PostContent: React.FC<PostContentProps> = ({ subTopics }) => {
     </Tabs>
   );
 };
-
-export default PostContent;

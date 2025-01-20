@@ -1,6 +1,7 @@
 import { Dashboard } from "@/components/dashboard/types";
 import { PostList } from "@/components/dashboard/PostList";
 import { User } from "lucide-react";
+import { Navigation } from "@/components/dashboard/Navigation";
 
 const Profile = () => {
   // Mock data for user's posts
@@ -35,8 +36,10 @@ const Profile = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-[#F8F8F8]">
+      <Navigation />
+      
       {/* Profile Header */}
-      <div className="bg-white border-b">
+      <div className="bg-white border-b mt-16">
         <div className="max-w-screen-xl mx-auto px-4 py-8">
           <div className="flex items-center gap-6">
             <div className="w-24 h-24 rounded-full bg-gray-100 flex items-center justify-center">

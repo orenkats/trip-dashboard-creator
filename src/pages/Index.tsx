@@ -1,17 +1,14 @@
 import { useState } from "react";
 import { Dashboard } from "@/components/dashboard/types";
-import { Button } from "@/components/ui/button";
-import { Plus, Home, User } from "lucide-react";
-import { Link } from "react-router-dom";
 import DashboardForm from "@/components/dashboard/DashboardForm";
 import { PostList } from "@/components/dashboard/PostList";
 import { PostDetail } from "@/components/dashboard/PostDetail";
+import { Navigation } from "@/components/dashboard/Navigation";
 
 const Index = () => {
   const [showNewDashboard, setShowNewDashboard] = useState(false);
   const [selectedPost, setSelectedPost] = useState<Dashboard | null>(null);
   
-  // Mock data with multiple photos per place
   const mockDashboards: Dashboard[] = [
     {
       id: "1",
@@ -74,38 +71,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-[#F8F8F8]">
-      {/* Navigation Bar */}
-      <nav className="border-b bg-white/80 backdrop-blur-sm fixed w-full z-10">
-        <div className="max-w-screen-xl mx-auto px-4 py-3 flex items-center justify-between">
-          <Link to="/" onClick={() => {
-            setShowNewDashboard(false);
-            setSelectedPost(null);
-          }}>
-            <div className="flex items-center gap-2">
-              <Home size={24} className="text-[#fd1d1d]" />
-              <h1 className="text-xl font-semibold bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] text-transparent bg-clip-text">
-                Wanderlens
-              </h1>
-            </div>
-          </Link>
-          <div className="flex items-center gap-4">
-            <Button 
-              variant="ghost"
-              size="sm"
-              onClick={() => setShowNewDashboard(true)}
-              className="flex items-center gap-2"
-            >
-              <Plus size={16} />
-              New Travel Post
-            </Button>
-            <Link to="/profile">
-              <Button variant="ghost" size="icon">
-                <User size={20} />
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </nav>
+      <Navigation onNewPost={() => setShowNewDashboard(true)} />
       
       {/* Main Content */}
       <main className="pt-20 pb-12 px-4">

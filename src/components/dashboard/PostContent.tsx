@@ -15,13 +15,19 @@ export const PostContent: React.FC<PostContentProps> = ({ subTopics }) => {
 
   return (
     <Tabs defaultValue={subTopics[0]?.type} className="w-full">
-      <TabsList className="mb-4">
-        {subTopics.map((subTopic) => (
-          <TabsTrigger key={subTopic.id} value={subTopic.type}>
-            {subTopic.type}
-          </TabsTrigger>
-        ))}
-      </TabsList>
+      <div className="relative">
+        <TabsList className="mb-4 flex overflow-x-auto hide-scrollbar pb-2 -mx-2 px-2">
+          {subTopics.map((subTopic) => (
+            <TabsTrigger 
+              key={subTopic.id} 
+              value={subTopic.type}
+              className="flex-shrink-0 whitespace-nowrap"
+            >
+              {subTopic.type}
+            </TabsTrigger>
+          ))}
+        </TabsList>
+      </div>
 
       {subTopics.map((subTopic) => (
         <TabsContent key={subTopic.id} value={subTopic.type}>

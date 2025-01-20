@@ -46,13 +46,11 @@
   @apply px-4 py-2 rounded-md data-[state=active]:bg-white data-[state=active]:shadow-sm transition-all;
 }
 
-/* Hide scrollbar for Chrome, Safari and Opera */
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
 }
 
-/* Hide scrollbar for IE, Edge and Firefox */
 .hide-scrollbar {
-  -ms-overflow-x: hidden;
+  -ms-overflow-style: none;
   scrollbar-width: none;
 }

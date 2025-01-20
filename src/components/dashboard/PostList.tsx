@@ -1,5 +1,5 @@
 import { Dashboard } from './types';
-import { BookmarkIcon, MapPin } from 'lucide-react';
+import { BookmarkIcon, MapPin, Edit2 } from 'lucide-react';
 import { Button } from '../ui/button';
 
 interface PostListProps {
@@ -13,9 +13,22 @@ export const PostList = ({ posts, onPostClick }: PostListProps) => {
       {posts.map((post) => (
         <div 
           key={post.id} 
-          className="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow cursor-pointer"
+          className="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow cursor-pointer relative"
           onClick={() => onPostClick(post)}
         >
+          {post.authorId === "1" && (
+            <Button
+              variant="ghost"
+              size="sm"
+              className="absolute top-2 right-2 z-10 bg-white/80 hover:bg-white"
+              onClick={(e) => {
+                e.stopPropagation();
+                onPostClick(post);
+              }}
+            >
+              <Edit2 size={16} />
+            </Button>
+          )}
           <div className="aspect-[4/3] relative overflow-hidden">
             <img 
               src={post.coverPhoto} 

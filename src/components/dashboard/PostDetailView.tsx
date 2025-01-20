@@ -50,22 +50,21 @@ const PostDetailView: React.FC<PostDetailViewProps> = ({
       <PostHeader
         title={currentPost.title}
         isEditing={false}
-        editedTitle={editedTitle}
+        editedTitle={currentPost.title}
         isSaved={currentPost.isSaved || false}
         authorId={currentPost.authorId}
         authorUsername={currentPost.authorUsername}
-        onEditedTitleChange={setEditedTitle}
+        onEditedTitleChange={() => {}}
         onSaveEdit={handleSaveEdit}
-        onToggleEdit={() => setIsEditing(true)} // Fixed the type mismatch here
+        onToggleEdit={() => setIsEditing(true)}
         onBookmark={handleBookmark}
         onClose={onClose}
         isCurrentUserPost={isCurrentUserPost}
       />
       
-      <CaptionSection
-        description={currentPost.description}
-        onDescriptionChange={() => {}}
-      />
+      <div className="text-gray-700 mb-4">
+        {currentPost.description}
+      </div>
       
       <CoverPhotoSection
         coverPhoto={currentPost.coverPhoto || ''}
@@ -77,11 +76,9 @@ const PostDetailView: React.FC<PostDetailViewProps> = ({
         setSubTopics={handleSubTopicsChange}
       />
 
-      <LocationSection
-        location={currentPost.location}
-        onLocationChange={() => {}}
-        onLocationSelect={() => {}}
-      />
+      <div className="text-gray-700 mb-4">
+        Location: {currentPost.location}
+      </div>
       
       <Comments 
         comments={currentPost.comments}

@@ -61,7 +61,7 @@ const PostDetailEdit: React.FC<PostDetailEditProps> = ({
         onToggleEdit={() => setIsEditing(false)}
         onBookmark={handleBookmark}
         onClose={onClose}
-        isCurrentUserPost={true} // Since we're in edit mode, this must be true
+        isCurrentUserPost={true}
       />
       
       <CaptionSection
@@ -75,7 +75,7 @@ const PostDetailEdit: React.FC<PostDetailEditProps> = ({
       />
       
       <SubTopicsList 
-        subTopics={currentPost.subTopics} 
+        subTopics={currentPost.subTopics}
         setSubTopics={handleSubTopicsChange}
       />
 

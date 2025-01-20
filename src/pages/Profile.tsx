@@ -2,7 +2,8 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { Navigation } from "../components/dashboard/Navigation";
 import NewPostForm from "../components/dashboard/NewPostForm";
-import { PostDetail } from "../components/dashboard/PostDetail";
+import PostDetailView from "../components/dashboard/PostDetailView";
+import PostDetailEdit from "../components/dashboard/PostDetailEdit";
 import ProfileHeader from "../components/profile/ProfileHeader";
 import ProfileTabs from "../components/profile/ProfileTabs";
 import useProfileData from "../hooks/useProfileData";
@@ -59,11 +60,34 @@ const Profile: React.FC = () => {
     }
 
     if (selectedPost) {
+      const isCurrentUserPost = selectedPost.authorId === "1"; // Assuming "1" is the current user's ID
       return (
-        <PostDetail 
-          post={selectedPost}
-          onClose={() => setSelectedPost(null)}
-        />
+        <div className="bg-white rounded-lg p-6">
+          {isCurrentUserPost ? (
+            <PostDetailEdit
+              currentPost={selectedPost}
+              editedTitle={selectedPost.title}
+              editedDescription={selectedPost.description}
+              editedLocation={selectedPost.location}
+              setEditedTitle={() => {}}
+              setEditedDescription={() => {}}
+              setEditedLocation={() => {}}
+              handleSaveEdit={() => {}}
+              setIsEditing={() => {}}
+              handleBookmark={() => {}}
+              onClose={() => setSelectedPost(null)}
+            />
+          ) : (
+            <PostDetailView
+              currentPost={selectedPost}
+              handleSaveEdit={() => {}}
+              setIsEditing={() => {}}
+              handleBookmark={() => {}}
+              onClose={() => setSelectedPost(null)}
+              isCurrentUserPost={isCurrentUserPost}
+            />
+          )}
+        </div>
       );
     }
 

@@ -23,7 +23,7 @@ export const Navigation = ({ onNewPost, onProfileClick }: NavigationProps) => {
     if (onProfileClick) {
       onProfileClick();  // First close the modal if it's open
     }
-    navigate("/profile"); // Then navigate to profile
+    navigate("/profile/@currentuser"); // Navigate to profile with default username
   };
 
   const handleDiscoverClick = () => {

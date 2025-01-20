@@ -1,10 +1,11 @@
 import React from 'react';
 import { Button } from "../ui/button";
-import { Plus, Compass, Utensils, Landmark, Pencil, Hotel, Gem, Link } from 'lucide-react';
+import { Plus, Pencil } from 'lucide-react';
 import { toast } from 'sonner';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import { PlaceCard } from './PlaceCard';
-import { SubTopic, SubTopicType } from './types';
+import { SubTopic } from './types';
+import { getSubTopicIcon } from './utils/topicIcons';
 import styles from './styles/dashboard.module.css';
 
 interface SubTopicsListProps {
@@ -12,48 +13,11 @@ interface SubTopicsListProps {
   setSubTopics: React.Dispatch<React.SetStateAction<SubTopic[]>>;
 }
 
-const getSubTopicIcon = (type: SubTopicType) => {
-  switch (type) {
-    case 'Restaurants':
-      return <Utensils className="w-4 h-4" />;
-    case 'Spots':
-      return <Compass className="w-4 h-4" />;
-    case 'Culture':
-      return <Landmark className="w-4 h-4" />;
-    case 'Hotels':
-      return <Hotel className="w-4 h-4" />;
-    case 'Hidden Gems':
-      return <Gem className="w-4 h-4" />;
-    case 'Links':
-      return <Link className="w-4 h-4" />;
-    default:
-      return <Compass className="w-4 h-4" />;
-  }
-};
-
 export const SubTopicsList: React.FC<SubTopicsListProps> = ({ 
   subTopics, 
   setSubTopics,
 }) => {
-  const addPlace = (subTopicId: string) => {
-    setSubTopics(subTopics.map(st => {
-      if (st.id === subTopicId) {
-        return {
-          ...st,
-          places: [...st.places, {
-            id: Date.now().toString(),
-            name: '',
-            location: '',
-            notes: '',
-            photos: [],
-          }],
-        };
-      }
-      return st;
-    }));
-  };
-
-  const updatePlace = (
+  const handlePlaceUpdate = (
     subTopicId: string,
     placeId: string,
     field: keyof Omit<SubTopic['places'][0], 'id' | 'photos'>,
@@ -88,7 +52,7 @@ export const SubTopicsList: React.FC<SubTopicsListProps> = ({
     toast.success("Photo uploaded successfully!");
   };
 
-  const removePlacePhoto = (subTopicId: string, placeId: string, photoIndex: number) => {
+  const handlePlacePhotoRemove = (subTopicId: string, placeId: string, photoIndex: number) => {
     setSubTopics(subTopics.map(st => {
       if (st.id === subTopicId) {
         return {
@@ -108,12 +72,30 @@ export const SubTopicsList: React.FC<SubTopicsListProps> = ({
     toast.success("Photo removed");
   };
 
-  const deletePlace = (subTopicId: string, placeId: string) => {
+  const handlePlaceDelete = (subTopicId: string, placeId: string) => {
     setSubTopics(subTopics.map(st => {
       if (st.id === subTopicId) {
         return {
           ...st,
           places: st.places.filter(p => p.id !== placeId),
+        };
+      }
+      return st;
+    }));
+  };
+
+  const handleAddPlace = (subTopicId: string) => {
+    setSubTopics(subTopics.map(st => {
+      if (st.id === subTopicId) {
+        return {
+          ...st,
+          places: [...st.places, {
+            id: Date.now().toString(),
+            name: '',
+            location: '',
+            notes: '',
+            photos: [],
+          }],
         };
       }
       return st;
@@ -154,17 +136,17 @@ export const SubTopicsList: React.FC<SubTopicsListProps> = ({
                 <PlaceCard
                   key={place.id}
                   place={place}
-                  onUpdate={(field, value) => updatePlace(subTopic.id, place.id, field, value)}
+                  onUpdate={(field, value) => handlePlaceUpdate(subTopic.id, place.id, field, value)}
                   onPhotoUpload={(file) => handlePlacePhotoUpload(subTopic.id, place.id, file)}
-                  onPhotoRemove={(photoIndex) => removePlacePhoto(subTopic.id, place.id, photoIndex)}
-                  onDelete={() => deletePlace(subTopic.id, place.id)}
+                  onPhotoRemove={(photoIndex) => handlePlacePhotoRemove(subTopic.id, place.id, photoIndex)}
+                  onDelete={() => handlePlaceDelete(subTopic.id, place.id)}
                 />
               ))}
             </div>
 
             <Button
               variant="outline"
-              onClick={() => addPlace(subTopic.id)}
+              onClick={() => handleAddPlace(subTopic.id)}
               className="w-full py-6 border-dashed border-2 hover:border-[#fd1d1d] hover:text-[#fd1d1d] transition-colors"
             >
               <Plus className="w-4 h-4 mr-2" />

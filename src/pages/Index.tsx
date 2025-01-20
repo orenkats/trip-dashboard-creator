@@ -110,7 +110,51 @@ const Index = () => {
     setSelectedPost(null);
   };
 
-  const isCurrentUserPost = selectedPost?.authorId === "1"; // Assuming "1" is the current user's ID
+  const renderContent = () => {
+    if (showNewDashboard) {
+      return <NewPostForm onClose={handleCloseNewPost} />;
+    }
+
+    if (selectedPost) {
+      const isCurrentUserPost = selectedPost.authorId === "1";
+      return (
+        <div className="bg-white rounded-lg p-6">
+          {isCurrentUserPost ? (
+            <PostDetailEdit
+              currentPost={selectedPost}
+              editedTitle={selectedPost.title}
+              editedDescription={selectedPost.description}
+              editedLocation={selectedPost.location}
+              setEditedTitle={() => {}}
+              setEditedDescription={() => {}}
+              setEditedLocation={() => {}}
+              handleSaveEdit={() => {}}
+              setIsEditing={() => {}}
+              handleBookmark={() => {}}
+              onClose={() => setSelectedPost(null)}
+            />
+          ) : (
+            <PostDetailView
+              currentPost={selectedPost}
+              handleSaveEdit={() => {}}
+              setIsEditing={() => {}}
+              handleBookmark={() => {}}
+              onClose={() => setSelectedPost(null)}
+              isCurrentUserPost={isCurrentUserPost}
+            />
+          )}
+        </div>
+      );
+    }
+
+    return (
+      <PostList 
+        posts={posts}
+        onPostClick={setSelectedPost}
+        onSavePost={handleSavePost}
+      />
+    );
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-[#F8F8F8]">
@@ -118,45 +162,9 @@ const Index = () => {
         onNewPost={handleNewPost} 
         onHomeClick={handleNavigateHome}
       />
-      
       <main className="pt-20 pb-12 px-4">
         <div className="max-w-screen-xl mx-auto">
-          {showNewDashboard ? (
-            <NewPostForm onClose={handleCloseNewPost} />
-          ) : selectedPost ? (
-            <div className="bg-white rounded-lg p-6">
-              {isCurrentUserPost ? (
-                <PostDetailEdit
-                  currentPost={selectedPost}
-                  editedTitle={selectedPost.title}
-                  editedDescription={selectedPost.description}
-                  editedLocation={selectedPost.location}
-                  setEditedTitle={() => {}}
-                  setEditedDescription={() => {}}
-                  setEditedLocation={() => {}}
-                  handleSaveEdit={() => {}}
-                  setIsEditing={() => {}}
-                  handleBookmark={() => {}}
-                  onClose={() => setSelectedPost(null)}
-                />
-              ) : (
-                <PostDetailView
-                  currentPost={selectedPost}
-                  handleSaveEdit={() => {}}
-                  setIsEditing={() => {}}
-                  handleBookmark={() => {}}
-                  onClose={() => setSelectedPost(null)}
-                  isCurrentUserPost={isCurrentUserPost}
-                />
-              )}
-            </div>
-          ) : (
-            <PostList 
-              posts={posts}
-              onPostClick={setSelectedPost}
-              onSavePost={handleSavePost}
-            />
-          )}
+          {renderContent()}
         </div>
       </main>
     </div>

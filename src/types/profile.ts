@@ -1,4 +1,4 @@
-import { Post } from './dashboard';
+import { Post } from './post';
 
 export interface ProfileState {
   showNewDashboard: boolean;

@@ -4,27 +4,27 @@ import { Plus, Pencil } from 'lucide-react';
 import { toast } from 'sonner';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import { PlaceCard } from './PlaceCard';
-import { SubTopic } from './types';
-import { getSubTopicIcon } from './utils/topicIcons';
+import { Category } from './types';
+import { getCategoryIcon } from './utils/topicIcons';
 import styles from './styles/dashboard.module.css';
 
-interface SubTopicsListProps {
-  subTopics: SubTopic[];
-  setSubTopics: React.Dispatch<React.SetStateAction<SubTopic[]>>;
+interface CategoryListProps {
+  categories: Category[];
+  setCategories: React.Dispatch<React.SetStateAction<Category[]>>;
 }
 
-export const SubTopicsList: React.FC<SubTopicsListProps> = ({ 
-  subTopics, 
-  setSubTopics,
+export const CategoryList: React.FC<CategoryListProps> = ({ 
+  categories, 
+  setCategories,
 }) => {
   const handlePlaceUpdate = (
-    subTopicId: string,
+    CategoryId: string,
     placeId: string,
-    field: keyof Omit<SubTopic['places'][0], 'id' | 'photos'>,
+    field: keyof Omit<Category['places'][0], 'id' | 'photos'>,
     value: string
   ) => {
-    setSubTopics(subTopics.map(st => {
-      if (st.id === subTopicId) {
+    setCategories(categories.map(st => {
+      if (st.id === CategoryId) {
         return {
           ...st,
           places: st.places.map(p => 
@@ -36,10 +36,10 @@ export const SubTopicsList: React.FC<SubTopicsListProps> = ({
     }));
   };
 
-  const handlePlacePhotoUpload = (subTopicId: string, placeId: string, file: File) => {
+  const handlePlacePhotoUpload = (CategoryId: string, placeId: string, file: File) => {
     const imageUrl = URL.createObjectURL(file);
-    setSubTopics(subTopics.map(st => {
-      if (st.id === subTopicId) {
+    setCategories(categories.map(st => {
+      if (st.id === CategoryId) {
         return {
           ...st,
           places: st.places.map(p => 
@@ -52,9 +52,9 @@ export const SubTopicsList: React.FC<SubTopicsListProps> = ({
     toast.success("Photo uploaded successfully!");
   };
 
-  const handlePlacePhotoRemove = (subTopicId: string, placeId: string, photoIndex: number) => {
-    setSubTopics(subTopics.map(st => {
-      if (st.id === subTopicId) {
+  const handlePlacePhotoRemove = (CategoryId: string, placeId: string, photoIndex: number) => {
+    setCategories(categories.map(st => {
+      if (st.id === CategoryId) {
         return {
           ...st,
           places: st.places.map(p => {
@@ -72,9 +72,9 @@ export const SubTopicsList: React.FC<SubTopicsListProps> = ({
     toast.success("Photo removed");
   };
 
-  const handlePlaceDelete = (subTopicId: string, placeId: string) => {
-    setSubTopics(subTopics.map(st => {
-      if (st.id === subTopicId) {
+  const handlePlaceDelete = (CategoryId: string, placeId: string) => {
+    setCategories(categories.map(st => {
+      if (st.id === CategoryId) {
         return {
           ...st,
           places: st.places.filter(p => p.id !== placeId),
@@ -84,9 +84,9 @@ export const SubTopicsList: React.FC<SubTopicsListProps> = ({
     }));
   };
 
-  const handleAddPlace = (subTopicId: string) => {
-    setSubTopics(subTopics.map(st => {
-      if (st.id === subTopicId) {
+  const handleAddPlace = (CategoryId: string) => {
+    setCategories(categories.map(st => {
+      if (st.id === CategoryId) {
         return {
           ...st,
           places: [...st.places, {
@@ -102,7 +102,7 @@ export const SubTopicsList: React.FC<SubTopicsListProps> = ({
     }));
   };
 
-  if (subTopics.length === 0) {
+  if (categories.length === 0) {
     return (
       <div className="text-center py-12 bg-gray-50 rounded-xl border-2 border-dashed border-gray-200">
         <Pencil className="w-12 h-12 mx-auto text-gray-400 mb-4" />
@@ -113,44 +113,44 @@ export const SubTopicsList: React.FC<SubTopicsListProps> = ({
 
   return (
     <div className="space-y-6">
-      <Tabs defaultValue={subTopics[0].id} className="w-full">
+      <Tabs defaultValue={categories[0].id} className="w-full">
         <TabsList className="bg-gray-100/50 p-1 rounded-xl flex overflow-x-auto hide-scrollbar">
-          {subTopics.map((subTopic) => (
+          {categories.map((Category) => (
             <TabsTrigger 
-              key={subTopic.id} 
-              value={subTopic.id}
+              key={Category.id} 
+              value={Category.id}
               className="flex-shrink-0 data-[state=active]:bg-white data-[state=active]:shadow-sm rounded-lg transition-all"
             >
               <div className="flex items-center gap-2">
-                {getSubTopicIcon(subTopic.type)}
-                <span>{subTopic.type}</span>
+                {getCategoryIcon(Category.type)}
+                <span>{Category.type}</span>
               </div>
             </TabsTrigger>
           ))}
         </TabsList>
 
-        {subTopics.map((subTopic) => (
-          <TabsContent key={subTopic.id} value={subTopic.id} className="space-y-4 mt-6">
+        {categories.map((Category) => (
+          <TabsContent key={Category.id} value={Category.id} className="space-y-4 mt-6">
             <div className="grid gap-6">
-              {subTopic.places.map((place) => (
+              {Category.places.map((place) => (
                 <PlaceCard
                   key={place.id}
                   place={place}
-                  onUpdate={(field, value) => handlePlaceUpdate(subTopic.id, place.id, field, value)}
-                  onPhotoUpload={(file) => handlePlacePhotoUpload(subTopic.id, place.id, file)}
-                  onPhotoRemove={(photoIndex) => handlePlacePhotoRemove(subTopic.id, place.id, photoIndex)}
-                  onDelete={() => handlePlaceDelete(subTopic.id, place.id)}
+                  onUpdate={(field, value) => handlePlaceUpdate(Category.id, place.id, field, value)}
+                  onPhotoUpload={(file) => handlePlacePhotoUpload(Category.id, place.id, file)}
+                  onPhotoRemove={(photoIndex) => handlePlacePhotoRemove(Category.id, place.id, photoIndex)}
+                  onDelete={() => handlePlaceDelete(Category.id, place.id)}
                 />
               ))}
             </div>
 
             <Button
               variant="outline"
-              onClick={() => handleAddPlace(subTopic.id)}
+              onClick={() => handleAddPlace(Category.id)}
               className="w-full py-6 border-dashed border-2 hover:border-[#fd1d1d] hover:text-[#fd1d1d] transition-colors"
             >
               <Plus className="w-4 h-4 mr-2" />
-              Add {subTopic.type.slice(0, -1)}
+              Add {Category.type.slice(0, -1)}
             </Button>
           </TabsContent>
         ))}

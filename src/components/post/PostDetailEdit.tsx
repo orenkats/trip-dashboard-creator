@@ -1,12 +1,12 @@
 import React from 'react';
 import { PostHeader } from "./PostHeader";
-import { Post } from "../../types/dashboard";
+import { Post } from "../../types/post";
 import CaptionSection from "./CaptionSection";
 import LocationSection from "./LocationSection";
 import CoverPhotoSection from "./CoverPhotoSection";
-import { SubTopicsList } from "./SubTopicsList";
+import { CategoryList } from './CategoryList';
 import { Comments } from "./Comments";
-import { SubTopic } from './types';
+import { Category } from './types';
 
 interface PostDetailEditProps {
   currentPost: Post;
@@ -35,8 +35,8 @@ const PostDetailEdit: React.FC<PostDetailEditProps> = ({
   handleBookmark,
   onClose,
 }) => {
-  const handleSubTopicsChange = (newSubTopics: SubTopic[]) => {
-    console.log('Updating subtopics:', newSubTopics);
+  const handleCategoriesChange = (newCategories: Category[]) => {
+    console.log('Updating Categories:', newCategories);
   };
 
   const handleAddComment = (content: string) => {
@@ -54,8 +54,8 @@ const PostDetailEdit: React.FC<PostDetailEditProps> = ({
         isEditing={true}
         editedTitle={editedTitle}
         isSaved={currentPost.isSaved || false}
-        authorId={currentPost.authorId}
-        authorUsername={currentPost.authorUsername}
+        userId={currentPost.userId}
+        username={currentPost.userName}
         onEditedTitleChange={setEditedTitle}
         onSaveEdit={handleSaveEdit}
         onToggleEdit={() => setIsEditing(false)}
@@ -74,9 +74,9 @@ const PostDetailEdit: React.FC<PostDetailEditProps> = ({
         onCoverPhotoChange={handleCoverPhotoChange}
       />
       
-      <SubTopicsList 
-        subTopics={currentPost.subTopics}
-        setSubTopics={handleSubTopicsChange}
+      <CategoryList 
+        categories={currentPost.categories}
+        setCategories={handleCategoriesChange}
       />
 
       <LocationSection

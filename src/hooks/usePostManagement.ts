@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Post } from '../types/dashboard';
+import { Post } from '../types/post';
 import { toast } from 'sonner';
 
 export const usePostManagement = (initialPosts: Post[]) => {

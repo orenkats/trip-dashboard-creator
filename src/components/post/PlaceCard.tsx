@@ -6,7 +6,7 @@ import { Trash2, MapPin, Camera } from 'lucide-react';
 import { ImageDropzone } from './ImageDropzone';
 import { Card, CardContent, CardHeader } from "../ui/card";
 import { Place } from './types';
-import styles from './styles/dashboard.module.css';
+
 
 interface PlaceCardProps {
   place: Place;

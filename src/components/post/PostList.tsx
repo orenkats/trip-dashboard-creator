@@ -93,7 +93,7 @@ export const PostList: React.FC<PostListProps> = ({ posts, onPostClick, onSavePo
             post={post}
             onPostClick={onPostClick}
             onSavePost={onSavePost}
-            isCurrentUser={post.authorId === "1"}
+            isCurrentUser={post.userId === "1"}
           />
         ))}
       </div>

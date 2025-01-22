@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { useToast } from "../../../hooks/use-toast";
-import { Dashboard } from "../types";
+import { Post } from "../types";
 
-export const usePostEdit = (post: Dashboard) => {
+export const usePostEdit = (post: Post) => {
   const [currentPost, setCurrentPost] = useState(post);
   const [isEditing, setIsEditing] = useState(false);
   const [editedTitle, setEditedTitle] = useState(post.title);
   const [editedDescription, setEditedDescription] = useState(post.description);
   const [editedLocation, setEditedLocation] = useState(post.location);
-  const [editedSubTopics, setEditedSubTopics] = useState(post.subTopics);
+  const [editedCategories, setEditedCategories] = useState(post.categories);
   const { toast } = useToast();
 
   const handleSaveEdit = () => {
@@ -17,7 +17,7 @@ export const usePostEdit = (post: Dashboard) => {
       title: editedTitle,
       description: editedDescription,
       location: editedLocation,
-      subTopics: editedSubTopics
+      categories: editedCategories
     }));
     setIsEditing(false);
     toast({
@@ -42,7 +42,7 @@ export const usePostEdit = (post: Dashboard) => {
     const newComment = {
       id: Math.random().toString(),
       content,
-      authorUsername: "current_user",
+      userName: "current_user",
       createdAt: new Date().toISOString()
     };
     setCurrentPost((prev) => ({
@@ -57,11 +57,11 @@ export const usePostEdit = (post: Dashboard) => {
     editedTitle,
     editedDescription,
     editedLocation,
-    editedSubTopics,
+    editedCategories,
     setEditedTitle,
     setEditedDescription,
     setEditedLocation,
-    setEditedSubTopics,
+    setEditedCategories,
     setIsEditing,
     handleSaveEdit,
     handleBookmark,

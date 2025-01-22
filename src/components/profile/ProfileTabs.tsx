@@ -1,7 +1,7 @@
 import React from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
-import { PostList } from "../dashboard/PostList";
-import { Post } from "../../types/dashboard";
+import { PostList } from "../post/PostList";
+import { Post } from '../post/types';
 import { Card } from '../ui/card';
 
 interface ProfileTabsProps {

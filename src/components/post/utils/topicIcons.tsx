@@ -1,8 +1,7 @@
-import React from 'react';
-import { SubTopicType } from '../types';
+import { CategoryType } from '../types';
 import { Compass, Utensils, Landmark, Hotel, Gem, Link } from 'lucide-react';
 
-export const getSubTopicIcon = (type: SubTopicType) => {
+export const getCategoryIcon = (type: CategoryType) => {
   switch (type) {
     case 'Restaurants':
       return <Utensils className="w-4 h-4" />;

@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import NewPostForm from "../components/dashboard/NewPostForm";
-import { PostList } from "../components/dashboard/PostList";
-import { Navigation } from "../components/dashboard/Navigation";
+import NewPostForm from "../components/post/NewPostForm";
+import { PostList } from "../components/post/PostList";
+import { Navigation } from "../components/post/Navigation";
 import { usePostList } from "../features/posts/hooks/usePostList";
-import { Post, SubTopicType } from "../components/dashboard/types";
-import PostDetailView from "../components/dashboard/PostDetailView";
-import PostDetailEdit from "../components/dashboard/PostDetailEdit";
+import { Post, SubTopicType } from "../components/post/types";
+import PostDetailView from "../components/post/PostDetailView";
+import PostDetailEdit from "../components/post/PostDetailEdit";
 
 const initialPosts: Post[] = [
   {

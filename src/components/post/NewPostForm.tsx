@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { Button } from "../ui/button";
 import { X } from "lucide-react";
 import { toast } from "sonner";
-import { SubTopic, Dashboard } from './types';
-import styles from './styles/dashboard.module.css';
+import { Category, Post } from './types';
+import styles from './styles/Post.module.css';
 
 import Header from './Header';
 import TitleSection from './TitleSection';
@@ -13,16 +13,16 @@ import CoverPhotoSection from './CoverPhotoSection';
 import CategorySection from './CategorySection';
 import ActionButtons from './ActionButtons';
 
-interface DashboardFormProps {
+interface PostFormProps {
   onClose?: () => void;
 }
 
-const DashboardForm = ({ onClose }: DashboardFormProps) => {
+const PostForm = ({ onClose }: PostFormProps) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [location, setLocation] = useState('');
   const [coverPhoto, setCoverPhoto] = useState<string>();
-  const [subTopics, setSubTopics] = useState<SubTopic[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
 
   const handleSaveDraft = () => {
     toast.success("Draft saved successfully!");
@@ -30,16 +30,16 @@ const DashboardForm = ({ onClose }: DashboardFormProps) => {
 
   const handlePublish = () => {
     // Create a new post object
-    const newPost: Dashboard = {
+    const newPost: Post = {
       id: Date.now().toString(),
       title,
       description,
       coverPhoto,
       location,
-      authorId: "1",
-      authorUsername: "@travelblogger",
+      userId: "1",
+      userName: "@travelblogger",
       createdAt: new Date().toISOString(),
-      subTopics,
+      categories,
       savedCount: 0,
       isSaved: false,
       comments: [] // Add empty comments array
@@ -52,7 +52,7 @@ const DashboardForm = ({ onClose }: DashboardFormProps) => {
     setDescription('');
     setLocation('');
     setCoverPhoto(undefined);
-    setSubTopics([]);
+    setCategories([]);
     
     onClose?.();
   };
@@ -86,8 +86,8 @@ const DashboardForm = ({ onClose }: DashboardFormProps) => {
         />
 
         <CategorySection 
-          subTopics={subTopics}
-          onSubTopicsChange={setSubTopics}
+          categories={categories}
+          onCategoryChange={setCategories}
         />
 
         <LocationSection
@@ -108,4 +108,4 @@ const DashboardForm = ({ onClose }: DashboardFormProps) => {
   );
 };
 
-export default DashboardForm;
+export default PostForm;

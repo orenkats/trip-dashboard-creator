@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Post } from '../types/dashboard';
+import { Post } from '../types/post';
 import { ProfileData } from '../types/profile';
 import { toast } from 'sonner';
 

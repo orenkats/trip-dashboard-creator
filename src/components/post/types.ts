@@ -1,9 +1,9 @@
-export type SubTopicType = 'Restaurants' | 'Spots' | 'Culture' | 'Hotels' | 'Hidden Gems' | 'Links';
+export type CategoryType = 'Restaurants' | 'Spots' | 'Culture' | 'Hotels' | 'Hidden Gems' | 'Links';
 
 export interface Comment {
   id: string;
   content: string;
-  authorUsername: string;
+  userName: string;
   createdAt: string;
 }
 
@@ -15,9 +15,9 @@ export interface Place {
   photos: string[];
 }
 
-export interface SubTopic {
+export interface Category {
   id: string;
-  type: SubTopicType;
+  type: CategoryType;
   places: Place[];
 }
 
@@ -27,14 +27,14 @@ export interface Post {
   description: string;
   coverPhoto?: string;
   location: string;
-  authorId: string;
-  authorUsername: string;
+  userId: string;
+  userName: string;
   createdAt: string;
-  subTopics: SubTopic[];
+  categories: Category[];
   savedCount: number;
   isSaved: boolean;
   comments: Comment[];
 }
 
 // For backward compatibility
-export type Dashboard = Post;
+//export type Post = Post;

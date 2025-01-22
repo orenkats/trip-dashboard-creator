@@ -2,7 +2,7 @@ import React from 'react';
 import { Compass, Plus, User, Search } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Button } from "../ui/button";
-import { NavigationProps } from '../../types/dashboard';
+import { NavigationProps } from '../../types/post';
 
 export const Navigation: React.FC<NavigationProps> = ({ 
   onNewPost, 

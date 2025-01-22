@@ -1,13 +1,13 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { Navigation } from "../components/dashboard/Navigation";
-import NewPostForm from "../components/dashboard/NewPostForm";
-import PostDetailView from "../components/dashboard/PostDetailView";
-import PostDetailEdit from "../components/dashboard/PostDetailEdit";
+import { Navigation } from "../components/post/Navigation";
+import NewPostForm from "../components/post/NewPostForm";
+import PostDetailView from "../components/post/PostDetailView";
+import PostDetailEdit from "../components/post/PostDetailEdit";
 import ProfileHeader from "../components/profile/ProfileHeader";
 import ProfileTabs from "../components/profile/ProfileTabs";
 import useProfileData from "../hooks/useProfileData";
-import { Post } from "../types/dashboard";
+import { Post } from "../types/post";
 
 const initialUserPosts: Post[] = [
   {

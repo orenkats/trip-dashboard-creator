@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from "../ui/button";
 import { toast } from 'sonner';
 import { validateTravelPost } from '../../utils/location';
-import { ActionButtonsProps } from '../../types/dashboard';
+import { ActionButtonsProps } from '../../types/post';
 import styles from './styles/dashboard.module.css';
 
 const ActionButtons: React.FC<ActionButtonsProps> = ({
